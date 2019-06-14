@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: SSAWebApp
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: VISHAL
+Implementation-Vendor-Id: com.ssa
+Build-Jdk: 1.8.0_161
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/SSAWebApp
+Created-By: Maven Integration for Eclipse
+
