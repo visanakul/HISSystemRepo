@@ -9,12 +9,13 @@ import lombok.Data;
 @Data
 public class SSNUser {
 	private Integer ssn;
-	private String firstName;
-	private String lastName;
+	private String fname;
+	private String lname;
 	private Date dob;
 	private String gender;
 	private String phone;
 	private String state;
-	private Photo photo;
-	
+	private Date creationDate;
+	private Date updateDate;
+	private byte[] photo;
 }

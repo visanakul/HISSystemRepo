@@ -19,15 +19,16 @@ import lombok.Data;
 public class SSNUserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SSN_SEQ")
-    @SequenceGenerator(sequenceName = "ssn_seq", allocationSize = 1, name = "SSN_SEQ")
+    @SequenceGenerator(sequenceName = "ssn_seq", initialValue = 100000000,allocationSize = 1, name = "SSN_SEQ")
 	private Integer ssn;
-	private String firstName;
-	private String lastName;
+	private String fname;
+	private String lname;
 	private Date dob;
 	private String gender;
 	private String phone;
 	private String state;
-	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
-	private PhotoEntity photo;
-	
+//	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+	private Date creationDate;
+	private Date updateDate;
+	private byte[] photo;
 }
