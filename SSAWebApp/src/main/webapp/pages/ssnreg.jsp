@@ -205,7 +205,7 @@ form .error {
 	<h2>Enrollment For SSN(Social Security Number)</h2>
 
 	<form:form id="regForm" name="regForm" action="enroll"
-		method="post" modelAttribute="user" autocomplete="off">
+		method="post" modelAttribute="user" autocomplete="off" enctype="multipart/form-data">
 		<table>
 			<tbody>
 				<tr>
@@ -236,11 +236,11 @@ form .error {
 				</tr>
 				<tr>
 					<td>Select state :</td>
-					<td><form:select path="state" items="${states}" itemValue="stateId" itemLabel="stateName" /></td>
+					<td><form:select path="state" items="${states}" itemValue="stateName" itemLabel="stateName" /></td>
 				</tr>
 				<tr>
 					<td>Select photo :</td>
-					<td><input type="file" name="photo" id="photo"/></td>
+					<td><input type="file" name="photoFile" id="photoId"/></td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -253,6 +253,7 @@ form .error {
 			</tbody>
 		</table>
 	</form:form>
+	<a href="showall">Show all Records</a>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script
@@ -265,6 +266,7 @@ form .error {
 $( function() {
     $( "#datepicker" ).datepicker(
     							  { 
+    								format: 'DD-MM-YYYY',
     							    changeYear: true, 
     					            changeMonth: true,
     							    yearRange:'-100:+0'
@@ -302,7 +304,7 @@ debugger;
             "dob":{
                 required: true
             },
-            "photo":{
+            "photoFile":{
                 required: true
             }
 		},
@@ -329,7 +331,7 @@ debugger;
             "dob":{
                 required: "Date of birth is required!"
             },
-            "photo":{
+            "photoFile":{
                 required: "Photo is required!"
             }
 		},

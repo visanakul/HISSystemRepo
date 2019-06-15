@@ -10,4 +10,5 @@ import com.ssa.entity.StateEntity;
 
 public interface StateRepository extends Repository<StateEntity, Serializable> {
 	List<StateEntity> findAll();
+	StateEntity findByStateName(String stateName);
 }

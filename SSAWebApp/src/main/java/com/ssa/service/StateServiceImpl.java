@@ -29,4 +29,14 @@ public class StateServiceImpl implements StateService{
 		}
 		return stateModelList;
 	}
+
+	@Override
+	public State getUserState(String stateName) {
+		StateEntity stateEntity=stateRepo.findByStateName(stateName);
+		State stateModel=new State();
+		BeanUtils.copyProperties(stateEntity, stateModel);
+		return stateModel;
+	}
+
+	
 }

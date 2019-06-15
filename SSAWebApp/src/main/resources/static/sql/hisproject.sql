@@ -1,3 +1,6 @@
+drop table USER_MASTER;
+drop sequence SSN_SEQ;
+
 drop table state_master;
 drop sequence state_id_seq;
 create table state_master(

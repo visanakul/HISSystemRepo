@@ -6,4 +6,5 @@ import com.ssa.model.State;
 
 public interface StateService {
 	List<State> getAllStates();
+	State getUserState(String stateName);
 }
