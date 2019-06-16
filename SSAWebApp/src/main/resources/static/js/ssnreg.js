@@ -73,7 +73,7 @@ function regFormValidate(){
       {
         if (element.is(":radio")) 
         {
-            error.appendTo(element.parents('.gender'));
+            error.appendTo(element.parents('.gen'));
         }
         else 
         { 

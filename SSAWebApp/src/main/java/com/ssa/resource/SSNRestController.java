@@ -17,7 +17,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
+import static com.ssa.util.Constants.*;
 @RestController
 @Api
 public class SSNRestController {
@@ -30,7 +30,7 @@ public class SSNRestController {
 		logger.debug("***SSNRestController***");
 	}
 
-	@GetMapping(value="/getState/{ssn}",produces = {MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(value=GET_STATE_GET_URL,produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ApiResponses(value = {@ApiResponse(code = 200,message = "User Available"),@ApiResponse(code = 500,message = "User Does not exist")})
 	@ApiOperation( value = "Accepts SSN and send State information")
 	public State getUserState(@PathVariable("ssn") Integer ssn) {

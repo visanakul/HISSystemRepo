@@ -2,8 +2,9 @@ package com.ssa.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,9 @@ import com.ssa.model.SSNUser;
 import com.ssa.model.State;
 import com.ssa.service.SSNUserService;
 import com.ssa.service.StateService;
+import com.ssa.util.SSNUtil;
+
+import static com.ssa.util.Constants.*;
 
 @Controller
 public class SSNController {
@@ -37,14 +41,14 @@ public class SSNController {
 		logger.debug("***SSNController***");
 	}
 
-	@RequestMapping("/register")
+	@RequestMapping(ENROLL_GET_URL)
 	public String showSSNForm(Model model) {
 		logger.debug("***register request***");
 		loadGenders(model);
 		loadStates(model);
 		SSNUser user=new SSNUser();
-		model.addAttribute("user", user);
-		return "ssnreg";
+		model.addAttribute(MK_USER, user);
+		return VW_ENROLL;
 	}
 
 	private void loadStates(Model model) {
@@ -52,21 +56,21 @@ public class SSNController {
 		logger.debug("***Loading state***");
 		
 		List<State> states=stateService.getAllStates();
-		model.addAttribute("states", states);
+		model.addAttribute(MK_STATES, states);
 	}
 
 	private void loadGenders(Model model) {
 		
 		logger.debug("***Loading genders***");
 		
-		String[] gens= {"Male","Female"};
+		String[] gens= {MALE,FEMALE};
 		List<String> genders=Arrays.asList(gens);
-		model.addAttribute("genders", genders);
+		model.addAttribute(MK_GENDERS, genders);
 		
 	}
 	
-	@RequestMapping(value = "/enroll",method = RequestMethod.POST)
-	public String saveSSNUserInfo(@RequestParam("photoFile") MultipartFile multipartFile ,@ModelAttribute("user") SSNUser user,BindingResult bindingResult,RedirectAttributes ra,Model model) {
+	@RequestMapping(value = ENROLL_POST_URL,method = RequestMethod.POST)
+	public String saveSSNUserInfo(@RequestParam(PHOTO_FILE_PARAM) MultipartFile multipartFile ,@Valid @ModelAttribute(MK_USER) SSNUser user,BindingResult bindingResult,RedirectAttributes ra,Model model) {
 		
 		logger.debug("***Enrolling user***");
 		
@@ -74,7 +78,7 @@ public class SSNController {
 			logger.debug("....Incomplete form...."+bindingResult.toString());
 			loadGenders(model);
 			loadStates(model);
-			return "ssnreg";
+			return VW_ENROLL;
 		}
 		
 		logger.debug("Mutipart : "+multipartFile.getClass().getName());
@@ -88,22 +92,21 @@ public class SSNController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		user.setCreationDate(new Date());
-//		user.setUpdateDate(new Date());
-//		
+	
 		Integer ssn=ssnUserService.registerUser(user);
 		logger.debug("SSN : "+ssn);
-		String ssnString=new StringBuilder(ssn+"").insert(3, '-').insert(6, '-').toString();
-		ra.addFlashAttribute("msg", "SSN Enrollment completed successfully with "+ssnString);
-		return "redirect:/register";
+		String ssnString=SSNUtil.getSSNFormat(ssn);
+		
+		ra.addFlashAttribute(RA_KEY_ENROLL_SUCCESS, RA_VALUE_ENROLL_SUCCESS+ssnString);
+		return REDIRECT_ENROLL_GET_URL;
 	}
 	
-	@RequestMapping(value = "showall")
+	@RequestMapping(SHOW_USERS_GET_URL)
 	public String showAllSSNUsers(Model model) {
 		List<SSNUser> userModelList=ssnUserService.getAllUsers();
-		model.addAttribute("userModelList", userModelList);
+		model.addAttribute(MK_USER_LIST, userModelList);
 		logger.debug("Total records : "+userModelList.size());
-		return "showallusers";
+		return VW_SHOW_USERS;
 	}
 	
 	

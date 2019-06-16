@@ -71,4 +71,6 @@ form .error {
 	color: #ff0000;
 }
 
-
+form .gen{
+	display: inline-block;
+}
