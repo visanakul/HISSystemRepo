@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,12 +31,15 @@ public class SSNController {
 	@Autowired
 	private SSNUserService ssnUserService;
 	
+	private static Logger logger=LoggerFactory.getLogger(SSNController.class);
+	
 	public SSNController() {
-		System.out.println("***SSNController***");
+		logger.debug("***SSNController***");
 	}
 
 	@RequestMapping("/register")
 	public String showSSNForm(Model model) {
+		logger.debug("***register request***");
 		loadGenders(model);
 		loadStates(model);
 		SSNUser user=new SSNUser();
@@ -43,11 +48,17 @@ public class SSNController {
 	}
 
 	private void loadStates(Model model) {
+		
+		logger.debug("***Loading state***");
+		
 		List<State> states=stateService.getAllStates();
 		model.addAttribute("states", states);
 	}
 
 	private void loadGenders(Model model) {
+		
+		logger.debug("***Loading genders***");
+		
 		String[] gens= {"Male","Female"};
 		List<String> genders=Arrays.asList(gens);
 		model.addAttribute("genders", genders);
@@ -56,30 +67,32 @@ public class SSNController {
 	
 	@RequestMapping(value = "/enroll",method = RequestMethod.POST)
 	public String saveSSNUserInfo(@RequestParam("photoFile") MultipartFile multipartFile ,@ModelAttribute("user") SSNUser user,BindingResult bindingResult,RedirectAttributes ra,Model model) {
-	
+		
+		logger.debug("***Enrolling user***");
+		
 		if (bindingResult.hasErrors()) {
-			System.out.println("....Incomplete form...."+bindingResult.toString());
+			logger.debug("....Incomplete form...."+bindingResult.toString());
 			loadGenders(model);
 			loadStates(model);
 			return "ssnreg";
 		}
 		
-		System.out.println("Mutipart : "+multipartFile.getClass().getName());
-		System.out.println(user);
+		logger.debug("Mutipart : "+multipartFile.getClass().getName());
+		logger.debug("User : "+user.toString());
 	
 		String fileName=multipartFile.getOriginalFilename();
-		System.out.println("File Name : "+fileName);
+		logger.debug("File Name : "+fileName);
 		
 		try {
 			user.setPhoto(multipartFile.getBytes());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		user.setCreationDate(new Date());
-		user.setUpdateDate(new Date());
-		
+//		user.setCreationDate(new Date());
+//		user.setUpdateDate(new Date());
+//		
 		Integer ssn=ssnUserService.registerUser(user);
-		System.out.println("SSN : "+ssn);
+		logger.debug("SSN : "+ssn);
 		String ssnString=new StringBuilder(ssn+"").insert(3, '-').insert(6, '-').toString();
 		ra.addFlashAttribute("msg", "SSN Enrollment completed successfully with "+ssnString);
 		return "redirect:/register";
@@ -89,7 +102,7 @@ public class SSNController {
 	public String showAllSSNUsers(Model model) {
 		List<SSNUser> userModelList=ssnUserService.getAllUsers();
 		model.addAttribute("userModelList", userModelList);
-		System.out.println("Total records : "+userModelList.size());
+		logger.debug("Total records : "+userModelList.size());
 		return "showallusers";
 	}
 	

@@ -7,6 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<link type="text/css" href="css/demo.css" rel="stylesheet">
 </head>
 <body>
 	<c:if test="${not empty userModelList}">
@@ -44,7 +45,7 @@
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
 								value="${user.updateDate}" /></td>
 						<td><img id="profileImage"
-							src="data:image/jpg;base64,${user.photoFile}" width="100px" height="100px"></td>
+							src="data:image/jpg;base64,${user.photoString}" width="100px" height="100px"></td>
 					</tr>
 				</c:forEach>
 			</tbody>

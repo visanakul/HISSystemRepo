@@ -10,11 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
@@ -42,7 +46,11 @@ public class SSNUserEntity {
 	private Long phone;
 	private String state;
 //	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+	@CreationTimestamp
+	@Temporal(TemporalType.DATE)
 	private Date creationDate;
+	@UpdateTimestamp
+	@Temporal(TemporalType.DATE)
 	private Date updateDate;
 	private byte[] photo;
 }
