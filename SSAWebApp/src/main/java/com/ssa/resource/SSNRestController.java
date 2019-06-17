@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssa.controller.SSNController;
+import com.ssa.model.ResourceApiError;
 import com.ssa.model.State;
 import com.ssa.service.SSNUserService;
 
@@ -31,7 +32,7 @@ public class SSNRestController {
 	}
 
 	@GetMapping(value=GET_STATE_GET_URL,produces = {MediaType.APPLICATION_JSON_VALUE})
-	@ApiResponses(value = {@ApiResponse(code = 200,message = "User Available"),@ApiResponse(code = 500,message = "User Does not exist")})
+	@ApiResponses(value = {@ApiResponse(code = 200,message = "User Available",response = State.class),@ApiResponse(code = 400,message = "User Does not exist",response = ResourceApiError.class)})
 	@ApiOperation( value = "Accepts SSN and send State information")
 	public State getUserState(@PathVariable("ssn") Integer ssn) {
 		logger.debug("Calling getUserState()");

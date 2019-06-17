@@ -7,13 +7,13 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link type="text/css" href="css/demo.css" rel="stylesheet">
+<link type="text/css" href="css/ssnenroll.css" rel="stylesheet">
 </head>
 <body>
 	<c:if test="${not empty userModelList}">
-		<table class="books" border="2">
+		<table class="books" border="1" style="border: none;">
 			<caption>
-				<b>User Details</b>
+				<h2>User Details</h2>
 			</caption>
 			<thead>
 				<tr>
