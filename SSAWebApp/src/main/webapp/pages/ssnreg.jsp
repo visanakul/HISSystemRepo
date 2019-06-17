@@ -36,8 +36,12 @@
 				</tr>
 				<tr>
 					<td>Gender :</td>
-					<td class="gen"><form:radiobuttons path="gender" items="${genders}"
-							name="gender" /></td>
+					<td class="gen">
+						<form:radiobuttons 
+							path="gender" 
+							items="${genders}"
+							name="gender" />
+					</td>
 					<td><form:errors path="gender" cssClass="error" /></td>
 				</tr>
 				<tr>

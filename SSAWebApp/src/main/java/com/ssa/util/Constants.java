@@ -35,13 +35,11 @@ public class Constants {
 	 //Logical views
 	 public static final String VW_ENROLL="ssnreg";
 	 public static final String VW_SHOW_USERS="showallusers";
+	 public static final String VW_SSN_ERROR="ssnerror";
 	 //Request param names
 	 public static final String PHOTO_FILE_PARAM="photoFile";
 	 
-	 
-	 
-	 
-	 
-	 
+	 //Exception keys 
+	 public static final String EXC_KEY="errMsg";
 	 
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ssa.exception.NoUserException;
 import com.ssa.model.SSNUser;
 import com.ssa.model.State;
 import com.ssa.service.SSNUserService;
@@ -105,6 +106,9 @@ public class SSNController {
 	public String showAllSSNUsers(Model model) {
 		List<SSNUser> userModelList=ssnUserService.getAllUsers();
 		model.addAttribute(MK_USER_LIST, userModelList);
+		if(userModelList.size()==0) {
+			throw new NoUserException("No user registered");
+		}
 		logger.debug("Total records : "+userModelList.size());
 		return VW_SHOW_USERS;
 	}

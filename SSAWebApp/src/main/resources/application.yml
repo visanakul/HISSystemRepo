@@ -4,6 +4,8 @@ server:
     context-path: /SSNWebApp
 
 spring:
+  profiles:
+    active: prod
   mvc:
     view:
       prefix: /pages/

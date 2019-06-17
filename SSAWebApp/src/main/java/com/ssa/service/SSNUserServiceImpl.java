@@ -1,6 +1,5 @@
 package com.ssa.service;
 
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssa.controller.SSNController;
 import com.ssa.entity.SSNUserEntity;
+import com.ssa.exception.SSNNotFoundException;
+import com.ssa.exception.SSNUserNotFoundException;
 import com.ssa.model.SSNUser;
 import com.ssa.model.State;
 import com.ssa.repository.SSNUserRepository;
@@ -23,54 +24,59 @@ public class SSNUserServiceImpl implements SSNUserService {
 
 	@Autowired
 	private SSNUserRepository userRepositiry;
-	
+
 	@Autowired
 	private StateService stateService;
 
-	private static Logger logger=LoggerFactory.getLogger(SSNController.class);
+	private static Logger logger = LoggerFactory.getLogger(SSNController.class);
 
 	public SSNUserServiceImpl() {
 		logger.debug("***SSNUserServiceImpl***");
 	}
+
 	@Override
 	public Integer registerUser(SSNUser userModel) {
 		SSNUserEntity userEntity = new SSNUserEntity();
 		BeanUtils.copyProperties(userModel, userEntity);
-	
-		//SSNUserBeanUtils.modelToEntity(userModel,userEntity);
+
+		// SSNUserBeanUtils.modelToEntity(userModel,userEntity);
 		userEntity = userRepositiry.save(userEntity);
-		logger.debug("***Saved Data SSN : "+userEntity.getSsn());
+		logger.debug("***Saved Data SSN : " + userEntity.getSsn());
 		return userEntity.getSsn();
 	}
 
 	@Override
 	public State getUserState(Integer ssn) {
-		logger.debug("SSN received : "+ssn);
-		SSNUserEntity userEntity=userRepositiry.findById(ssn).orElse(null);
-		logger.debug("Got User entity by SSN for "+userEntity.getFname());
-		State stateModel=stateService.getUserState(userEntity.getState());
-		logger.debug("Got State : "+stateModel);
+		logger.debug("SSN received : " + ssn);
+		SSNUserEntity userEntity = userRepositiry.findById(ssn).orElse(null);
+		if (userEntity == null) {
+			throw new SSNUserNotFoundException("Sorry!!! No user with this SSN...");
+		}
+		logger.debug("Got User entity by SSN for " + userEntity.getFname());
+		State stateModel = stateService.getUserState(userEntity.getState());
+
+		logger.debug("Got State : " + stateModel);
 		return stateModel;
 	}
 
 	@Override
 	public List<SSNUser> getAllUsers() {
-		
-		List<SSNUserEntity> userEntities=userRepositiry.findAll();
-		logger.debug("Got "+userEntities.size()+" Records");
-		
-		List<SSNUser> userModels=new ArrayList<>();
-		for(SSNUserEntity userEntity:userEntities) {
-			SSNUser userModel=new SSNUser();
+
+		List<SSNUserEntity> userEntities = userRepositiry.findAll();
+		logger.debug("Got " + userEntities.size() + " Records");
+
+		List<SSNUser> userModels = new ArrayList<>();
+		for (SSNUserEntity userEntity : userEntities) {
+			SSNUser userModel = new SSNUser();
 			BeanUtils.copyProperties(userEntity, userModel);
 			byte[] encodeBase64 = Base64.encodeBase64(userModel.getPhoto());
-	            String base64Encoded;
-				try {
-					base64Encoded = new String(encodeBase64, "UTF-8");
-					 userModel.setPhotoString(base64Encoded);
-				} catch (UnsupportedEncodingException e) {
-					logger.error("Exception : "+e.toString());
-				}
+			String base64Encoded;
+			try {
+				base64Encoded = new String(encodeBase64, "UTF-8");
+				userModel.setPhotoString(base64Encoded);
+			} catch (UnsupportedEncodingException e) {
+				logger.error("Exception : " + e.toString());
+			}
 			userModels.add(userModel);
 		}
 		logger.debug("byte[] data converted to base64Encoded String");
