@@ -97,9 +97,13 @@ form .gen {
 	display: inline-block;
 }
 a{
+	font-family: monospace;
 	margin-top: 20px;
 	display: block;
 	text-align: center;
-	text-decoration: none;
+	font-size:1.25rem;
 	color: white;
+}
+img{
+	border: 3px solid white;
 }

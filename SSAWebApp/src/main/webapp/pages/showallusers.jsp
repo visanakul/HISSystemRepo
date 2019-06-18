@@ -64,6 +64,7 @@
 				</tr>
 			</tfoot>
 		</table>
+		<a href="#" onClick="javascript:history.go(-1)" >Back</a>
 	</c:if>
 </body>
 </html>
