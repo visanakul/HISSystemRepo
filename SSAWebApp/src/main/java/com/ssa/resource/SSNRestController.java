@@ -18,26 +18,44 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import static com.ssa.util.Constants.*;
+import static com.ssa.util.ConstantUtils.*;
 @RestController
 @Api
+/**
+ * Rest Controller for Any application
+ * @author VISHAL
+ *
+ */
 public class SSNRestController {
 	@Autowired
 	@ApiModelProperty
-	private SSNUserService userService;
-	private static Logger logger=LoggerFactory.getLogger(SSNController.class);
+	/**
+	 * User service for accessing USER_MASTER
+	 */
+	private SSNUserService userService;//NOPMD
+	/**
+	 * SLF4J Logging
+	 */
+	private static final Logger LOGGER=LoggerFactory.getLogger(SSNController.class);
 
+	/**
+	 * Default Constructor
+	 */
 	public SSNRestController() {
-		logger.debug("***SSNRestController***");
+		LOGGER.debug("***SSNRestController***");
 	}
 
 	@GetMapping(value=GET_STATE_GET_URL,produces = {MediaType.APPLICATION_JSON_VALUE})
 	@ApiResponses(value = {@ApiResponse(code = 200,message = "User Available",response = State.class),@ApiResponse(code = 400,message = "User Does not exist",response = ResourceApiError.class)})
-	@ApiOperation( value = "Accepts SSN and send State information")
-	public State getUserState(@PathVariable("ssn") Integer ssn) {
-		logger.debug("Calling getUserState()");
-		State state=userService.getUserState(ssn);
-		logger.debug("State Data : "+state);
-		return state;
+	@ApiOperation("Accepts SSN and send State information")
+	/**
+	 * Getting state data When SSN is passed
+	 * @param ssn
+	 * @return
+	 */
+	public State getUserState(@PathVariable("ssn") final Integer ssn) {
+		LOGGER.debug("Calling getUserState()");
+		//LOGGER.debug("State Data : "+state);
+		return userService.getUserState(ssn);
 	}
 }

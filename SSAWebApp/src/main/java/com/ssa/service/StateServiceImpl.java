@@ -14,39 +14,60 @@ import com.ssa.entity.StateEntity;
 import com.ssa.model.State;
 import com.ssa.repository.StateRepository;
 
+/**
+ * State service implementation for STATE_MASTER table
+ * 
+ * @author VISHAL
+ *
+ */
 @Service
-public class StateServiceImpl implements StateService{
+public class StateServiceImpl implements StateService {
 
+	/**
+	 * State Repository to access STATE_MASTER table
+	 */
 	@Autowired
-	private StateRepository stateRepo;
+	private StateRepository stateRepo;//NOPMD
 	
-	private static Logger logger=LoggerFactory.getLogger(SSNController.class);
+	/**
+	 * slf4j logger
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(SSNController.class);
 
+	/**
+	 * Default constructor
+	 */
+	public StateServiceImpl() {
+		LOGGER.debug("***StateServiceImpl***");
+	}
+
+	/**
+	 * Return all state list
+	 */
 	@Override
 	public List<State> getAllStates() {
-		List<StateEntity> stateEntities=stateRepo.findAll();
-		logger.debug("Total states : "+stateEntities.size());
-		List<State> stateModelList=new ArrayList<>();
-		
-		for(StateEntity stateEntity:stateEntities) {
-			State stateModel=new State();
+		final List<StateEntity> stateEntities = stateRepo.findAll();
+		LOGGER.debug("Total states : " + stateEntities.size());//NOPMD
+		final List<State> stateModelList = new ArrayList<>();
+
+		for (final StateEntity stateEntity : stateEntities) {
+			final State stateModel = new State();// NOPMD
 			BeanUtils.copyProperties(stateEntity, stateModel);
 			stateModelList.add(stateModel);
 		}
-		logger.debug("State Entity list converted to State Model list");
+		LOGGER.debug("State Entity list converted to State Model list");
 		return stateModelList;
 	}
 
 	@Override
-	public State getUserState(String stateName) {
-		logger.debug("Got state name : "+stateName);
-		StateEntity stateEntity=stateRepo.findByStateName(stateName);
-		logger.debug("State entity : "+stateEntity);
-		State stateModel=new State();
+	public State getUserState(final String stateName) {
+		LOGGER.debug("Got state name : " + stateName); //NOPMD
+		final StateEntity stateEntity = stateRepo.findByStateName(stateName);
+		LOGGER.debug("State entity : " + stateEntity); //NOPMD
+		final State stateModel = new State();
 		BeanUtils.copyProperties(stateEntity, stateModel);
-		logger.debug("Returning state model : "+stateModel);
+		LOGGER.debug("Returning state model : " + stateModel); //NOPMD
 		return stateModel;
 	}
 
-	
 }

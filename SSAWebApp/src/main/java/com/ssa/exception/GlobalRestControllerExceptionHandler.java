@@ -14,22 +14,36 @@ import com.ssa.controller.SSNController;
 import com.ssa.model.ResourceApiError;
 @RestController
 @RestControllerAdvice
+/**
+ * Global Exception Handler for Rest Controllers
+ */
 public class GlobalRestControllerExceptionHandler {
-	private static Logger logger=LoggerFactory.getLogger(SSNController.class);
+	/**
+	 * SLF4J Logger
+	 */
+	private static final Logger LOGGER=LoggerFactory.getLogger(SSNController.class);
 
+	/**
+	 * Default Constructor
+	 */
 	public GlobalRestControllerExceptionHandler() {
-		logger.debug("***GlobalRestControllerExceptionHandler***");
+		LOGGER.debug("***GlobalRestControllerExceptionHandler***");
 	}
-	@ExceptionHandler(value = SSNUserNotFoundException.class)
-	public ResponseEntity<ResourceApiError> handleSSNNotFoundException(Exception ex) {
-		logger.debug("Handling SSNUserNotFoundException");
+	
+	/**
+	 * From ssn number check the existence of User
+	 * @param exception
+	 * @return
+	 */
+	@ExceptionHandler(SSNUserNotFoundException.class)
+	public ResponseEntity<ResourceApiError> handleSSNNotFoundException(final Exception exception) {
+		LOGGER.debug("Handling SSNUserNotFoundException");
 		//model.addAttribute(EXC_KEY,ex.getMessage());
-		ResourceApiError apiError=new ResourceApiError();
+		final ResourceApiError apiError=new ResourceApiError();
 		apiError.setStatusCode(404);
-		apiError.setErrMsg(ex.getMessage());
+		apiError.setErrMsg(exception.getMessage());
 		apiError.setDate(new Date());
-		ResponseEntity<ResourceApiError> entity=new ResponseEntity<ResourceApiError>(apiError, HttpStatus.NOT_FOUND);
-		return entity;
+		return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
 	}
 	
 }

@@ -1,10 +1,8 @@
 package com.ssa.service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -13,73 +11,98 @@ import org.springframework.stereotype.Service;
 
 import com.ssa.controller.SSNController;
 import com.ssa.entity.SSNUserEntity;
-import com.ssa.exception.SSNNotFoundException;
 import com.ssa.exception.SSNUserNotFoundException;
 import com.ssa.model.SSNUser;
 import com.ssa.model.State;
 import com.ssa.repository.SSNUserRepository;
 
 @Service
+/**
+ * User service implementation
+ * 
+ * @author VISHAL
+ *
+ */
 public class SSNUserServiceImpl implements SSNUserService {
 
 	@Autowired
-	private SSNUserRepository userRepositiry;
+	/**
+	 * User repository to access USER_MASTER table
+	 */
+	private SSNUserRepository userRepositiry;// NOPMD
 
 	@Autowired
-	private StateService stateService;
+	/**
+	 * State Service to Access STATE_MASTER table
+	 */
+	private StateService stateService;// NOPMD
+	/**
+	 * Logging slf4j
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(SSNController.class);
 
-	private static Logger logger = LoggerFactory.getLogger(SSNController.class);
-
+	/**
+	 * Default constructor
+	 */
 	public SSNUserServiceImpl() {
-		logger.debug("***SSNUserServiceImpl***");
+		LOGGER.debug("***SSNUserServiceImpl***");
 	}
 
+	/**
+	 * Register user and Return generate SSN
+	 */
 	@Override
-	public Integer registerUser(SSNUser userModel) {
+	public Integer registerUser(final SSNUser userModel) {
 		SSNUserEntity userEntity = new SSNUserEntity();
 		BeanUtils.copyProperties(userModel, userEntity);
 
 		// SSNUserBeanUtils.modelToEntity(userModel,userEntity);
 		userEntity = userRepositiry.save(userEntity);
-		logger.debug("***Saved Data SSN : " + userEntity.getSsn());
-		return userEntity.getSsn();
+		LOGGER.debug("***Saved Data SSN : " + userEntity.getSsn()); //NOPMD
+		return userEntity.getSsn();//NOPMD
 	}
 
 	@Override
-	public State getUserState(Integer ssn) {
-		logger.debug("SSN received : " + ssn);
-		SSNUserEntity userEntity = userRepositiry.findById(ssn).orElse(null);
+	/**
+	 *  Returns State data as per SSN value using USER_MASTER and STATE_MASTER tables
+	 */
+	public State getUserState(final Integer ssn) {
+		LOGGER.debug("SSN received : " + ssn); //NOPMD
+		final SSNUserEntity userEntity = userRepositiry.findById(ssn).orElse(null);//NOPMD
 		if (userEntity == null) {
 			throw new SSNUserNotFoundException("Sorry!!! No user with this SSN...");
 		}
-		logger.debug("Got User entity by SSN for " + userEntity.getFname());
-		State stateModel = stateService.getUserState(userEntity.getState());
+		LOGGER.debug("Got User entity by SSN for " + userEntity.getFname());//NOPMD
+		final State stateModel = stateService.getUserState(userEntity.getState()); //NOPMD
 
-		logger.debug("Got State : " + stateModel);
+		LOGGER.debug("Got State : " + stateModel);//NOPMD
 		return stateModel;
 	}
 
+	/**
+	 * Returns list of all users from table USER_MASTER
+	 */
 	@Override
-	public List<SSNUser> getAllUsers() {
+	public List<SSNUser> getAllUsers() { //NOPMD
 
-		List<SSNUserEntity> userEntities = userRepositiry.findAll();
-		logger.debug("Got " + userEntities.size() + " Records");
+		final List<SSNUserEntity> userEntities = userRepositiry.findAll();
+		LOGGER.debug("Got " + userEntities.size() + " Records"); //NOPMD
 
-		List<SSNUser> userModels = new ArrayList<>();
-		for (SSNUserEntity userEntity : userEntities) {
-			SSNUser userModel = new SSNUser();
+		final List<SSNUser> userModels = new ArrayList<>();
+		for (final SSNUserEntity userEntity : userEntities) {
+			final SSNUser userModel = new SSNUser();//NOPMD
 			BeanUtils.copyProperties(userEntity, userModel);
-			byte[] encodeBase64 = Base64.encodeBase64(userModel.getPhoto());
-			String base64Encoded;
-			try {
-				base64Encoded = new String(encodeBase64, "UTF-8");
-				userModel.setPhotoString(base64Encoded);
-			} catch (UnsupportedEncodingException e) {
-				logger.error("Exception : " + e.toString());
-			}
+//			byte[] encodeBase64 = Base64.encodeBase64(userModel.getPhoto());
+//			String base64Encoded;
+//			try {
+//				base64Encoded = new String(encodeBase64, "UTF-8");
+//				userModel.setPhotoString(base64Encoded);
+//			} catch (UnsupportedEncodingException e) {
+//				logger.error("Exception : " + e.toString());
+//			}
 			userModels.add(userModel);
 		}
-		logger.debug("byte[] data converted to base64Encoded String");
+		LOGGER.debug("Returning user model list");
 		return userModels;
 	}
 }

@@ -1,11 +1,13 @@
 package com.ssa.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,92 +28,149 @@ import com.ssa.service.SSNUserService;
 import com.ssa.service.StateService;
 import com.ssa.util.SSNUtil;
 
-import static com.ssa.util.Constants.*;
+import static com.ssa.util.ConstantUtils.*;
 
+/**
+ * Controller for Handling requests
+ * 
+ * @author VISHAL
+ *
+ */
 @Controller
-public class SSNController {
+public class SSNController { 
 
+	/**
+	 * For accessing State Data
+	 */
 	@Autowired
 	private StateService stateService;
+	/**
+	 * For accessing User Data
+	 */
 	@Autowired
 	private SSNUserService ssnUserService;
-	
-	private static Logger logger=LoggerFactory.getLogger(SSNController.class);
-	
+
+	/**
+	 * Logger to log
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(SSNController.class);
+
+	/**
+	 * Default Constructor
+	 */
 	public SSNController() {
-		logger.debug("***SSNController***");
+		LOGGER.debug("***SSNController***");
 	}
 
+	/**
+	 * Show SSN Enrollment form
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(ENROLL_GET_URL)
-	public String showSSNForm(Model model) {
-		logger.debug("***register request***");
+	public String showSSNForm(final Model model) {
+		LOGGER.debug("***register request***");
 		loadGenders(model);
 		loadStates(model);
-		SSNUser user=new SSNUser();
+		SSNUser user = new SSNUser();
 		model.addAttribute(MK_USER, user);
 		return VW_ENROLL;
 	}
 
-	private void loadStates(Model model) {
-		
-		logger.debug("***Loading state***");
-		
-		List<State> states=stateService.getAllStates();
+	/**
+	 * Loading state list in model
+	 * 
+	 * @param model
+	 */
+	private void loadStates(final Model model) {
+
+		LOGGER.debug("***Loading state***");
+
+		List<State> states = stateService.getAllStates();
 		model.addAttribute(MK_STATES, states);
 	}
 
-	private void loadGenders(Model model) {
-		
-		logger.debug("***Loading genders***");
-		
-		String[] gens= {MALE,FEMALE};
-		List<String> genders=Arrays.asList(gens);
+	/**
+	 * Loading genders list in model
+	 * 
+	 * @param model
+	 */
+	private void loadGenders(final Model model) {
+
+		LOGGER.debug("***Loading genders***");
+
+		String[] gens = { MALE, FEMALE };
+		List<String> genders = Arrays.asList(gens);
 		model.addAttribute(MK_GENDERS, genders);
-		
+
 	}
-	
-	@RequestMapping(value = ENROLL_POST_URL,method = RequestMethod.POST)
-	public String saveSSNUserInfo(@RequestParam(PHOTO_FILE_PARAM) MultipartFile multipartFile ,@Valid @ModelAttribute(MK_USER) SSNUser user,BindingResult bindingResult,RedirectAttributes ra,Model model) {
-		
-		logger.debug("***Enrolling user***");
-		
+
+	/**
+	 * Store the User data in USER_MASTER
+	 * 
+	 * @param multipartFile
+	 * @param user
+	 * @param bindingResult
+	 * @param ra
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = ENROLL_POST_URL, method = RequestMethod.POST)
+	public String saveSSNUserInfo(@RequestParam(PHOTO_FILE_PARAM) MultipartFile multipartFile,
+			@Valid @ModelAttribute(MK_USER) SSNUser user, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes, Model model) {
+
+		LOGGER.debug("***Enrolling user***");
+
 		if (bindingResult.hasErrors()) {
-			logger.debug("....Incomplete form...."+bindingResult.toString());
+			LOGGER.debug("....Incomplete form...." + bindingResult.toString());
 			loadGenders(model);
 			loadStates(model);
 			return VW_ENROLL;
 		}
-		
-		logger.debug("Mutipart : "+multipartFile.getClass().getName());
-		logger.debug("User : "+user.toString());
-	
-		String fileName=multipartFile.getOriginalFilename();
-		logger.debug("File Name : "+fileName);
-		
+
+		LOGGER.debug("User : " + user.toString());
+
+		String fileName = multipartFile.getOriginalFilename();
+		LOGGER.debug("File Name : " + fileName);
+
 		try {
-			user.setPhoto(multipartFile.getBytes());
+			byte[] photoData = multipartFile.getBytes();
+			byte[] encodeBase64 = Base64.encodeBase64(photoData);
+			String base64Encoded;
+			base64Encoded = new String(encodeBase64, "UTF-8");
+			user.setPhoto(base64Encoded);
+		} catch (UnsupportedEncodingException e) {
+			LOGGER.error("Exception : " + e.toString());
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Exception : " + e.toString());
 		}
-	
-		Integer ssn=ssnUserService.registerUser(user);
-		logger.debug("SSN : "+ssn);
-		String ssnString=SSNUtil.getSSNFormat(ssn);
-		
-		ra.addFlashAttribute(RA_KEY_ENROLL_SUCCESS, RA_VALUE_ENROLL_SUCCESS+ssnString);
+
+		Integer ssn = ssnUserService.registerUser(user);
+		LOGGER.debug("SSN : " + ssn);
+		String ssnString = SSNUtil.getSSNFormat(ssn);
+
+		redirectAttributes.addFlashAttribute(RA_KEY_ENROLL_SUCCESS, RA_VALUE_ENROLL_SUCCESS + ssnString);
 		return REDIRECT_ENROLL_GET_URL;
 	}
-	
+
+	/**
+	 * Getting all users
+	 * 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(SHOW_USERS_GET_URL)
-	public String showAllSSNUsers(Model model) {
-		List<SSNUser> userModelList=ssnUserService.getAllUsers();
-		model.addAttribute(MK_USER_LIST, userModelList);
-		if(userModelList.size()==0) {
+	public String showAllSSNUsers(final Model model) {
+		List<SSNUser> userModelList = ssnUserService.getAllUsers();
+
+		if (userModelList.isEmpty()) {
 			throw new NoUserException("No user registered");
 		}
-		logger.debug("Total records : "+userModelList.size());
+		model.addAttribute(MK_USER_LIST, userModelList);
+		LOGGER.debug("Total records : " + userModelList.size());
 		return VW_SHOW_USERS;
 	}
-	
-	
+
 }

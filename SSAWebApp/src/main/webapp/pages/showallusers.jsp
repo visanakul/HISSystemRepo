@@ -45,7 +45,7 @@
 						<td><fmt:formatDate pattern="dd/MM/yyyy"
 								value="${user.updateDate}" /></td>
 						<td><img id="profileImage"
-							src="data:image/jpg;base64,${user.photoString}" width="100px" height="100px"></td>
+							src="data:image/jpg;base64,${user.photo}" width="100px" height="100px"></td>
 					</tr>
 				</c:forEach>
 			</tbody>

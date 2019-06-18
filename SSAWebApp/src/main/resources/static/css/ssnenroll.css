@@ -96,3 +96,10 @@ form .error {
 form .gen {
 	display: inline-block;
 }
+a{
+	margin-top: 20px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: white;
+}

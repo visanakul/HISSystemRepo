@@ -8,11 +8,25 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "ResourceApiError Model",description = "Used to show error")
+/**
+ * Store Exception Data
+ * @author VISHAL
+ *
+ */
 public class ResourceApiError {
-	@ApiModelProperty(value = "Status code")
+	@ApiModelProperty("Status code")
+	/**
+	 * Store status code
+	 */
 	private Integer statusCode;
-	@ApiModelProperty(value = "Error Message")
+	@ApiModelProperty("Error Message")
+	/**
+	 * Store error message
+	 */
 	private String errMsg;
-	@ApiModelProperty(value = "Date for error")
+	@ApiModelProperty( "Date for error")
+	/**
+	 * Store date
+	 */
 	private Date date;
 }

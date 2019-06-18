@@ -10,17 +10,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-public class SsaWebAppApplication {
+public class SsaWebAppApplication {//NOPMD
 	/**
 	 * Logger to log
 	 */
-	private static final Logger logger=LoggerFactory.getLogger(ServletInitializer.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(ServletInitializer.class);
 	
 	/**
 	 * Default constructor
 	 */
 	public SsaWebAppApplication() {
-		logger.debug("***SsaWebAppApplication***");
+		LOGGER.debug("***SsaWebAppApplication***");
 	}
 
 	/**

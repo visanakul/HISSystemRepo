@@ -15,13 +15,14 @@ public class ServletInitializer extends SpringBootServletInitializer {
 	/**
 	 * Logger to log
 	 */
-	private static final Logger logger=LoggerFactory.getLogger(ServletInitializer.class);
+	private static final Logger LOGGER=LoggerFactory.getLogger(ServletInitializer.class);
 	
 	/**
 	 * Default constructor
 	 */
 	public ServletInitializer() {
-		logger.debug("***ServletInitializer***");
+		super();
+		LOGGER.debug("***ServletInitializer***");
 	}
 
 	@Override

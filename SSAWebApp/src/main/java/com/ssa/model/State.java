@@ -6,12 +6,26 @@ import lombok.Data;
 
 @Data
 @ApiModel(value = "State Model",description = "It stores state details")
+/**
+ * State model
+ * @author VISHAL
+ *
+ */
 public class State {
-	@ApiModelProperty(value = "State ID")
+	@ApiModelProperty("State ID")
+	/**
+	 * Store state id
+	 */
 	private Integer stateId;
-	@ApiModelProperty(value = "State Code")
+	@ApiModelProperty( "State Code")
+	/**
+	 * Store state code
+	 */
 	private String stateCode;
-	@ApiModelProperty(value = "State Name")
+	@ApiModelProperty("State Name")
+	/**
+	 * Store state name
+	 */
 	private String stateName;
 	
 }
