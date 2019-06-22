@@ -5,11 +5,9 @@ server:
   servlet:
     context-path: /SSNWebApp
 
-#Profile (command line arg i.e --env=dev),View Resolver,Datasource, JPA and multipart file configuration 
+#View Resolver,Datasource, JPA and multipart file configuration 
 
 spring:
-  profiles:
-    active: ${env:prof}
   mvc:
     view:
       prefix: /pages/
@@ -31,7 +29,7 @@ spring:
       max-request-size: 5MB
       enabled: true
       
-# logging configuration
+# logging lconfiguration
 
 logging:
   level:

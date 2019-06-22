@@ -28,7 +28,7 @@ public class SwaggerConfiguration {
 	 * Default constructor
 	 */
 	public SwaggerConfiguration() {
-		LOGGER.debug("***SwaggerConfiguration***");
+		LOGGER.info("***SwaggerConfiguration***");
 	}
 	
 	/**
@@ -37,6 +37,7 @@ public class SwaggerConfiguration {
 	 */
 	@Bean
 	public Docket getUserAPIDoc() {
+		LOGGER.info("***Swagger Building API DOC***");
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage(ConstantUtils.RESOURCE_PACKAGE)).build();
 	}

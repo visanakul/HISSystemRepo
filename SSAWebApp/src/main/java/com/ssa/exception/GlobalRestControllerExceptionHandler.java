@@ -27,7 +27,7 @@ public class GlobalRestControllerExceptionHandler {
 	 * Default Constructor
 	 */
 	public GlobalRestControllerExceptionHandler() {
-		LOGGER.debug("***GlobalRestControllerExceptionHandler***");
+		LOGGER.info("***GlobalRestControllerExceptionHandler***");
 	}
 	
 	/**
@@ -37,12 +37,15 @@ public class GlobalRestControllerExceptionHandler {
 	 */
 	@ExceptionHandler(SSNUserNotFoundException.class)
 	public ResponseEntity<ResourceApiError> handleSSNNotFoundException(final Exception exception) {
-		LOGGER.debug("Handling SSNUserNotFoundException");
-		//model.addAttribute(EXC_KEY,ex.getMessage());
+		LOGGER.info("Handling SSNUserNotFoundException");
+		LOGGER.info("ResourceApiError Object creation start..." );
 		final ResourceApiError apiError=new ResourceApiError();
 		apiError.setStatusCode(404);
 		apiError.setErrMsg(exception.getMessage());
 		apiError.setDate(new Date());
+		LOGGER.debug("Sending Response : "+apiError);
+		LOGGER.info("ResourceApiError Object creation end..." );
+		
 		return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
 	}
 	

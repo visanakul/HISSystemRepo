@@ -29,7 +29,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 /**
- * Entity to work with User Data
+ * Entity to work with USER_MASTER table Data
  * @author VISHAL
  *
  */

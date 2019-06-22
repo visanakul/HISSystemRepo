@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 import lombok.Data;
 /**
- * Used to work with State Table Data
+ * Used to work with STATE_MASTER Table Data
  * @author VISHAL
  *
  */

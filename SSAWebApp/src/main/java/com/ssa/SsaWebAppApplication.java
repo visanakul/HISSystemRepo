@@ -20,7 +20,7 @@ public class SsaWebAppApplication {//NOPMD
 	 * Default constructor
 	 */
 	public SsaWebAppApplication() {
-		LOGGER.debug("***SsaWebAppApplication***");
+		LOGGER.info("***SsaWebAppApplication***");
 	}
 
 	/**
@@ -28,6 +28,10 @@ public class SsaWebAppApplication {//NOPMD
 	 * @param args
 	 */
 	public static void main(final String[] args) {
+		System.out.println("Command line Arguments ");
+		for(String s:args) {
+			System.out.println(s);
+		}
 		SpringApplication.run(SsaWebAppApplication.class, args);
 	}
 

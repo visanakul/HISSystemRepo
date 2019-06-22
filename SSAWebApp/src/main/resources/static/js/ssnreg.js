@@ -77,7 +77,8 @@ function regFormValidate(){
         }
         else 
         { 
-            error.insertAfter( element );
+            error.insertAfter(element);
+        	//$(".error").html( error );  
         }
         }
 	});

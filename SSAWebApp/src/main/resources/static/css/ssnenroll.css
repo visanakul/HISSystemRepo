@@ -28,7 +28,12 @@ td {
 	font-size: 1rem;
 	width: auto;
 }
-
+td:first-child {
+	text-align: right;
+}
+td:last-child {
+	width: auto;
+}
 h2, h3 {
 	font-family: monospace;
 	text-align: center;
@@ -51,11 +56,10 @@ table {
 	background-color: #42b6f4;
 	background: linear-gradient(to right, #0f6b84, #024060);
 	margin: auto;
+	width:auto;
 }
 
-td:first-child {
-	text-align: right;
-}
+
 
 .btn-container {
 	display: flex;
@@ -72,14 +76,14 @@ input[type='reset'], input[type='submit'] {
 	outline: none;
 }
 
-input[type='text'], input[type='password'] {
+input[type='text'], input[type='password'],form .gen,input[type='file']{
 	border-radius: 8px;
 	padding: 2px 10px;
 	outline: none;
 	line-height: 1rem;
 }
 
-select, input[type='file'] {
+select {
 	padding: 2px;
 	font-size: 0.9rem;
 	border-radius: 8px;
@@ -93,9 +97,6 @@ form .error {
 	color: #ff0000;
 }
 
-form .gen {
-	display: inline-block;
-}
 a{
 	font-family: monospace;
 	margin-top: 20px;

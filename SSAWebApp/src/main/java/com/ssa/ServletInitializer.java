@@ -22,7 +22,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
 	 */
 	public ServletInitializer() {
 		super();
-		LOGGER.debug("***ServletInitializer***");
+		LOGGER.info("***ServletInitializer***");
 	}
 
 	@Override

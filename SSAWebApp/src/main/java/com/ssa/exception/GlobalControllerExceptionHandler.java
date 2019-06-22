@@ -26,19 +26,78 @@ public class GlobalControllerExceptionHandler {
 	 * Default Constructor
 	 */
 	public GlobalControllerExceptionHandler() {
-		LOGGER.debug("***GlobalExceptionHandler***");
+		LOGGER.info("***GlobalExceptionHandler***");
 	}
 	
 	/**
 	 * Handles Exception if user not found in Table
-	 * @param ex
+	 * @param exception
 	 * @param model
 	 * @return
 	 */
 	@ExceptionHandler(NoUserException.class)
 	public String handleNoUserException(final Exception exception,final Model model) {
-		LOGGER.debug("Handling NoUserException");
+		LOGGER.info("Handling NoUserException");
 		model.addAttribute(EXC_KEY,exception.getMessage());
-		return VW_SSN_ERROR;
+		return ERROR_VIEW;
 	}
+	
+	/**
+	 * Handles Exception if state not found in Table
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(NoStateException.class)
+	public String handleNoStateException(final Exception exception,final Model model) {
+		LOGGER.info("Handling NoStateException");
+		model.addAttribute(EXC_KEY,exception.getMessage());
+		return ERROR_VIEW;
+	}
+	
+	/**
+	 * If state data not loaded from STATE_MASTER, it handles exception
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(StatesNotFoundException.class)
+	public String handleStatesNotFoundException(final Exception exception,final Model model) {
+		LOGGER.info("Handling StatesNotFoundException");
+		model.addAttribute(EXC_KEY,exception.getMessage());
+		return ERROR_VIEW;
+	}
+	/**
+	 * State data not available for user
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	
+	@ExceptionHandler(StateNotForUserException.class)
+	public String handlev(final Exception exception,final Model model) {
+		LOGGER.info("Handling StateNotForUserException");
+		model.addAttribute(EXC_KEY,exception.getMessage());
+		return ERROR_VIEW;
+	}
+	@ExceptionHandler(RegisterException.class)
+	public String handleRegisterException(final Exception exception,final Model model) {
+		LOGGER.info("Handling RegisterException");
+		model.addAttribute(EXC_KEY,exception.getMessage());
+		return ERROR_VIEW;
+	}
+	
+	/**
+	 * Handle other exceptions
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(RuntimeException.class)
+	public String handleOtherExceptions(final Exception exception,final Model model) {
+		LOGGER.info("Handling Other Exception");
+		model.addAttribute(EXC_KEY,exception.getMessage());
+		return ERROR_VIEW;
+	}
+	
 }

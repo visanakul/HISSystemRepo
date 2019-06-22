@@ -27,7 +27,7 @@ import static com.ssa.util.ConstantUtils.*;
  *
  */
 public class SSNRestController {
-	@Autowired
+	@Autowired(required = true)
 	@ApiModelProperty
 	/**
 	 * User service for accessing USER_MASTER
@@ -42,7 +42,7 @@ public class SSNRestController {
 	 * Default Constructor
 	 */
 	public SSNRestController() {
-		LOGGER.debug("***SSNRestController***");
+		LOGGER.info("***SSNRestController***");
 	}
 
 	@GetMapping(value=GET_STATE_GET_URL,produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -54,8 +54,7 @@ public class SSNRestController {
 	 * @return
 	 */
 	public State getUserState(@PathVariable("ssn") final Integer ssn) {
-		LOGGER.debug("Calling getUserState()");
-		//LOGGER.debug("State Data : "+state);
+		LOGGER.info("Getting User State");
 		return userService.getUserState(ssn);
 	}
 }
