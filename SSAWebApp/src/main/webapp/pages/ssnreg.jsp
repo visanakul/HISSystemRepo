@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +12,9 @@
 </head>
 <body>
 
-	<h3>${msg}</h3>
-
+	<c:if test="${not empty msg}">
+		<h3 id="ssn_msg">${msg}</h3>
+	</c:if>
 	<h2>Enrollment For SSN(Social Security Number)</h2>
 
 	<form:form id="regForm" name="regForm" action="enroll" method="post"
@@ -21,24 +23,29 @@
 			<tbody>
 				<tr>
 					<td>First Name :</td>
-					<td><form:input path="fname" name="fname" /><form:errors path="fname" cssClass="error" /></td>
+					<td><form:input path="fname" name="fname" />
+						<form:errors path="fname" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>Last Name :</td>
-					<td><form:input path="lname" name="lname" /><form:errors path="lname" cssClass="error" /></td>
+					<td><form:input path="lname" name="lname" />
+						<form:errors path="lname" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>Select DOB :</td>
-					<td><form:input path="dob" id="datepicker" /><form:errors path="dob" cssClass="error" /></td>
+					<td><form:input path="dob" id="datepicker" />
+						<form:errors path="dob" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>Gender :</td>
 					<td class="gen"><form:radiobuttons path="gender"
-							items="${genders}" name="gender" /><form:errors path="gender" cssClass="error" /></td>
+							items="${genders}" name="gender" />
+						<form:errors path="gender" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>Phno :</td>
-					<td><form:input path="phone" name="phone" /><form:errors path="phone" cssClass="error" /></td>
+					<td><form:input path="phone" name="phone" />
+						<form:errors path="phone" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>Select state :</td>
@@ -49,9 +56,10 @@
 					<td>Select photo :</td>
 					<td><input type="file" name="photoFile" id="photoId" /></td>
 				</tr>
-				<tr >
-					<td colspan="2" style="text-align: center;"><input type="reset" value="Reset" /> <input
-						type="submit" value="Enroll" onclick="regFormValidate();" /></td>
+				<tr>
+					<td colspan="2" style="text-align: center;"><input
+						type="reset" value="Reset" /> <input type="submit" value="Enroll"
+						onclick="regFormValidate();" /></td>
 
 				</tr>
 			</tbody>

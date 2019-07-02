@@ -3,6 +3,7 @@ package com.ssa;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -12,11 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.ssa.exception.SSNUserNotFoundException;
 import com.ssa.model.State;
 import com.ssa.service.SSNUserService;
 import com.ssa.service.StateService;
+import com.ssa.util.SSNUtil;
+
 /**
  * Test class
+ * 
  * @author VISHAL
  *
  */
@@ -29,7 +34,7 @@ public class SsaWebAppApplicationTests {
 	 */
 	@Autowired
 	private StateService service;
-	
+
 	/**
 	 * User service accesses USER_MASTER table
 	 */
@@ -39,32 +44,65 @@ public class SsaWebAppApplicationTests {
 	/**
 	 * Test for getting state list
 	 */
+	@Test
 	public void stateListTest() {
-		List<State> stateList=service.getAllStates();
-		System.out.println("List : "+stateList);
+		List<State> stateList = service.getAllStates();
+		System.out.println("List : " + stateList);
 		assertEquals(52, stateList.size());
 	}
-	
+
 	/**
-	 * Test for SSN format 
+	 * Test for SSN format success
 	 */
 	@Test
-	public void checkSSNDisplay() {
-		String ssn="123456789";
-		String result=new StringBuilder(ssn).insert(3, '-').insert(6, '-').toString();
-		System.out.println("Result : "+result);
-		
-		assertNotEquals("Generated", result, ssn);
+	public void test_getSSNFormat_success() {
+		Integer ssn = 100000020;
+		String result = SSNUtil.getSSNFormat(ssn);
+		System.out.println("Result : " + result);
+
+		assertEquals("100-000-020", result);
 	}
-	
+
 	/**
-	 * Test for getting state as per ssn
+	 * Test for SSN format fail
 	 */
 	@Test
-	public void getUserState() {
-		State stateModel=userService.getUserState(100000012);
+	public void test_getSSNFormat_fail() {
+		Integer ssn = 100000020;
+		String result = SSNUtil.getSSNFormat(ssn);
+		System.out.println("Result : " + result);
+
+		assertNotEquals(ssn.toString().length(), result.length());
+	}
+
+	/**
+	 * Test for getting state as per ssn Success test
+	 */
+	@Test
+	public void test_getUserState_success() {
+		State stateModel = userService.getUserState(100000020);
 		System.out.println(stateModel);
-		assertNotNull("State Not available",stateModel);
+		assertEquals("Arizona", stateModel.getStateName());
+	}
+
+	/**
+	 * Test for getting state as per ssn Success test
+	 */
+	@Test
+	public void test_getUserState1_success() {
+		String state = userService.getStateBySSN(100000020);
+		System.out.println(state);
+		assertEquals("Arizona", state);
+	}
+
+	/**
+	 * Test for getting state as per ssn Fail test
+	 */
+	@Test(expected = SSNUserNotFoundException.class)
+	public void test_getUserState_fail() {
+		State stateModel = userService.getUserState(100000011);
+		System.out.println(stateModel);
+		assertNull(stateModel);
 	}
 
 }

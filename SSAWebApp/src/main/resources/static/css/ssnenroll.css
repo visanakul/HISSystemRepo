@@ -26,6 +26,8 @@ td {
 	padding: 10px;
 	color: white;
 	font-size: 1rem;
+	line-height:1.2rem;
+	text-shadow: black 2px 2px;
 	width: auto;
 }
 td:first-child {
@@ -58,7 +60,11 @@ table {
 	margin: auto;
 	width:auto;
 }
-
+thead,tfoot,img{
+	z-index:1;
+	box-shadow: 0 1rem 1rem 0 black;
+	background: linear-gradient(to right, #0f6b84, #024060);
+}
 
 
 .btn-container {
@@ -108,3 +114,4 @@ a{
 img{
 	border: 3px solid white;
 }
+

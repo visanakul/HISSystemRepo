@@ -57,41 +57,41 @@ public class SSNUserServiceImpl implements SSNUserService {
 	@Override
 	public Integer registerUser(final SSNUser userModel) {
 		LOGGER.info("Register User start");
-		
+
 		SSNUserEntity userEntity = new SSNUserEntity();
 		BeanUtils.copyProperties(userModel, userEntity);
-		
+
 		userEntity = userRepositiry.save(userEntity);
-		if(userEntity==null) {
+		if (userEntity == null) {
 			LOGGER.error("***Register fail***");
 			throw new RegisterException("User not registered");
 		}
-		
-		LOGGER.debug("***Register success with SSN : " + userEntity.getSsn()); //NOPMD
+
+		LOGGER.debug("***Register success with SSN : " + userEntity.getSsn()); // NOPMD
 		LOGGER.info("Register User end");
-		return userEntity.getSsn();//NOPMD
+		return userEntity.getSsn();// NOPMD
 	}
 
 	@Override
 	/**
-	 *  Returns State data as per SSN value using USER_MASTER and STATE_MASTER tables
+	 * Returns State data as per SSN value using USER_MASTER and STATE_MASTER tables
 	 */
 	public State getUserState(final Integer ssn) {
 		LOGGER.info("Get User State start");
-		LOGGER.debug("SSN received : " + ssn); //NOPMD
-		final SSNUserEntity userEntity = userRepositiry.findById(ssn).orElse(null);//NOPMD
+		LOGGER.debug("SSN received : " + ssn); // NOPMD
+		final SSNUserEntity userEntity = userRepositiry.findById(ssn).orElse(null);// NOPMD
 		if (userEntity == null) {
 			throw new SSNUserNotFoundException("Sorry!!! No user with this SSN...");
 		}
-		LOGGER.debug("Got User entity by SSN for " + userEntity.getFname());//NOPMD
-		final State stateModel = stateService.getUserState(userEntity.getState()); //NOPMD
-		
-		if(stateModel==null) {
+		LOGGER.debug("Got User entity by SSN for " + userEntity.getFname());// NOPMD
+		final State stateModel = stateService.getUserState(userEntity.getState()); // NOPMD
+
+		if (stateModel == null) {
 			LOGGER.warn("State data not available");
 			throw new StateNotForUserException("State data not available for user");
 		}
-		
-		LOGGER.debug("Got State : " + stateModel);//NOPMD
+
+		LOGGER.debug("Got State : " + stateModel);// NOPMD
 		LOGGER.info("Get User State end");
 		return stateModel;
 	}
@@ -100,25 +100,38 @@ public class SSNUserServiceImpl implements SSNUserService {
 	 * Returns list of all users from table USER_MASTER
 	 */
 	@Override
-	public List<SSNUser> getAllUsers() { //NOPMD
-		LOGGER.info("Get All User end");
+	public List<SSNUser> getAllUsers() { // NOPMD
+		LOGGER.info("Get All User start");
 		final List<SSNUserEntity> userEntities = userRepositiry.findAll();
-		
-		if(userEntities==null || userEntities.size()==0) {
+
+		if (userEntities == null || userEntities.size() == 0) {
 			LOGGER.info("No user data in table");
 			throw new NoUserException("No user Exists");
 		}
-		LOGGER.debug("Got Users " + userEntities.size() + " entities"); //NOPMD
+		LOGGER.debug("Got Users " + userEntities.size() + " entities"); // NOPMD
 
 		final List<SSNUser> userModels = new ArrayList<>(userEntities.size());
-		
+
 		for (final SSNUserEntity userEntity : userEntities) {
-			final SSNUser userModel = new SSNUser();//NOPMD
+			final SSNUser userModel = new SSNUser();// NOPMD
 			BeanUtils.copyProperties(userEntity, userModel);
 			userModels.add(userModel);
 		}
 		LOGGER.debug("Converted user entity list into model list");
 		LOGGER.info("Get All User end");
 		return userModels;
+	}
+
+	@Override
+	public String getStateBySSN(Integer ssn) {
+		LOGGER.info("getStateBySSN start");
+		String state = userRepositiry.findStateById(ssn);
+		if (state == null) {
+			throw new StateNotForUserException("No state data available");
+		} else {
+			LOGGER.debug("Got state : " + state);
+		}
+		LOGGER.info("getStateBySSN end");
+		return state;
 	}
 }

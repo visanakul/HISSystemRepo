@@ -1,24 +1,24 @@
-2019-06-22 17:54:11,691 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 1988 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
-2019-06-22 17:54:11,788 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
-2019-06-22 17:54:13,866 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
-2019-06-22 17:54:13,867 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
-2019-06-22 17:54:13,869 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
-2019-06-22 17:54:13,872 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
-2019-06-22 17:54:13,921 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
-2019-06-22 17:54:13,948 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
-2019-06-22 17:54:13,949 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
-2019-06-22 17:54:13,951 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
-2019-06-22 17:54:14,156 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
-2019-06-22 17:54:14,441 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 2.926 seconds (JVM running for 71930.477)
-2019-06-22 17:58:18,575 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 3764 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
-2019-06-22 17:58:18,584 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
-2019-06-22 17:58:29,910 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
-2019-06-22 17:58:29,912 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
-2019-06-22 17:58:29,917 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
-2019-06-22 17:58:29,921 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
-2019-06-22 17:58:30,493 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
-2019-06-22 17:58:30,531 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
-2019-06-22 17:58:30,534 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
-2019-06-22 17:58:30,539 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
-2019-06-22 17:58:31,051 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
-2019-06-22 17:58:32,337 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 15.714 seconds (JVM running for 21.15)
+2019-06-30 07:33:07,342 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 2476 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
+2019-06-30 07:33:07,414 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
+2019-06-30 07:33:45,798 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
+2019-06-30 07:33:45,801 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
+2019-06-30 07:33:45,807 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
+2019-06-30 07:33:45,813 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
+2019-06-30 07:33:46,663 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
+2019-06-30 07:33:46,697 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
+2019-06-30 07:33:46,700 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
+2019-06-30 07:33:46,705 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
+2019-06-30 07:33:47,474 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
+2019-06-30 07:33:49,035 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 48.286 seconds (JVM running for 53.16)
+2019-06-30 07:36:38,603 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 2476 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
+2019-06-30 07:36:38,603 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
+2019-06-30 07:36:42,628 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
+2019-06-30 07:36:42,629 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
+2019-06-30 07:36:42,632 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
+2019-06-30 07:36:42,636 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
+2019-06-30 07:36:42,690 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
+2019-06-30 07:36:42,720 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
+2019-06-30 07:36:42,722 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
+2019-06-30 07:36:42,724 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
+2019-06-30 07:36:42,940 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
+2019-06-30 07:36:43,190 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 4.926 seconds (JVM running for 227.31)

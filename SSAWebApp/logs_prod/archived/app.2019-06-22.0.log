@@ -1,0 +1,152 @@
+2019-06-22 17:54:11,691 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 1988 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
+2019-06-22 17:54:11,788 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
+2019-06-22 17:54:13,866 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
+2019-06-22 17:54:13,867 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
+2019-06-22 17:54:13,869 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
+2019-06-22 17:54:13,872 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
+2019-06-22 17:54:13,921 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
+2019-06-22 17:54:13,948 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
+2019-06-22 17:54:13,949 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
+2019-06-22 17:54:13,951 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
+2019-06-22 17:54:14,156 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
+2019-06-22 17:54:14,441 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 2.926 seconds (JVM running for 71930.477)
+2019-06-22 17:58:18,575 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 3764 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
+2019-06-22 17:58:18,584 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
+2019-06-22 17:58:29,910 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
+2019-06-22 17:58:29,912 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
+2019-06-22 17:58:29,917 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
+2019-06-22 17:58:29,921 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
+2019-06-22 17:58:30,493 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
+2019-06-22 17:58:30,531 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
+2019-06-22 17:58:30,534 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
+2019-06-22 17:58:30,539 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
+2019-06-22 17:58:31,051 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
+2019-06-22 17:58:32,337 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 15.714 seconds (JVM running for 21.15)
+2019-06-22 20:29:58,156 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 4976 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
+2019-06-22 20:29:58,191 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
+2019-06-22 20:30:14,376 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
+2019-06-22 20:30:14,377 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
+2019-06-22 20:30:14,390 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
+2019-06-22 20:30:14,394 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
+2019-06-22 20:30:15,314 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
+2019-06-22 20:30:15,345 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
+2019-06-22 20:30:15,356 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
+2019-06-22 20:30:15,360 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
+2019-06-22 20:30:16,368 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
+2019-06-22 20:30:20,263 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 27.427 seconds (JVM running for 33.949)
+2019-06-22 20:30:22,761 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] ***Show Enroll form request start***
+2019-06-22 20:30:22,763 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] ***Gender Loading start***
+2019-06-22 20:30:22,763 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] ***Gender Loading end***
+2019-06-22 20:30:22,763 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] ***State loading start***
+2019-06-22 20:30:22,764 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Get All States start
+2019-06-22 20:30:23,172 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Get All States end
+2019-06-22 20:30:23,172 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] ***State loading end***
+2019-06-22 20:30:23,172 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] ***Show Enroll form request end***
+2019-06-22 20:32:09,449 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Show All user request start
+2019-06-22 20:32:09,450 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Get All User end
+2019-06-22 20:32:09,802 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Get All User end
+2019-06-22 20:32:09,802 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Show All user request end
+2019-06-22 20:39:05,158 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 4976 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
+2019-06-22 20:39:05,158 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
+2019-06-22 20:39:06,576 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
+2019-06-22 20:39:06,578 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
+2019-06-22 20:39:06,580 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
+2019-06-22 20:39:06,583 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
+2019-06-22 20:39:06,625 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
+2019-06-22 20:39:06,649 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
+2019-06-22 20:39:06,651 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
+2019-06-22 20:39:06,652 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
+2019-06-22 20:39:06,847 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
+2019-06-22 20:39:07,079 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 1.981 seconds (JVM running for 560.75)
+2019-06-22 20:43:50,434 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Show All user request start
+2019-06-22 20:43:50,436 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Get All User end
+2019-06-22 20:43:50,503 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Get All User end
+2019-06-22 20:43:50,503 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Show All user request end
+2019-06-22 20:44:44,254 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request start
+2019-06-22 20:44:44,254 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:44:44,313 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:44:44,313 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request end
+2019-06-22 20:45:14,860 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Show All user request start
+2019-06-22 20:45:14,861 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Get All User end
+2019-06-22 20:45:14,919 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Get All User end
+2019-06-22 20:45:14,919 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Show All user request end
+2019-06-22 20:45:40,078 INFO com.ssa.controller.SSNController [http-nio-8085-exec-8] Show All user request start
+2019-06-22 20:45:40,083 INFO com.ssa.controller.SSNController [http-nio-8085-exec-8] Get All User end
+2019-06-22 20:45:40,138 INFO com.ssa.controller.SSNController [http-nio-8085-exec-8] Get All User end
+2019-06-22 20:45:40,139 INFO com.ssa.controller.SSNController [http-nio-8085-exec-8] Show All user request end
+2019-06-22 20:47:04,082 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Show All user request start
+2019-06-22 20:47:04,082 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Get All User end
+2019-06-22 20:47:04,138 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Get All User end
+2019-06-22 20:47:04,138 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Show All user request end
+2019-06-22 20:48:08,139 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request start
+2019-06-22 20:48:08,140 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:48:08,194 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:48:08,194 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request end
+2019-06-22 20:50:32,660 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request start
+2019-06-22 20:50:32,661 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 20:50:32,712 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 20:50:32,712 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request end
+2019-06-22 20:50:43,355 INFO com.ssa.controller.SSNController [http-nio-8085-exec-8] Show All user request start
+2019-06-22 20:50:43,356 INFO com.ssa.controller.SSNController [http-nio-8085-exec-8] Get All User end
+2019-06-22 20:50:43,439 INFO com.ssa.controller.SSNController [http-nio-8085-exec-8] Get All User end
+2019-06-22 20:50:43,440 INFO com.ssa.controller.SSNController [http-nio-8085-exec-8] Show All user request end
+2019-06-22 20:51:06,362 INFO com.ssa.SsaWebAppApplication [restartedMain] Starting SsaWebAppApplication on VISHAL-PC with PID 1700 (C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp\target\classes started by VISHAL in C:\Users\VISHAL\git\HISSystemRepo\SSAWebApp)
+2019-06-22 20:51:06,366 INFO com.ssa.SsaWebAppApplication [restartedMain] The following profiles are active: prod
+2019-06-22 20:51:12,130 INFO com.ssa.ServletInitializer [restartedMain] ***SsaWebAppApplication***
+2019-06-22 20:51:12,132 INFO com.ssa.ServletInitializer [restartedMain] ***SwaggerConfiguration***
+2019-06-22 20:51:12,136 INFO com.ssa.controller.SSNController [restartedMain] ***SSNController***
+2019-06-22 20:51:12,139 INFO com.ssa.controller.SSNController [restartedMain] ***StateServiceImpl***
+2019-06-22 20:51:12,583 INFO com.ssa.controller.SSNController [restartedMain] ***SSNUserServiceImpl***
+2019-06-22 20:51:12,626 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalExceptionHandler***
+2019-06-22 20:51:12,632 INFO com.ssa.controller.SSNController [restartedMain] ***GlobalRestControllerExceptionHandler***
+2019-06-22 20:51:12,637 INFO com.ssa.controller.SSNController [restartedMain] ***SSNRestController***
+2019-06-22 20:51:13,115 INFO com.ssa.ServletInitializer [restartedMain] ***Swagger Building API DOC***
+2019-06-22 20:51:14,411 INFO com.ssa.SsaWebAppApplication [restartedMain] Started SsaWebAppApplication in 8.705 seconds (JVM running for 9.663)
+2019-06-22 20:51:14,635 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Show All user request start
+2019-06-22 20:51:14,636 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Get All User end
+2019-06-22 20:51:14,877 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Get All User end
+2019-06-22 20:51:14,877 INFO com.ssa.controller.SSNController [http-nio-8085-exec-1] Show All user request end
+2019-06-22 20:52:27,992 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request start
+2019-06-22 20:52:27,993 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:52:28,048 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:52:28,048 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request end
+2019-06-22 20:52:33,829 INFO com.ssa.controller.SSNController [http-nio-8085-exec-2] Show All user request start
+2019-06-22 20:52:33,829 INFO com.ssa.controller.SSNController [http-nio-8085-exec-2] Get All User end
+2019-06-22 20:52:33,879 INFO com.ssa.controller.SSNController [http-nio-8085-exec-2] Get All User end
+2019-06-22 20:52:33,879 INFO com.ssa.controller.SSNController [http-nio-8085-exec-2] Show All user request end
+2019-06-22 20:55:00,422 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request start
+2019-06-22 20:55:00,423 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:55:00,496 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:55:00,496 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request end
+2019-06-22 20:55:25,287 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request start
+2019-06-22 20:55:25,287 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 20:55:25,357 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 20:55:25,357 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request end
+2019-06-22 20:55:36,417 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request start
+2019-06-22 20:55:36,418 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:55:36,466 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Get All User end
+2019-06-22 20:55:36,466 INFO com.ssa.controller.SSNController [http-nio-8085-exec-7] Show All user request end
+2019-06-22 21:08:25,178 INFO com.ssa.controller.SSNController [http-nio-8085-exec-5] Show All user request start
+2019-06-22 21:08:25,178 INFO com.ssa.controller.SSNController [http-nio-8085-exec-5] Get All User end
+2019-06-22 21:08:25,237 INFO com.ssa.controller.SSNController [http-nio-8085-exec-5] Get All User end
+2019-06-22 21:08:25,237 INFO com.ssa.controller.SSNController [http-nio-8085-exec-5] Show All user request end
+2019-06-22 21:08:54,454 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Show All user request start
+2019-06-22 21:08:54,455 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Get All User end
+2019-06-22 21:08:54,515 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Get All User end
+2019-06-22 21:08:54,515 INFO com.ssa.controller.SSNController [http-nio-8085-exec-3] Show All user request end
+2019-06-22 21:09:17,357 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request start
+2019-06-22 21:09:17,358 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 21:09:17,416 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 21:09:17,416 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request end
+2019-06-22 21:18:59,804 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request start
+2019-06-22 21:18:59,805 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 21:18:59,867 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 21:18:59,868 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request end
+2019-06-22 21:19:26,578 INFO com.ssa.controller.SSNController [http-nio-8085-exec-5] Show All user request start
+2019-06-22 21:19:26,578 INFO com.ssa.controller.SSNController [http-nio-8085-exec-5] Get All User end
+2019-06-22 21:19:26,632 INFO com.ssa.controller.SSNController [http-nio-8085-exec-5] Get All User end
+2019-06-22 21:19:26,633 INFO com.ssa.controller.SSNController [http-nio-8085-exec-5] Show All user request end
+2019-06-22 21:19:33,478 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request start
+2019-06-22 21:19:33,479 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 21:19:33,535 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Get All User end
+2019-06-22 21:19:33,535 INFO com.ssa.controller.SSNController [http-nio-8085-exec-4] Show All user request end

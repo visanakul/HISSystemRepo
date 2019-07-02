@@ -79,6 +79,7 @@ public class SSNUserEntity {
 //	@OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
 	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
+	@Column(name = "creationDate",updatable = false)
 	/**
 	 * Store creation Date
 	 */

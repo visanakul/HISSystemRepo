@@ -22,6 +22,7 @@ public interface SSNUserService {
 	 * @return
 	 */
 	State getUserState(Integer ssn);
+	String getStateBySSN(Integer ssn);
 	/**
 	 * Get all users
 	 * @return

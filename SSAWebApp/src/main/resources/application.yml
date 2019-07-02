@@ -1,15 +1,15 @@
-#Server port(command line arg i.e --port=8085) and context path
+#Server port(command line arg i.e --port=8085 or JVM arguments -Dport=8085) and context path
 
 server:
   port: ${port:8081}
   servlet:
-    context-path: /SSNWebApp
+    context-path: /SSAWebApp
 
-#Profile (command line arg i.e --env=dev),View Resolver,Datasource, JPA and multipart file configuration 
+#Profile (command line arg i.e --env=dev or -Denv=dev),View Resolver,Datasource, JPA and multipart file configuration 
 
 spring:
   profiles:
-    active: ${env:prof}
+    active: ${env:default}
   mvc:
     view:
       prefix: /pages/
