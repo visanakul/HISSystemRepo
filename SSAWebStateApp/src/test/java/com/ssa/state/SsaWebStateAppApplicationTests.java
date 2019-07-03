@@ -30,7 +30,7 @@ import com.ssa.model.ResourceResponse;
 @SpringBootTest
 public class SsaWebStateAppApplicationTests {
 
-	@Test(timeout = 2000)
+	@Test(timeout = 3000)
 	public void test_getUserState_success() {
 
 		String endPointUrl = "http://localhost:8081/SSAWebApp/getState/{ssn}";
@@ -46,7 +46,7 @@ public class SsaWebStateAppApplicationTests {
 
 	}
 
-	@Test(timeout = 2000)
+	@Test(timeout = 3000)
 	public void test_getUserState_fail() {
 		
 			String endPointUrl = "http://localhost:8081/SSAWebApp/getState/{ssn}";
