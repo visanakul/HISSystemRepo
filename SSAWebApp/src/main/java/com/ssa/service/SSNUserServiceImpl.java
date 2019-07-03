@@ -1,6 +1,7 @@
 package com.ssa.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -15,6 +16,7 @@ import com.ssa.exception.NoUserException;
 import com.ssa.exception.RegisterException;
 import com.ssa.exception.SSNUserNotFoundException;
 import com.ssa.exception.StateNotForUserException;
+import com.ssa.model.ResourceResponse;
 import com.ssa.model.SSNUser;
 import com.ssa.model.State;
 import com.ssa.repository.SSNUserRepository;
@@ -72,28 +74,23 @@ public class SSNUserServiceImpl implements SSNUserService {
 		return userEntity.getSsn();// NOPMD
 	}
 
+	
 	@Override
 	/**
-	 * Returns State data as per SSN value using USER_MASTER and STATE_MASTER tables
+	 * Returns State name as per SSN value using USER_MASTER table
 	 */
-	public State getUserState(final Integer ssn) {
+	public String getUserStateName(final Integer ssn) {
 		LOGGER.info("Get User State start");
 		LOGGER.debug("SSN received : " + ssn); // NOPMD
-		final SSNUserEntity userEntity = userRepositiry.findById(ssn).orElse(null);// NOPMD
-		if (userEntity == null) {
-			throw new SSNUserNotFoundException("Sorry!!! No user with this SSN...");
+		final String state=userRepositiry.findStateById(ssn);
+		if(state==null) {
+			LOGGER.info("Throwing StateNotForUserException");
+			throw new StateNotForUserException("No state Found");
 		}
-		LOGGER.debug("Got User entity by SSN for " + userEntity.getFname());// NOPMD
-		final State stateModel = stateService.getUserState(userEntity.getState()); // NOPMD
-
-		if (stateModel == null) {
-			LOGGER.warn("State data not available");
-			throw new StateNotForUserException("State data not available for user");
-		}
-
-		LOGGER.debug("Got State : " + stateModel);// NOPMD
+		LOGGER.debug("Got State : " + state);// NOPMD
 		LOGGER.info("Get User State end");
-		return stateModel;
+		
+		return state;
 	}
 
 	/**
@@ -120,18 +117,5 @@ public class SSNUserServiceImpl implements SSNUserService {
 		LOGGER.debug("Converted user entity list into model list");
 		LOGGER.info("Get All User end");
 		return userModels;
-	}
-
-	@Override
-	public String getStateBySSN(Integer ssn) {
-		LOGGER.info("getStateBySSN start");
-		String state = userRepositiry.findStateById(ssn);
-		if (state == null) {
-			throw new StateNotForUserException("No state data available");
-		} else {
-			LOGGER.debug("Got state : " + state);
-		}
-		LOGGER.info("getStateBySSN end");
-		return state;
 	}
 }

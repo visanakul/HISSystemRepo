@@ -14,10 +14,4 @@ public interface StateService {
 	 * @return
 	 */
 	List<State> getAllStates();
-	/**
-	 * Return state data as per state name
-	 * @param stateName
-	 * @return
-	 */
-	State getUserState(String stateName);
 }

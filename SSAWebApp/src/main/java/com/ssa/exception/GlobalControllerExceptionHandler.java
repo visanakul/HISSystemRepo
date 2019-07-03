@@ -74,12 +74,12 @@ public class GlobalControllerExceptionHandler {
 	 * @return
 	 */
 	
-	@ExceptionHandler(StateNotForUserException.class)
-	public String handlev(final Exception exception,final Model model) {
-		LOGGER.info("Handling StateNotForUserException");
-		model.addAttribute(EXC_KEY,exception.getMessage());
-		return ERROR_VIEW;
-	}
+//	@ExceptionHandler(StateNotForUserException.class)
+//	public String handlev(final Exception exception,final Model model) {
+//		LOGGER.info("Handling StateNotForUserException");
+//		model.addAttribute(EXC_KEY,exception.getMessage());
+//		return ERROR_VIEW;
+//	}
 	@ExceptionHandler(RegisterException.class)
 	public String handleRegisterException(final Exception exception,final Model model) {
 		LOGGER.info("Handling RegisterException");
@@ -93,11 +93,11 @@ public class GlobalControllerExceptionHandler {
 	 * @param model
 	 * @return
 	 */
-	@ExceptionHandler(RuntimeException.class)
-	public String handleOtherExceptions(final Exception exception,final Model model) {
-		LOGGER.info("Handling Other Exception");
-		model.addAttribute(EXC_KEY,exception.getMessage());
-		return ERROR_VIEW;
-	}
+//	@ExceptionHandler(RuntimeException.class)
+//	public String handleOtherExceptions(final Exception exception,final Model model) {
+//		LOGGER.info("Handling Other Exception");
+//		model.addAttribute(EXC_KEY,exception.getMessage());
+//		return ERROR_VIEW;
+//	}
 	
 }

@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ssa.exception.SSNUserNotFoundException;
@@ -80,17 +81,18 @@ public class SsaWebAppApplicationTests {
 	 */
 	@Test
 	public void test_getUserState_success() {
-		State stateModel = userService.getUserState(100000020);
-		System.out.println(stateModel);
-		assertEquals("Arizona", stateModel.getStateName());
+		String state = userService.getUserStateName(100000020);
+		System.out.println(state);
+		assertEquals("Arizona", state);
 	}
 
 	/**
 	 * Test for getting state as per ssn Success test
 	 */
-	@Test
+	@Test(timeout = 2000)
+	@Rollback(value = false)
 	public void test_getUserState1_success() {
-		String state = userService.getStateBySSN(100000020);
+		String state = userService.getUserStateName(100000020);
 		System.out.println(state);
 		assertEquals("Arizona", state);
 	}
@@ -100,9 +102,9 @@ public class SsaWebAppApplicationTests {
 	 */
 	@Test(expected = SSNUserNotFoundException.class)
 	public void test_getUserState_fail() {
-		State stateModel = userService.getUserState(100000011);
-		System.out.println(stateModel);
-		assertNull(stateModel);
+		String state = userService.getUserStateName(100000011);
+		System.out.println(state);
+		assertNull(state);
 	}
 
 }

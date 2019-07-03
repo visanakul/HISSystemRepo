@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssa.controller.SSNController;
-import com.ssa.model.ResourceApiError;
+import com.ssa.model.ResourceResponse;
 import com.ssa.model.State;
 import com.ssa.service.SSNUserService;
 
@@ -19,10 +19,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import static com.ssa.util.ConstantUtils.*;
+
+import java.util.Date;
+
 @RestController
 @Api
 /**
  * Rest Controller for Any application
+ * 
  * @author VISHAL
  *
  */
@@ -32,11 +36,11 @@ public class SSNRestController {
 	/**
 	 * User service for accessing USER_MASTER
 	 */
-	private SSNUserService userService;//NOPMD
+	private SSNUserService userService;// NOPMD
 	/**
 	 * SLF4J Logging
 	 */
-	private static final Logger LOGGER=LoggerFactory.getLogger(SSNController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SSNController.class);
 
 	/**
 	 * Default Constructor
@@ -45,16 +49,22 @@ public class SSNRestController {
 		LOGGER.info("***SSNRestController***");
 	}
 
-	@GetMapping(value=GET_STATE_GET_URL,produces = {MediaType.APPLICATION_JSON_VALUE})
-	@ApiResponses(value = {@ApiResponse(code = 200,message = "User Available",response = State.class),@ApiResponse(code = 400,message = "User Does not exist",response = ResourceApiError.class)})
+	@GetMapping(value = GET_STATE_GET_URL, produces = { MediaType.APPLICATION_JSON_VALUE })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Server Response", response = ResourceResponse.class) })
 	@ApiOperation("Accepts SSN and send State information")
 	/**
 	 * Getting state data When SSN is passed
+	 * 
 	 * @param ssn
 	 * @return
 	 */
-	public State getUserState(@PathVariable("ssn") final Integer ssn) {
+	public ResourceResponse getUserState(@PathVariable("ssn") final Integer ssn) {
 		LOGGER.info("Getting User State");
-		return userService.getUserState(ssn);
+
+		ResourceResponse response = new ResourceResponse();
+		response.setStatusCode(200);
+		response.setMsg(userService.getUserStateName(ssn));
+		response.setDate(new Date());
+		return response;
 	}
 }

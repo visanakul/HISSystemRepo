@@ -69,25 +69,4 @@ public class StateServiceImpl implements StateService {
 		LOGGER.info("Get All States end");
 		return stateModelList;
 	}
-
-	/**
-	 * From state name get state details
-	 */
-	@Override
-	public State getUserState(final String stateName) {
-		LOGGER.info("Get User State start");
-		LOGGER.debug("Got state name : " + stateName); //NOPMD
-		final StateEntity stateEntity = stateRepo.findByStateName(stateName);
-		if(stateEntity==null) {
-			LOGGER.debug("State entity not found");
-			throw new StateNotForUserException("State Data not found");
-		}
-		LOGGER.debug("State entity : " + stateEntity); //NOPMD
-		final State stateModel = new State();
-		BeanUtils.copyProperties(stateEntity, stateModel);
-		LOGGER.debug("Returning state model : " + stateModel); //NOPMD
-		LOGGER.info("Get User State end");
-		return stateModel;
-	}
-
 }

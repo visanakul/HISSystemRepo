@@ -13,7 +13,7 @@ import lombok.Data;
  * @author VISHAL
  *
  */
-public class ResourceApiError {
+public class ResourceResponse {
 	@ApiModelProperty("Status code")
 	/**
 	 * Store status code
@@ -23,7 +23,7 @@ public class ResourceApiError {
 	/**
 	 * Store error message
 	 */
-	private String errMsg;
+	private String msg;
 	@ApiModelProperty( "Date for error")
 	/**
 	 * Store date

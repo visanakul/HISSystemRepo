@@ -16,16 +16,16 @@ public interface SSNUserService {
 	 * @return
 	 */
 	Integer registerUser(SSNUser userModel);
-	/**
-	 * State information as per SSN
-	 * @param ssn
-	 * @return
-	 */
-	State getUserState(Integer ssn);
-	String getStateBySSN(Integer ssn);
+
 	/**
 	 * Get all users
 	 * @return
 	 */
 	List<SSNUser> getAllUsers();
+	/**
+	 * State name as per SSN
+	 * @param ssn
+	 * @return
+	 */
+	String getUserStateName(Integer ssn);
 }
