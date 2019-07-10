@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -250,6 +251,16 @@ public class SSNController {
 		LOGGER.debug("Total records : " + userModelList.size());
 		LOGGER.info("Show All user request end");
 		return SHOW_USERS_VIEW;
+	}
+	
+	@RequestMapping("/show")
+	public String showUserTable() {
+		return "show_table";
+	}
+	
+	@RequestMapping("/getlist")
+	public @ResponseBody List<SSNUser> showAll() {
+		return ssnUserService.getAllUsers();
 	}
 
 }
