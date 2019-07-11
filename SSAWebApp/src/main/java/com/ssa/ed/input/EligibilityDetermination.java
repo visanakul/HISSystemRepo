@@ -526,7 +526,7 @@ public class EligibilityDetermination {
 		 */
 		@XmlAccessorType(XmlAccessType.FIELD)
 		@XmlType(name = "", propOrder = { "kidsCount", "kidsAge", "parentsEmployed", "familyIncome" })
-		public static class CcapPlanData {
+		public static class CcapPlanData implements IEDRules {
 
 			@XmlElement(name = "kids-count", required = true)
 			protected String kidsCount;
@@ -536,6 +536,16 @@ public class EligibilityDetermination {
 			protected String parentsEmployed;
 			@XmlElement(name = "family-income", required = true)
 			protected String familyIncome;
+
+			private PlanInfo planInfo;
+
+			public PlanInfo getPlanInfo() {
+				return planInfo;
+			}
+
+			public void setPlanInfo(PlanInfo planInfo) {
+				this.planInfo = planInfo;
+			}
 
 			/**
 			 * Gets the value of the kidsCount property.
@@ -651,7 +661,7 @@ public class EligibilityDetermination {
 		 */
 		@XmlAccessorType(XmlAccessType.FIELD)
 		@XmlType(name = "", propOrder = { "employmentIncome", "propertiesCost", "otherIncome" })
-		public static class MedicaidPlanData {
+		public static class MedicaidPlanData implements IEDRules {
 
 			@XmlElement(name = "employment-income", required = true)
 			protected String employmentIncome;
@@ -659,6 +669,15 @@ public class EligibilityDetermination {
 			protected String propertiesCost;
 			@XmlElement(name = "other-income", required = true)
 			protected String otherIncome;
+			private PlanInfo planInfo;
+
+			public PlanInfo getPlanInfo() {
+				return planInfo;
+			}
+
+			public void setPlanInfo(PlanInfo planInfo) {
+				this.planInfo = planInfo;
+			}
 
 			/**
 			 * Gets the value of the employmentIncome property.
@@ -815,37 +834,37 @@ public class EligibilityDetermination {
 				return "SnapPlanData [familyIncome=" + familyIncome + ", isEmployed=" + isEmployed + "]";
 			}
 
-			@Override
-			public PlanInfo executeRules(EligibilityDetermination eligibilityDetermination) {
-				KieServices ks = KieServices.Factory.get();
-				KieRepository kr = ks.getRepository();
-				KieFileSystem kfs = ks.newKieFileSystem();
-
-				kfs.write(ResourceFactory.newClassPathResource("rules/SnapRules.drl", this.getClass()));
-
-				KieBuilder kb = ks.newKieBuilder(kfs);
-
-				kb.buildAll(); // kieModule is automatically deployed to KieRepository if successfully built.
-				if (kb.getResults().hasMessages(Message.Level.ERROR)) {
-					throw new RuntimeException("Build Errors:\n" + kb.getResults().toString());
-				}
-
-				KieContainer kContainer = ks.newKieContainer(kr.getDefaultReleaseId());
-
-				KieSession kSession = kContainer.newKieSession();
-
-				SnapPlanData snapPlanData = eligibilityDetermination.getPlanDetails().getSnapPlanData();
-				
-				System.out.println("Inserting "+snapPlanData);
-				kSession.insert(snapPlanData);
-
-				System.out.println("Fire All Rules...");
-				kSession.fireAllRules();
-				kSession.dispose();
-				PlanInfo planInfo=snapPlanData.getPlanInfo();
-				System.out.println("PLANInfo : "+planInfo);
-				return planInfo;
-			}
+//			@Override
+//			public PlanInfo executeRules(EligibilityDetermination eligibilityDetermination) {
+//				KieServices ks = KieServices.Factory.get();
+//				KieRepository kr = ks.getRepository();
+//				KieFileSystem kfs = ks.newKieFileSystem();
+//
+//				kfs.write(ResourceFactory.newClassPathResource("rules/SnapRules.drl", this.getClass()));
+//
+//				KieBuilder kb = ks.newKieBuilder(kfs);
+//
+//				kb.buildAll(); // kieModule is automatically deployed to KieRepository if successfully built.
+//				if (kb.getResults().hasMessages(Message.Level.ERROR)) {
+//					throw new RuntimeException("Build Errors:\n" + kb.getResults().toString());
+//				}
+//
+//				KieContainer kContainer = ks.newKieContainer(kr.getDefaultReleaseId());
+//
+//				KieSession kSession = kContainer.newKieSession();
+//
+//				SnapPlanData snapPlanData = eligibilityDetermination.getPlanDetails().getSnapPlanData();
+//				
+//				System.out.println("Inserting "+snapPlanData);
+//				kSession.insert(snapPlanData);
+//
+//				System.out.println("Fire All Rules...");
+//				kSession.fireAllRules();
+//				kSession.dispose();
+//				PlanInfo planInfo=snapPlanData.getPlanInfo();
+//				System.out.println("PLANInfo : "+planInfo);
+//				return planInfo;
+//			}
 		}
 
 	}
