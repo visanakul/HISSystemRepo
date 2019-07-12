@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import com.ssa.controller.SSNController;
 import com.ssa.ed.output.PlanInfo;
+import com.ssa.exception.DroolFileException;
 
 public interface IEDRules {
 	/**
@@ -25,6 +26,7 @@ public interface IEDRules {
 
 	/**
 	 * Generalized method to select and execute drl files and returns PlanInfo
+	 * 
 	 * @param eligibilityDetermination
 	 * @return PlanInfo
 	 */
@@ -40,31 +42,37 @@ public interface IEDRules {
 		/**
 		 * Getting Selected plan name
 		 */
-		String planName = eligibilityDetermination.getCitigenData().getPlanSelected();
-		String drlFilePath="rules/" + planName + "Rules.drl";
-		kfs.write(ResourceFactory.newClassPathResource(drlFilePath, IEDRules.class));
-
-		KieBuilder kb = ks.newKieBuilder(kfs);
-
-		// kieModule is automatically deployed to KieRepository if successfully built.
-		kb.buildAll(); 
-		//If error display
-		if (kb.getResults().hasMessages(Message.Level.ERROR)) {
-			LOGGER.error("Build Error from "+drlFilePath+" file");
-			throw new RuntimeException("Build Errors:\n" + kb.getResults().toString());
+		String planName = null,drlFilePath=null;
+		try {
+			planName = eligibilityDetermination.getCitigenData().getPlanSelected();
+			drlFilePath = "rules/" + planName + "Rules.drl";
+			kfs.write(ResourceFactory.newClassPathResource(drlFilePath, IEDRules.class));
+		} catch (Exception ex) {
+			throw new DroolFileException(ex.toString());
 		}
+			KieBuilder kb = ks.newKieBuilder(kfs);
 
-		//Getting container and Session
+			// kieModule is automatically deployed to KieRepository if successfully built.
+			kb.buildAll();
+
+			// If error display
+			if (kb.getResults().hasMessages(Message.Level.ERROR)) {
+				LOGGER.error("Build Error from " + drlFilePath + " file");
+				throw new DroolFileException("Build Errors:\n" + kb.getResults().toString());
+			}
+		
+		// Getting container and Session
 		KieContainer kContainer = ks.newKieContainer(kr.getDefaultReleaseId());
 		KieSession kSession = kContainer.newKieSession();
 
-		//Using reflection to get selected plan object
+		// Using reflection to get selected plan object
 		IEDRules rules = null;
 		try {
-			// Reflection for calling eligibilityDetermination.getPlanDetails().get$SelectedPlan$PlanData()
+			// Reflection for calling
+			// eligibilityDetermination.getPlanDetails().get$SelectedPlan$PlanData()
 			Method method = EligibilityDetermination.PlanDetails.class.getDeclaredMethod("get" + planName + "PlanData");
 			rules = (IEDRules) method.invoke(eligibilityDetermination.getPlanDetails());
-			LOGGER.debug("Got Object : "+rules);
+			LOGGER.debug("Got Object : " + rules);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
@@ -72,15 +80,15 @@ public interface IEDRules {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
-		//Inserting selected plan object and firing all rules
+		// Inserting selected plan object and firing all rules
 		LOGGER.debug("Inserting " + rules);
 		kSession.insert(rules);
 
 		LOGGER.debug("Fire All Rules...");
 		kSession.fireAllRules();
 		kSession.dispose();
-		
-		//Fetching the PlanInfo set by .drl files
+
+		// Fetching the PlanInfo set by .drl files
 		PlanInfo planInfo = rules.getPlanInfo();
 		planInfo.setCaseNum(eligibilityDetermination.getCitigenData().getCaseNum());
 		LOGGER.debug("PLANInfo : " + planInfo);

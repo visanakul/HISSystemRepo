@@ -10,11 +10,11 @@
     </script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
-
+<link type="text/css" href="css/ssnenroll.css" rel="stylesheet">
 </head>
 <body>
-
-<table id="example" class="table display dt-responsive nowrap table-bordered table-striped">
+<h2>User Details</h2>
+<table id="example">
     <thead>
     <tr>
         <th>SSN</th>

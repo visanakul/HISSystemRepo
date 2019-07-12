@@ -36,6 +36,14 @@ td:first-child {
 td:last-child {
 	width: auto;
 }
+label,#example_info,#example_paginate{
+	font-family: monospace;
+	color: white;
+}
+#example_paginate{
+	background-color: yellow;
+
+	}
 h2, h3 {
 	font-family: monospace;
 	text-align: center;

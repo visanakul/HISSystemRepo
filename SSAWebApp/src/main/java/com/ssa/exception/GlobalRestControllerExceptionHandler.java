@@ -68,4 +68,23 @@ public class GlobalRestControllerExceptionHandler {
 		return new ResponseEntity<>(apiError, HttpStatus.OK);
 	}
 	
+	/**
+	 * Drools drl file exception
+	 * @param exception
+	 * @return
+	 */
+	@ExceptionHandler(DroolFileException.class)
+	public ResponseEntity<ResourceResponse> handleDroolFileException(final Exception exception) {
+		LOGGER.info("Handling DroolFileException");
+		LOGGER.info("ResourceApiError Object creation start..." );
+		final ResourceResponse apiError=new ResourceResponse();
+		apiError.setStatusCode(200);
+		apiError.setMsg(exception.getMessage());
+		apiError.setDate(new Date());
+		LOGGER.debug("Sending Response : "+apiError);
+		LOGGER.info("ResourceApiError Object creation end..." );
+		
+		return new ResponseEntity<>(apiError, HttpStatus.OK);
+	}
+	
 }
