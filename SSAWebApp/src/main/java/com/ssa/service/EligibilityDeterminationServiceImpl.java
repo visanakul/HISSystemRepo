@@ -20,18 +20,26 @@ public class EligibilityDeterminationServiceImpl implements IEligibilityDetermin
 		LOGGER.info("***EligibilityDeterminationServiceImpl***");
 	}
 
+	/**
+	 * Method to check eligibility and return PlanInfo
+	 */
 	@Override
 	public PlanInfo getPlanInfo(EligibilityDetermination eligibilityDetermination) {
+		LOGGER.info("getPlanInfo service start");
 		PlanInfo planInfo = null;
-		String planName = eligibilityDetermination.getCitigenData().getPlanSelected();
-		LOGGER.info("Plan : " + planName);
+//		String planName = eligibilityDetermination.getCitigenData().getPlanSelected();
+//		LOGGER.info("Plan : " + planName);
 		try {
+			/**
+			 * Executing rules as per plan selected
+			 */
 			planInfo=IEDRules.executeRules(eligibilityDetermination);
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		}
+		LOGGER.info("getPlanInfo service end");
 		return planInfo;
 	}
 

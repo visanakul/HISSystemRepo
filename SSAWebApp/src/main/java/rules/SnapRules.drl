@@ -19,3 +19,16 @@ rule "Plan Approved Rule"
 		planInfo.setPlanApproved(planApproved);
 		snapPlanData.setPlanInfo(planInfo);
 	end
+
+rule "Plan Denied Rule"
+	when
+		snapPlanData: SnapPlanData(Double.parseDouble(snapPlanData.getFamilyIncome())>3500.0 && snapPlanData.getIsEmployed().equalsIgnoreCase("y")) 
+	then
+		PlanInfo planInfo=new PlanInfo();
+		planInfo.setPlanName("Snap");
+		planInfo.setPlanStatus("DN");
+		PlanDenied planDenied=new PlanDenied();
+		planDenied.setDenialReason("Income Exceeds");
+		planInfo.setPlanDenied(planDenied);
+		snapPlanData.setPlanInfo(planInfo);
+	end;

@@ -34,19 +34,29 @@ public class EligibilityDeterminationRestController {
 	public EligibilityDeterminationRestController() {
 		LOGGER.info("***EligibilityDeterminationRestController***");
 	}
+	/**
+	 * Injecting Eligibility Determination Service object
+	 */
 	@Autowired(required = true)
 	@ApiModelProperty
 	private IEligibilityDeterminationService eligibilityDeterminationService;
 	
+	/**
+	 * Method handles checkEligibility request and returns PlanInfo Details
+	 * @param eligibilityDetermination
+	 * @return PlanInfo
+	 */
 	@PostMapping(value = "/checkEligibility", 
 			consumes = { MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE }, 
 			produces = { MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE })
 	@ApiResponses(value = {@ApiResponse(code=200,message = "Server Response",response =PlanInfo.class )})
 	@ApiOperation(value = "Determines eligibility and returns PlanInfo")
-	public PlanInfo getPlanInfo(EligibilityDetermination eligibilityDetermination) {
-		LOGGER.info("Data Received : {}",eligibilityDetermination);
+	public PlanInfo checkEDForPlanInfo(EligibilityDetermination eligibilityDetermination) {
+		LOGGER.info("checkEDForPlanInfo Request start");
+		LOGGER.debug("Data Received : {}",eligibilityDetermination);
 		PlanInfo planInfo=eligibilityDeterminationService.getPlanInfo(eligibilityDetermination);
-		LOGGER.info("Result Received : {}",planInfo);
+		LOGGER.debug("Result Received : {}",planInfo);
+		LOGGER.info("checkEDForPlanInfo Request end");
 		return planInfo;
 	}
 }
