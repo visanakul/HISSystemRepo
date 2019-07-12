@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssa.controller.SSNController;
 import com.ssa.ed.input.EligibilityDetermination;
-import com.ssa.ed.input.IEDRules;
 import com.ssa.ed.output.PlanInfo;
+import com.ssa.ed.process.IEDRules;
 
 @Service
 public class EligibilityDeterminationServiceImpl implements IEligibilityDeterminationService {

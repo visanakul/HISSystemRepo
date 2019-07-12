@@ -1,4 +1,4 @@
-package com.ssa.ed.input;
+package com.ssa.ed.process;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ssa.controller.SSNController;
+import com.ssa.ed.input.EligibilityDetermination;
+import com.ssa.ed.input.EligibilityDetermination.PlanDetails;
 import com.ssa.ed.output.PlanInfo;
 import com.ssa.exception.DroolFileException;
 

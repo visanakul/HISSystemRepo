@@ -23,6 +23,7 @@ import org.kie.api.runtime.KieSession;
 import org.kie.internal.io.ResourceFactory;
 
 import com.ssa.ed.output.PlanInfo;
+import com.ssa.ed.process.IEDRules;
 
 /**
  * <p>
