@@ -1,4 +1,4 @@
-package com.ssa.model;
+package com.ssa.state.model;
 
 import java.util.Date;
 

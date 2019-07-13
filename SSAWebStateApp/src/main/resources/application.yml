@@ -1,0 +1,36 @@
+#server port
+server:
+  port: 8082
+  servlet:
+    context-path: /SSAStateApp
+  
+#Profile (command line arg i.e --env=dev or -Denv=dev),View Resolver,Datasource, JPA 
+
+spring:
+  profiles:
+    active: ${env:default}
+  mvc:
+    view:
+      prefix: /pages/
+      suffix: .jsp
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:xe
+    username: system
+    password: sys
+  jpa:
+    show-sql: true
+
+    hibernate:
+      ddl-auto: update
+
+# logging configuration
+
+logging:
+  level:
+    org.springframework: ERROR
+    com.ssa: DEBUG
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d %p %c{1.} [%t] %m%n"
+  file: app.log

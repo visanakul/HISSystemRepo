@@ -79,43 +79,6 @@ public class SSNController {
 		LOGGER.info("***Show Enroll form request end***");
 		return ENROLL_VIEW;
 	}
-//
-//	/**
-//	 * Loading model attribute states
-//	 * @return
-//	 */
-//	@ModelAttribute(name = MK_STATES)
-//	public List<State> loadStateData() {
-//		LOGGER.info("State Data Loading...");
-//		List<State> statesList = null;
-//		try {
-//			statesList = stateService.getAllStates();
-//			if (statesList != null && !statesList.isEmpty()) {
-//				LOGGER.debug("Got state list : " + statesList);
-//			} else {
-//				LOGGER.warn("State data not available");
-//				throw new StatesNotFoundException("No state data");
-//			}
-//		} catch (Exception exception) {
-//			LOGGER.error(exception.getMessage());
-//		}
-//
-//		LOGGER.info("State Data Loaded...");
-//		return statesList;
-//	}
-//	
-//	/**
-//	 * Loading model attribute genders
-//	 * @return
-//	 */
-//	@ModelAttribute(name = MK_GENDERS)
-//	public String[] loadGenderData() {
-//		LOGGER.info("Gender Data Loading...");
-//		String[] gens = { MALE, FEMALE };
-//		LOGGER.info("Gender Data Loaded...");
-//		return gens;
-//	}
-
 
 	/**
 	 * Loading state list in model

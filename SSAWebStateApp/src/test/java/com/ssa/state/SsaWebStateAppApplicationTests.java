@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.ssa.model.ResourceResponse;
+import com.ssa.state.model.ResourceResponse;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
