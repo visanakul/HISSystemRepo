@@ -64,7 +64,11 @@ public class ConstantUtils {// NOPMD
 	 * Model attribute key for user list
 	 */
 	public static final String USER_LIST_MODEL_KEY = "userModelList";
-
+	/**
+	 * Model attribute key for plan add
+	 */
+	public static final String PLAN_MODEL_KEY = "plan";
+	
 	/**
 	 * Request Attribute flash keys
 	 */
@@ -73,7 +77,11 @@ public class ConstantUtils {// NOPMD
 	 */
 	public static final String ACC_REG_REDIRECT_KEY = "msg";
 
-	
+	/**
+	 * Registration success redirect attribute key
+	 */
+	public static final String PLAN_SAVE_REDIRECT_KEY = "msg";
+
 
 	/**
 	 * Request Attribute flash values
@@ -87,6 +95,16 @@ public class ConstantUtils {// NOPMD
 	 * Registration fail redirect attribute value
 	 */
 	public static final String ACC_REG_FAIL_REDIRECT_VALUE = "Account Registration Fail...";
+
+	/**
+	 * Plan Add success redirect attribute value
+	 */
+	public static final String PLAN_SAVE_SUCCESS_REDIRECT_VALUE = "Plan saved Successfully...";
+
+	/**
+	 * Plan Add fail redirect attribute value
+	 */
+	public static final String PLAN_SAVE_FAIL_REDIRECT_VALUE = "Plan save Failed...";
 
 	/**
 	 * Request Mapping urls
@@ -117,15 +135,26 @@ public class ConstantUtils {// NOPMD
 	 * Check email availability Url
 	 */
 	public static final String CHECK_EMAIL_GET_URL="/check_email";
-	
+	/**
+	 * Save plan Url
+	 */
+	public static final String PLAN_SAVE_POST_URL="/savePlan";
+	/**
+	 * Show plan add Url
+	 */
+	public static final String PLAN_ADD_GET_URL="/showPlanForm";
 	/**
 	 * Request redirect Urls
 	 */
 
 	/**
-	 * Redirects to Show user enroll form
+	 * Redirects to Show account add form
 	 */
 	public static final String REDIRECT_SHOW_ACC_FORM_GET_URL = "redirect:/show_account";
+	/**
+	 * Redirects to Show plan add form
+	 */
+	public static final String REDIRECT_PLAN_ADD_GET_URL = "redirect:/showPlanForm";
 
 	/**
 	 * Rest Controller urls
@@ -154,7 +183,10 @@ public class ConstantUtils {// NOPMD
 	 * Error view name
 	 */
 	public static final String ERROR_VIEW = "error";
-
+	/**
+	 * Show plan view name
+	 */
+	public static final String PLAN_ADD_VIEW = "add_plan";
 	/**
 	 * Request param names
 	 */

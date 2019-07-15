@@ -159,7 +159,7 @@ function checkemail(e) {
 				} else {
 					$('#email_status').addClass('error');
 					$('#email').addClass('error');
-					e.stopImmediatePropagation();
+					//e.stopImmediatePropagation();
 					return false;
 				}
 			}

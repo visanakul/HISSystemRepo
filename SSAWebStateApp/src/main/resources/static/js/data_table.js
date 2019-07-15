@@ -5,6 +5,7 @@ $(document).ready(function() {
 		"aLengthMenu": [ [2, 4, 8, -1], [2, 4, 8, "All"] ],
 		"iDisplayLength": 4	,
 		"sAjaxDataProp":"",
+
 		"columns" : [ 
 	    {
 			"mDataProp" : "fname"
