@@ -17,6 +17,7 @@ import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.RoleModel;
 import com.ssa.state.service.IAccountService;
 import com.ssa.state.service.IRoleService;
+import com.ssa.state.service.ISendMailService;
 
 import static com.ssa.state.util.ConstantUtils.*;
 import java.util.List;
@@ -47,6 +48,11 @@ public class AccountController {
 	 */
 	@Autowired
 	private IAccountService accountService;
+	/**
+	 * Injecting SendMail Service
+	 */
+	@Autowired
+	private ISendMailService sendMailService;
 
 	/**
 	 * Default Constructor
@@ -81,6 +87,8 @@ public class AccountController {
 	public String saveAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
 		LOGGER.info("saveAccountInfo start");
+		
+		String rawPassword=accountModel.getPassword();
 		if (!validateData(bindingResult, model)) {
 			LOGGER.info("saveAccountInfo end");
 			return ACC_VIEW;
@@ -90,6 +98,8 @@ public class AccountController {
 		boolean result = accountService.addAccount(accountModel);
 		if (result) {
 			redirectAttributes.addFlashAttribute(ACC_REG_REDIRECT_KEY, ACC_REG_SUCCESS_REDIRECT_VALUE);
+			accountModel.setPassword(rawPassword);
+			sendMailService.sendMail(accountModel);
 		} else {
 			redirectAttributes.addFlashAttribute(ACC_REG_REDIRECT_KEY, ACC_REG_FAIL_REDIRECT_VALUE);
 

@@ -58,7 +58,7 @@ public class AccountEntity {
 	 */
 	private String email;
 	@NotEmpty
-	@Size(min = 6,max = 40)
+	@Size(min = 6,max = 400)
 	/**
 	 * Store password
 	 */

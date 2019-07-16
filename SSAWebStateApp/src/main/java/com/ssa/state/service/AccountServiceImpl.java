@@ -3,12 +3,11 @@ package com.ssa.state.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssa.state.entity.AccountEntity;
@@ -30,6 +29,11 @@ public class AccountServiceImpl implements IAccountService {
 	@Autowired
 	private IAccountRepository accountRepository;
 	/**
+	 * Injecting BCryptPasswordEncoder for password encoding 
+	 */
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	/**
 	 * Default constructor
 	 */
 	public AccountServiceImpl() {
@@ -42,6 +46,13 @@ public class AccountServiceImpl implements IAccountService {
 		LOGGER.debug("Account model received : "+accountModel);
 		
 		accountModel.setActive(true);
+	
+		/**
+		 * Encoding password
+		 */
+		String encodedPassword=bCryptPasswordEncoder.encode(accountModel.getPassword());
+		accountModel.setPassword(encodedPassword);
+		LOGGER.debug("Encoded password : "+encodedPassword);
 		
 		AccountEntity accountEntity=new AccountEntity();
 		/**

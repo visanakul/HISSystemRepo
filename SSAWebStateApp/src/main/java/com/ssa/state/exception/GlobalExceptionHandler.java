@@ -55,4 +55,16 @@ public class GlobalExceptionHandler {
 		model.addAttribute(EXC_KEY,exception.getMessage());
 		return ERROR_VIEW;
 	}
+	/**
+	 * Plan save error
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(Exception.class)
+	public String handleException(Exception exception,Model model) {
+		LOGGER.info("Handling handleException");
+		model.addAttribute(EXC_KEY,exception.getMessage());
+		return ERROR_VIEW;
+	}
 }

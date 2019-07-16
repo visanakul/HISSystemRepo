@@ -23,7 +23,25 @@ spring:
 
     hibernate:
       ddl-auto: update
-
+#send email
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: vishalspring2019@gmail.com
+    password: lasavi2019
+    
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls: 
+            enable: true
+#Spring Security
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 # logging configuration
 
 logging:
@@ -34,3 +52,13 @@ logging:
     console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
     file: "%d %p %c{1.} [%t] %m%n"
   file: app.log
+
+#Application config data
+
+myapp:
+  data:
+    mailFilePath: docs/ACC_CREATION_EMAIL_BODY_TEMPLATE.txt
+    phoneno: 9812345678
+    baseUrl: http://localhost:8082/SSAStateApp/login
+
+

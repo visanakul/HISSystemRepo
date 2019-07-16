@@ -1,0 +1,22 @@
+Hi ${FNAME} ${LNAME} , <br/> 
+
+<br/>
+
+Welcome to HIS application. Your Account is created by HIS Admin.<br/>
+
+<br/>
+
+Please use below details to access HIS application. <br/>
+<br/>
+Application URL : ${URL} <br/> 
+Email : ${EMAIL} <br/>
+Password : ${PWD} <br/>
+Your Role : ${ROLE} <br/>
+
+<br/>
+If you have any concerns/issues please contact HIS Administrator using ${PHNO}.
+
+<br/>
+
+Thanks & Regards, <br/>
+HIS Admin Team.
