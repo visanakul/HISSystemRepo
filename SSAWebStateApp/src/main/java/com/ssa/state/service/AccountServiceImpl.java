@@ -2,6 +2,7 @@ package com.ssa.state.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ssa.state.entity.AccountEntity;
+import com.ssa.state.exception.AccountNotFoundException;
 import com.ssa.state.exception.EmptyAccountException;
 import com.ssa.state.model.AccountModel;
 import com.ssa.state.repository.IAccountRepository;
@@ -87,7 +89,7 @@ public class AccountServiceImpl implements IAccountService {
 			accountModels.add(accountModel);
 		}
 		LOGGER.debug("Account Models : "+accountModels);
-		LOGGER.info("getAllAccounts end");
+		LOGGER.info("getAllAccounts service end");
 		return accountModels;
 	}
 
@@ -96,8 +98,39 @@ public class AccountServiceImpl implements IAccountService {
 	 */
 	@Override
 	public boolean checkEmail(String email) {
+		LOGGER.info("checkEmail service start");
 		Integer accNo=accountRepository.findAccNoByEmail(email);
+		LOGGER.info("checkEmail service end");
 		return accNo!=null;
+	}
+
+	/**
+	 * Account soft delete and active
+	 */
+	@Override
+	public boolean accountDeactivateOrActivate(boolean active, Integer accNo) {
+		LOGGER.info("accountDeactivateOrActivate service start");
+		Integer status=accountRepository.softDeleteOrActiveById(active, accNo);
+		LOGGER.debug("Activation Status : "+status);
+		LOGGER.info("accountDeactivateOrActivate service end");
+		return status>0;
+	}
+	
+	/**
+	 * Account Detaills as per accNo
+	 */
+	@Override
+	public AccountModel getAccountByAccNo(Integer accNo) {
+		Optional<AccountEntity> accountEntityOptional=accountRepository.findById(accNo);
+		if(!accountEntityOptional.isPresent()) {
+			LOGGER.info("Throwing AccountNotFoundException");
+			throw new AccountNotFoundException("No account found");
+		}
+		AccountModel accountModel=new AccountModel();
+		LOGGER.debug("AccountEntity : "+accountEntityOptional.get());
+		BeanUtils.copyProperties(accountEntityOptional.get(), accountModel);
+		LOGGER.info("AccountModel : "+accountModel);
+		return accountModel;
 	}
 
 }

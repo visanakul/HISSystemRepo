@@ -8,4 +8,6 @@ public interface IAccountService {
 	boolean addAccount(AccountModel accountModel);
 	List<AccountModel> getAllAccounts();
 	boolean checkEmail(String email);
+	boolean accountDeactivateOrActivate(boolean active,Integer accNo);
+	public AccountModel getAccountByAccNo(Integer accNo);
 }

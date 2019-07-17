@@ -64,7 +64,7 @@ public class AccountEntity {
 	 */
 	private String password;
 	@NotNull
-	@DateTimeFormat(pattern = "DD-MM-YYYY")
+	@DateTimeFormat(pattern = "dd-MMM-yyyy")
 	/**
 	 * Store Date of birth
 	 */

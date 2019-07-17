@@ -1,7 +1,10 @@
+$( document ).ready(function() {
+    
+
 $( function() {
     $( "#datepicker" ).datepicker(
     							  { 
-    								format: 'DD-MM-YYYY',
+    								dateFormat: 'dd-M-yy',
     							    changeYear: true, 
     					            changeMonth: true,
     							    yearRange:'-100:+0',
@@ -131,14 +134,14 @@ function regFormValidate(){
         {
             error.appendTo(element.parents('.gen'));
         }
-//        else if (element.is("#ssn1") || element.is("#ssn2") || element.is("#ssn3")) 
-//        {
-//            error.appendTo(element.parents('#my-ssn'));
-//        }
+// else if (element.is("#ssn1") || element.is("#ssn2") || element.is("#ssn3"))
+// {
+// error.appendTo(element.parents('#my-ssn'));
+// }
         else 
         { 
             error.insertAfter(element);
-        	//$(".error").html( error );  
+        	// $(".error").html( error );
         }
         }
 	});
@@ -159,7 +162,7 @@ function checkemail(e) {
 				} else {
 					$('#email_status').addClass('error');
 					$('#email').addClass('error');
-					//e.stopImmediatePropagation();
+					// e.stopImmediatePropagation();
 					return false;
 				}
 			}
@@ -171,14 +174,14 @@ function checkemail(e) {
 }
 function focus2() {
 	var myLength = $('#ssn1').val().length;
-	//console.log('Length : ' + myLength);
+	// console.log('Length : ' + myLength);
 	if (myLength >= 3) {
 		$('#ssn2').focus();
 	}
 }
 function focus3() {
 	var myLength = $('#ssn2').val().length;
-	//console.log('Length : ' + myLength);
+	// console.log('Length : ' + myLength);
 	if (myLength >= 2) {
 		$('#ssn3').focus();
 	}
@@ -198,3 +201,4 @@ function show() {
 		times : 2
 	}, 800).fadeOut('slow');
 }
+});

@@ -1,5 +1,6 @@
 package com.ssa.state;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -7,6 +8,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -15,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ssa.state.entity.AccountEntity;
@@ -111,6 +117,7 @@ public class AccountTableTest {
 	}
 	
 	@Test
+	@Ignore
 	public void test_checkEmailRepository_success() {
 		String email="vis@gmail.com";
 		Integer accNo=accountRepository.findAccNoByEmail(email);
@@ -119,6 +126,7 @@ public class AccountTableTest {
 		assertTrue(accNo>0);
 	}
 	@Test
+	@Ignore
 	public void test_checkEmailRepository_fail() {
 		String email="vis123@gmail.com";
 		Integer accNo=accountRepository.findAccNoByEmail(email);
@@ -126,6 +134,7 @@ public class AccountTableTest {
 		assertNull(accNo);
 	}
 	@Test
+	@Ignore
 	public void test_checkEmailService_success() {
 		String email="vis@gmail.com";
 		boolean flag=accountService.checkEmail(email);
@@ -133,6 +142,7 @@ public class AccountTableTest {
 		assertTrue(flag);
 	}
 	@Test
+	@Ignore
 	public void test_checkEmailService_fail() {
 		String email="vis123@gmail.com";
 		boolean flag=accountService.checkEmail(email);
@@ -140,5 +150,65 @@ public class AccountTableTest {
 		assertFalse(flag);
 	}
 
+	@Test
+	@Transactional
+	@Rollback(value = false)
+	@Ignore
+	public void test_softDeleteAccountRespository() {
+		Integer accNo=10;
+		Integer softDelete=accountRepository.softDeleteOrActiveById(false, accNo);
+		LOGGER.debug("Soft Delete : "+softDelete);
+		assertNotNull(softDelete);
+		assertEquals(1, softDelete.intValue());
+	}
+
+	@Test
+	@Transactional
+	@Rollback(value = false)
+	@Ignore
+	public void test_softActiveAccountRespository() {
+		Integer accNo=10;
+		Integer softActive=accountRepository.softDeleteOrActiveById(true, accNo);
+		LOGGER.debug("Soft Active : "+softActive);
+		assertNotNull(softActive);
+		assertEquals(1, softActive.intValue());
+	}
+	
+	@Test
+	@Transactional
+	@Rollback(value = false)
+	@Ignore
+	public void test_softDeleteAccountService() {
+		Integer accNo=10;
+		boolean status=accountService.accountDeactivateOrActivate(false, accNo);
+		LOGGER.debug("Soft Delete : "+status);
+		assertTrue(status);
+	}
+
+	@Test
+	@Transactional
+	@Rollback(value = false)
+	@Ignore
+	public void test_softActiveAccountService() {
+		Integer accNo=10;
+		boolean status=accountService.accountDeactivateOrActivate(true, accNo);
+		LOGGER.debug("Soft Active : "+status);
+		assertTrue(status);
+	}
+
+	@Test
+	public void test_getAccountRepository_success() {
+		Integer accNo=6;
+		Optional<AccountEntity> optional=accountRepository.findById(accNo);
+		assertTrue(optional.isPresent());
+		LOGGER.debug("Account Entity : "+optional.get());
+	}
+	@Test(expected =NoSuchElementException.class )
+	public void test_getAccountRepository_fail() {
+		Integer accNo=26;
+		Optional<AccountEntity> optional=accountRepository.findById(accNo);
+		assertFalse(optional.isPresent());
+		LOGGER.debug("Account Entity : "+optional.get());
+	}
 
 }

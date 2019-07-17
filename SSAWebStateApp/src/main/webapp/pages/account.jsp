@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -14,14 +16,22 @@
 <body>
 
 	<c:if test="${not empty msg}">
-			<h3 id="ssn_msg">${msg}</h3>
+		<h3 id="ssn_msg">${msg}</h3>
 	</c:if>
-	<h2>Account Registration</h2>
+
+	<c:set var="registerStatus" value="${empty account.accNo}"></c:set>
+	<!--<c:if test="${empty account.accNo}">
+		<h2>Account Registration</h2>
+	</c:if>
+	<c:if test="${not empty account.accNo}">
+		<h2>Account Update</h2>
+	</c:if>-->
+
+	<h2>Account ${registerStatus ? 'Registration':'Update'}</h2>
 
 	<form:form id="regForm" name="regForm" action="save_account"
 		method="post" modelAttribute="account" autocomplete="off">
 		<form:hidden path="accNo" name="accNo" />
-		<form:hidden path="ssn" name="ssn" id="ssn" />
 		<table>
 			<tbody>
 				<tr>
@@ -53,8 +63,10 @@
 				</tr>
 				<tr>
 					<td>Select DOB :</td>
-					<td><form:input path="dob" id="datepicker" /> <form:errors
-							path="dob" cssClass="error" /></td>
+					<td><fmt:formatDate value="${account.dob}" var="dateString"
+							pattern="dd-MMM-yyyy" /> <form:input path="dob" id="datepicker"
+							value="${dateString}" /> <form:errors path="dob"
+							cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>SSN :</td>
@@ -86,19 +98,31 @@
 				<tr>
 					<td colspan="2" style="text-align: center;"><input
 						type="reset" value="Reset" /> <input type="submit"
-						value="Register" onclick="regFormValidate();" /></td>
+						value="${registerStatus ? 'Register':'Update'}"
+						onclick="regFormValidate();" /></td>
 
 				</tr>
 			</tbody>
 		</table>
 	</form:form>
-	<a href="showall">Show all Accounts</a>
+
+	<c:if test="${registerStatus}">
+		<a href="getlist1">Show all Accounts</a>
+	</c:if>
+	<c:if test="${not registerStatus}">
+		<a href="#" onClick="javascript:history.go(-1)">Back</a>
+	</c:if>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script type="text/javascript" src="js/accountreg.js"></script>
+	<c:if test="${registerStatus}">
+		<script type="text/javascript" src="js/accountreg.js"></script>
+	</c:if>
+	<c:if test="${not registerStatus}">
+		<script type="text/javascript" src="js/accountupdate.js"></script>
+	</c:if>
 
 </body>
 

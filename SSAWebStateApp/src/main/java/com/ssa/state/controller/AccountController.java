@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +23,9 @@ import com.ssa.state.service.ISendMailService;
 import static com.ssa.state.util.ConstantUtils.*;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 /**
  * Handles all request related to Account
@@ -68,12 +71,26 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping(SHOW_ACC_FORM_GET_URL)
-	public String showAccountAddForm(Model model) {
-		LOGGER.info("showAccountAddForm start");
-		AccountModel accountModel = new AccountModel();
+	public String showAccountAddOrEditForm(@RequestParam(value = "accNo", required = false) Integer accNo,
+			Model model) {
+		LOGGER.info("showAccountAddOrEditForm start");
+
+		try {
+			AccountModel accountModel = null;
+			if (accNo == null) {
+				LOGGER.info("Request for new account");
+				accountModel = new AccountModel();
+			} else {
+				LOGGER.info("Request for edit account account no : " + accNo);
+				accountModel = accountService.getAccountByAccNo(accNo);
+			}
 		model.addAttribute("account", accountModel);
 		loadGenders(model);
 		loadRoles(model);
+		} catch (Exception exception) {
+			LOGGER.error("Error in hadling showAccountAddOrEditForm request");
+			throw new RuntimeException(exception.getMessage());
+		}
 		LOGGER.info("showAccountAddForm end");
 		return ACC_VIEW;
 	}
@@ -87,8 +104,8 @@ public class AccountController {
 	public String saveAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
 		LOGGER.info("saveAccountInfo start");
-		
-		String rawPassword=accountModel.getPassword();
+
+		String rawPassword = accountModel.getPassword();
 		if (!validateData(bindingResult, model)) {
 			LOGGER.info("saveAccountInfo end");
 			return ACC_VIEW;
@@ -179,29 +196,70 @@ public class AccountController {
 		LOGGER.info("sendAllAccount end");
 		return accountModels;
 	}
+
+	/**
+	 * Send all records
+	 * 
+	 * @return
+	 */
+
+	@RequestMapping(SEND_ALL_ACCOUNTS_1_GET_URL)
+	public String sendAllAccount1(Model model) {
+		LOGGER.info("sendAllAccount1 start");
+		List<AccountModel> accountModels = accountService.getAllAccounts();
+		LOGGER.debug("AccountModels " + accountModels);
+		model.addAttribute("accountModelList", accountModels);
+		LOGGER.info("sendAllAccount1 end");
+		return ALL_ACC_1_VIEW;
+	}
+
 	/**
 	 * Show email page for testing
+	 * 
 	 * @return
 	 */
 	@RequestMapping(SHOW_EMAIL_GET_URL)
 	public String showEmailPage() {
 		LOGGER.info("showEmailPage start");
-		
+
 		LOGGER.info("showEmailPage end");
 		return EMAIL_VIEW;
 	}
+
 	/**
 	 * Check email availability and send message
+	 * 
 	 * @return
 	 */
 	@RequestMapping(CHECK_EMAIL_GET_URL)
 	public @ResponseBody String doesEmailExist(@RequestParam("email") String email) {
 		LOGGER.info("doesEmailExist start");
-		LOGGER.debug("Email id : "+email);
-		boolean flag=accountService.checkEmail(email);
-		String msg=flag?EMAIL_EXISTS:EMAIL_OK;
+		LOGGER.debug("Email id : " + email);
+		boolean flag = accountService.checkEmail(email);
+		String msg = flag ? EMAIL_EXISTS : EMAIL_OK;
 		LOGGER.info("doesEmailExist end");
 		return msg;
 	}
 
+	@RequestMapping("soft_delete/{accNo}/{active}/account")
+	@Transactional
+	public @ResponseBody String softDeleteRequest(@PathVariable("accNo") Integer accNo,
+			@PathVariable("active") boolean active) {
+		try {
+			LOGGER.info("softDeleteRequest start");
+			LOGGER.debug("Account no : " + accNo + " Active : " + active);
+			boolean status = accountService.accountDeactivateOrActivate(active, accNo);
+			LOGGER.debug("Status : " + status);
+			LOGGER.info("softDeleteRequest end");
+			if (status) {
+				return "OK";
+			} else {
+				return "Error";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1" isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +9,9 @@
 <link type="text/css" href="css/error.css" rel="stylesheet">
 </head>
 <body>
+
 	<div>
-		<span>${errMsg}</span>
+		<span>Error occurred : ${errMsg}</span>
 	</div>
 </body>
 </html>

@@ -48,6 +48,7 @@ $(document).ready(function() {
 	           "searchable": false,
 	            "sortable": false,
 	            "mDataProp":"accNo",
+	           
 	            "render": function (mDataProp, type, full, meta) {
 	            	 return '<a href=delete/'+mDataProp+'/account><img src='+'"img/delete_icon.jpg"'+' width=20px height=20px /></a>';
 	          		}

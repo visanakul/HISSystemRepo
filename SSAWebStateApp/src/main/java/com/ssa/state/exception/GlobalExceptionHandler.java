@@ -56,14 +56,27 @@ public class GlobalExceptionHandler {
 		return ERROR_VIEW;
 	}
 	/**
-	 * Plan save error
+	 * Account not found error
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(AccountNotFoundException.class)
+	public String handleAccountNotFoundException(Exception exception,Model model) {
+		LOGGER.info("Handling AccountNotFoundException");
+		model.addAttribute(EXC_KEY,exception.getMessage());
+		return ERROR_VIEW;
+	}
+	
+	/**
+	 * Other Unknown error
 	 * @param exception
 	 * @param model
 	 * @return
 	 */
 	@ExceptionHandler(Exception.class)
-	public String handleException(Exception exception,Model model) {
-		LOGGER.info("Handling handleException");
+	public String handleGeneralException(Exception exception,Model model) {
+		LOGGER.info("Handling handleGeneralException");
 		model.addAttribute(EXC_KEY,exception.getMessage());
 		return ERROR_VIEW;
 	}

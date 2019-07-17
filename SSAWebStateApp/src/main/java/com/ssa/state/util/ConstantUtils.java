@@ -125,7 +125,10 @@ public class ConstantUtils {// NOPMD
 	 * Send all user form DB url
 	 */
 	public static final String SEND_ALL_ACCOUNTS_GET_URL="/getlist";
-	
+	/**
+	 * Send all user form DB url
+	 */
+	public static final String SEND_ALL_ACCOUNTS_1_GET_URL="/getlist1";
 	/**
 	 * Show email Page
 	 */
@@ -180,6 +183,10 @@ public class ConstantUtils {// NOPMD
 	 */
 	public static final String ALL_ACC_VIEW = "show_accounts";
 	/**
+	 * Show all user form view name
+	 */
+	public static final String ALL_ACC_1_VIEW = "show_accounts_1";
+	/**
 	 * Error view name
 	 */
 	public static final String ERROR_VIEW = "error";
@@ -187,6 +194,7 @@ public class ConstantUtils {// NOPMD
 	 * Show plan view name
 	 */
 	public static final String PLAN_ADD_VIEW = "add_plan";
+	
 	/**
 	 * Request param names
 	 */
