@@ -55,13 +55,7 @@
 								<a href="show_account?accNo=${account.accNo}"> <img
 									src="img/edit_icon.png" width=20px height=20px />
 								</a>
-								<c:if test="${account.active}">
-									<c:set var="imgPath" value="img/delete_icon.jpg" />
-								</c:if>
-								<c:if test="${not account.active}">
-									<c:set var="imgPath" value="img/active_icon.png" />
-								</c:if>
-								<a href="#"><img src="${imgPath}" width=20px height=20px
+								<a href="#"><img src="${account.active?'img/delete_icon.jpg':'img/active_icon.png'}" width=20px height=20px
 									onclick="return confirm_status_change(this,${account.accNo});" />
 								</a>
 							</div>

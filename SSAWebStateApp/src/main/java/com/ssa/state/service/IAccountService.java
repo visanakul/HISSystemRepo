@@ -5,7 +5,7 @@ import java.util.List;
 import com.ssa.state.model.AccountModel;
 
 public interface IAccountService {
-	boolean addAccount(AccountModel accountModel);
+	boolean addOrUpdateAccount(AccountModel accountModel);
 	List<AccountModel> getAllAccounts();
 	boolean checkEmail(String email);
 	boolean accountDeactivateOrActivate(boolean active,Integer accNo);

@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -57,6 +58,7 @@ public class AccountTableTest {
 	@Test
 	@Ignore
 	public void test_addAccountRepository_success() {
+		LOGGER.info("test_addAccountRepository_success start");
 		AccountEntity accountEntity = new AccountEntity();
 		accountEntity.setFname("Vishal");
 		accountEntity.setLname("Kulkarni");
@@ -71,8 +73,32 @@ public class AccountTableTest {
 		accountEntity = accountRepository.save(accountEntity);
 		assertNotNull(accountEntity);
 		assertTrue(accountEntity.getAccNo() > 0);
+		LOGGER.info("test_addAccountRepository_success end");
 	}
+	@SuppressWarnings("deprecation")
+	@Test
+	@Ignore
+	public void test_updateAccountRepository_success() {
+		LOGGER.info("test_updateAccountRepository_success start");
+		AccountEntity accountEntity = new AccountEntity();
+		accountEntity.setAccNo(2);
+		accountEntity.setFname("Vishal");
+		accountEntity.setLname("Kulkarni");
+		accountEntity.setGender("Male");
+		accountEntity.setEmail("vis1@gmail.com");
+		accountEntity.setPassword("vishal1234");
+		Calendar calendar=Calendar.getInstance();
+		calendar.set(1991, 6, 20);
+		accountEntity.setDob(calendar.getTime());
+		accountEntity.setSsn(123456789);
+		accountEntity.setMobile("9812345679");
+		accountEntity.setRole("Admin");
 
+		accountEntity = accountRepository.save(accountEntity);
+		assertNotNull(accountEntity);
+		assertTrue(accountEntity.getAccNo() > 0);
+		LOGGER.info("test_updateAccountRepository_success end");
+	}
 	@SuppressWarnings("deprecation")
 	@Test
 	@Ignore
@@ -89,10 +115,35 @@ public class AccountTableTest {
 		accountModel.setMobile("9812345679");
 		accountModel.setRole("Case Worker");
 		LOGGER.debug("accountModel " + accountModel);
-		boolean result = accountService.addAccount(accountModel);
+		boolean result = accountService.addOrUpdateAccount(accountModel);
 		LOGGER.debug("Result " + result);
 		assertTrue(result);
 		LOGGER.info("test_addAccountService_success end");
+	}
+
+	@SuppressWarnings("deprecation")
+	@Test
+	@Ignore
+	public void test_updateAccountService_success() {
+		LOGGER.info("test_updateAccountService_success start");
+		AccountModel accountModel = new AccountModel();
+		accountModel.setAccNo(3);
+		accountModel.setFname("VikramNew");
+		accountModel.setLname("Kulkarni");
+		accountModel.setGender("Male");
+		accountModel.setEmail("vik1@gmail.com");
+		accountModel.setPassword("vikram1234");
+		Calendar calendar=Calendar.getInstance();
+		calendar.set(1989, 0, 20, 0, 0);
+		accountModel.setDob(calendar.getTime());
+		accountModel.setSsn(82345679);
+		accountModel.setMobile("9812345671");
+		accountModel.setRole("Case Worker");
+		LOGGER.debug("accountModel " + accountModel);
+		boolean result = accountService.addOrUpdateAccount(accountModel);
+		LOGGER.debug("Result " + result);
+		assertTrue(result);
+		LOGGER.info("test_updateAccountService_success end");
 	}
 
 	@Test
@@ -197,6 +248,7 @@ public class AccountTableTest {
 	}
 
 	@Test
+	@Ignore
 	public void test_getAccountRepository_success() {
 		Integer accNo=6;
 		Optional<AccountEntity> optional=accountRepository.findById(accNo);
@@ -204,6 +256,7 @@ public class AccountTableTest {
 		LOGGER.debug("Account Entity : "+optional.get());
 	}
 	@Test(expected =NoSuchElementException.class )
+	@Ignore
 	public void test_getAccountRepository_fail() {
 		Integer accNo=26;
 		Optional<AccountEntity> optional=accountRepository.findById(accNo);

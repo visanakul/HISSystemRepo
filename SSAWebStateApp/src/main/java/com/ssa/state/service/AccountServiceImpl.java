@@ -43,8 +43,8 @@ public class AccountServiceImpl implements IAccountService {
 	}
 
 	@Override
-	public boolean addAccount(AccountModel accountModel) {
-		LOGGER.info("addAccount start");
+	public boolean addOrUpdateAccount(AccountModel accountModel) {
+		LOGGER.info("addOrUpdateAccount start");
 		LOGGER.debug("Account model received : "+accountModel);
 		
 		accountModel.setActive(true);
@@ -65,8 +65,8 @@ public class AccountServiceImpl implements IAccountService {
 		 * Saving record
 		 */
 		accountEntity=accountRepository.save(accountEntity);
-		LOGGER.debug("Account entity after save : "+accountEntity);
-		LOGGER.info("addAccount end");
+		LOGGER.debug("Account entity after save or update : "+accountEntity);
+		LOGGER.info("addOrUpdateAccount end");
 		return accountEntity.getAccNo()>0;
 	}
 

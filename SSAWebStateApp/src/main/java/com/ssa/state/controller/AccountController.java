@@ -80,13 +80,16 @@ public class AccountController {
 			if (accNo == null) {
 				LOGGER.info("Request for new account");
 				accountModel = new AccountModel();
+				model.addAttribute("operationSelectedMsg", "Account Registration");
 			} else {
 				LOGGER.info("Request for edit account account no : " + accNo);
 				accountModel = accountService.getAccountByAccNo(accNo);
+				model.addAttribute("operationSelectedMsg", "Account Update");
 			}
-		model.addAttribute("account", accountModel);
-		loadGenders(model);
-		loadRoles(model);
+			
+			model.addAttribute("account", accountModel);
+			loadGenders(model);
+			loadRoles(model);
 		} catch (Exception exception) {
 			LOGGER.error("Error in hadling showAccountAddOrEditForm request");
 			throw new RuntimeException(exception.getMessage());
@@ -101,27 +104,42 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping(value = SAVE_ACC_POST_URL, method = RequestMethod.POST)
-	public String saveAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,
+	public String saveOrUpdateAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
-		LOGGER.info("saveAccountInfo start");
+		LOGGER.info("saveOrUpdateAccountInfo start");
 
-		String rawPassword = accountModel.getPassword();
-		if (!validateData(bindingResult, model)) {
-			LOGGER.info("saveAccountInfo end");
-			return ACC_VIEW;
+		try {
+			boolean registerStatus = accountModel.getAccNo() == null;
+
+			String rawPassword = accountModel.getPassword();
+			if (!validateData(bindingResult, model)) {
+				loadGenders(model);
+				loadRoles(model);
+				LOGGER.info("saveOrUpdateAccountInfo end");
+				return ACC_VIEW;
+			}
+			LOGGER.debug("User data Received: " + accountModel.toString());
+
+			boolean result = accountService.addOrUpdateAccount(accountModel);
+			if (result) {
+				redirectAttributes.addFlashAttribute(ACC_REG_OR_UPDATE_REDIRECT_KEY,
+						registerStatus ? ACC_REG_SUCCESS_REDIRECT_VALUE : ACC_UPDATE_SUCCESS_REDIRECT_VALUE);
+				accountModel.setPassword(rawPassword);
+				sendMailService.sendMail(accountModel);
+			} else {
+				redirectAttributes.addFlashAttribute(ACC_REG_OR_UPDATE_REDIRECT_KEY,
+						registerStatus ? ACC_REG_FAIL_REDIRECT_VALUE : ACC_UPDATE_FAIL_REDIRECT_VALUE);
+
+			}
+
+			String operationPerformedMsg=registerStatus ? "Account Registration" : "Account Update";
+			LOGGER.debug("operationPerformedMsg : "+operationPerformedMsg);
+			redirectAttributes.addFlashAttribute("operationPerformedMsg",operationPerformedMsg);
+		} catch (Exception exception) {
+			LOGGER.error("Exception : " + exception);
+			throw new RuntimeException(exception.getMessage());
 		}
-		LOGGER.debug("User data Received: " + accountModel.toString());
-
-		boolean result = accountService.addAccount(accountModel);
-		if (result) {
-			redirectAttributes.addFlashAttribute(ACC_REG_REDIRECT_KEY, ACC_REG_SUCCESS_REDIRECT_VALUE);
-			accountModel.setPassword(rawPassword);
-			sendMailService.sendMail(accountModel);
-		} else {
-			redirectAttributes.addFlashAttribute(ACC_REG_REDIRECT_KEY, ACC_REG_FAIL_REDIRECT_VALUE);
-
-		}
-		LOGGER.info("saveAccountInfo end");
+		LOGGER.info("saveOrUpdateAccountInfo end");
 
 		return REDIRECT_SHOW_ACC_FORM_GET_URL;
 	}
@@ -136,8 +154,6 @@ public class AccountController {
 	private boolean validateData(BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			LOGGER.error("***Server side validation fails***");
-			loadGenders(model);
-			loadRoles(model);
 			return false;
 		}
 		LOGGER.info("***Server side validation success***");

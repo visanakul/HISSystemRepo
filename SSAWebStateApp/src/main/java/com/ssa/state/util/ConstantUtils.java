@@ -75,7 +75,7 @@ public class ConstantUtils {// NOPMD
 	/**
 	 * Registration success redirect attribute key
 	 */
-	public static final String ACC_REG_REDIRECT_KEY = "msg";
+	public static final String ACC_REG_OR_UPDATE_REDIRECT_KEY = "msg";
 
 	/**
 	 * Registration success redirect attribute key
@@ -95,6 +95,16 @@ public class ConstantUtils {// NOPMD
 	 * Registration fail redirect attribute value
 	 */
 	public static final String ACC_REG_FAIL_REDIRECT_VALUE = "Account Registration Fail...";
+
+	/**
+	 * Account update success redirect attribute value
+	 */
+	public static final String ACC_UPDATE_SUCCESS_REDIRECT_VALUE = "Account Update Successful...";
+
+	/**
+	 * Account update fail redirect attribute value
+	 */
+	public static final String ACC_UPDATE_FAIL_REDIRECT_VALUE = "Account Update Fail...";
 
 	/**
 	 * Plan Add success redirect attribute value

@@ -14,20 +14,20 @@
 <link type="text/css" href="css/datetimepicker.css" rel="stylesheet">
 </head>
 <body>
-
 	<c:if test="${not empty msg}">
-		<h3 id="ssn_msg">${msg}</h3>
+		<h3 id="account_msg">${msg}</h3>
 	</c:if>
 
 	<c:set var="registerStatus" value="${empty account.accNo}"></c:set>
-	<!--<c:if test="${empty account.accNo}">
-		<h2>Account Registration</h2>
-	</c:if>
-	<c:if test="${not empty account.accNo}">
-		<h2>Account Update</h2>
-	</c:if>-->
 
-	<h2>Account ${registerStatus ? 'Registration':'Update'}</h2>
+	<c:if test="${empty operationPerformedMsg}">
+		<h2>${operationSelectedMsg}</h2>
+	</c:if>
+	
+	<c:if test="${not empty operationPerformedMsg}">
+		<h2>${operationPerformedMsg}</h2>
+	</c:if>
+
 
 	<form:form id="regForm" name="regForm" action="save_account"
 		method="post" modelAttribute="account" autocomplete="off">
@@ -53,7 +53,7 @@
 				<tr>
 					<td>Email :</td>
 					<td><form:input id="email" path="email" name="email"
-							onkeyup="checkemail();" /><span id="email_status"></span> <form:errors
+							onkeypress="checkemail();" /><span id="email_status"></span> <form:errors
 							path="email" cssClass="error" /></td>
 				</tr>
 				<tr>
@@ -97,7 +97,7 @@
 
 				<tr>
 					<td colspan="2" style="text-align: center;"><input
-						type="reset" value="Reset" /> <input type="submit"
+						type="reset" value="Reset" /> <input id="process" type="submit"
 						value="${registerStatus ? 'Register':'Update'}"
 						onclick="regFormValidate();" /></td>
 
@@ -106,12 +106,8 @@
 		</table>
 	</form:form>
 
-	<c:if test="${registerStatus}">
-		<a href="getlist1">Show all Accounts</a>
-	</c:if>
-	<c:if test="${not registerStatus}">
-		<a href="#" onClick="javascript:history.go(-1)">Back</a>
-	</c:if>
+	<a href="getlist1">Show all Accounts</a>
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script
@@ -123,7 +119,6 @@
 	<c:if test="${not registerStatus}">
 		<script type="text/javascript" src="js/accountupdate.js"></script>
 	</c:if>
-
 </body>
 
 </html>
