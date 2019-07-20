@@ -14,7 +14,7 @@
 <body>
 	<h3>${msg}</h3>
 	<h2>Plan Info</h2>
-	<form:form id="planForm" name="planForm" action="savePlan"
+	<form:form id="planForm" name="planForm" action="save_plan"
 		method="post" modelAttribute="plan" autocomplete="off">
 		<table>
 			<tbody>
@@ -48,6 +48,9 @@
 			</tbody>
 		</table>
 	</form:form>
+	
+	<a href="get_plan_list">Show all Plans</a>
+	
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script

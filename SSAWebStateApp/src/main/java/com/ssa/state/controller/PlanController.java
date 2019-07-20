@@ -7,13 +7,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.PlanModel;
 import com.ssa.state.service.IPlanService;
 
 import static com.ssa.state.util.ConstantUtils.*;
+
+import java.util.List;
+
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 /**
@@ -46,7 +53,7 @@ public class PlanController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(PLAN_ADD_GET_URL)
+	@RequestMapping(SHOW_PLAN_GET_URL)
 	public String showPlanForm(Model model) {
 		LOGGER.info("***showPlanForm start***");
 		model.addAttribute(PLAN_MODEL_KEY, new PlanModel());
@@ -63,21 +70,33 @@ public class PlanController {
 	public String savePlan(@Valid @ModelAttribute(PLAN_MODEL_KEY) PlanModel planModel, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
 		LOGGER.info("***savePlan controller start***");
-		LOGGER.debug("Plan data Received: " + planModel.toString());
-		if (!validateData(bindingResult, model)) {
+		try {
+			planModel.setActive(true);
+			LOGGER.debug("Plan data Received: " + planModel.toString());
+			if (!validateData(bindingResult, model)) {
+				LOGGER.info("***savePlan controller end***");
+				return PLAN_ADD_VIEW;
+			}
+
+			boolean result = planService.savePlan(planModel);
+			LOGGER.debug("Save Plan result : " + result);
+
+			model.addAttribute(PLAN_MODEL_KEY, new PlanModel());
+			if (result) {
+				redirectAttributes.addFlashAttribute(PLAN_SAVE_KEY, PLAN_SAVE_SUCCESS_VALUE);
+			} else {
+				redirectAttributes.addFlashAttribute(PLAN_SAVE_KEY, PLAN_SAVE_FAIL_VALUE);
+
+			}
+			return REDIRECT_PLAN_ADD_GET_URL;
+		} catch (Exception exception) {
+			exception.printStackTrace();
+			LOGGER.error("Exception : " + exception.getMessage());
+			throw new RuntimeException(exception.getMessage());
+		} finally {
 			LOGGER.info("***savePlan controller end***");
-			return PLAN_ADD_VIEW;
 		}
 
-		boolean result=planService.savePlan(planModel);
-		if (result) {
-			redirectAttributes.addFlashAttribute(PLAN_SAVE_REDIRECT_KEY, PLAN_SAVE_SUCCESS_REDIRECT_VALUE);
-		} else {
-			redirectAttributes.addFlashAttribute(PLAN_SAVE_REDIRECT_KEY, PLAN_SAVE_FAIL_REDIRECT_VALUE);
-
-		}
-		LOGGER.info("***savePlan controller end***");
-		return REDIRECT_PLAN_ADD_GET_URL;
 	}
 
 	/**
@@ -96,4 +115,52 @@ public class PlanController {
 		return true;
 	}
 
+	/**
+	 * Send all records to ajax call for displaying it in JQuery data table
+	 * 
+	 * @return
+	 */
+
+	@RequestMapping(SEND_ALL_PLANS_GET_URL)
+	public String sendAllPlan(Model model) {
+		LOGGER.info("sendAllPlan start");
+		try {
+			List<PlanModel> planModels = planService.getAllPlans();
+			LOGGER.debug("AccountModels " + planModels);
+			if (planModels == null) {
+				LOGGER.warn("No plan data");
+				return null;
+			}
+			model.addAttribute(ALL_PLANS_MODEL_KEY, planModels);
+			return ALL_PLAN_VIEW;
+		} catch (Exception exception) {
+			LOGGER.error("Exception : " + exception);
+			exception.printStackTrace();
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("sendAllPlan end");
+		}
+
+	}
+	@RequestMapping("soft_delete/{id}/{active}/plan")
+	@Transactional
+	public @ResponseBody String softDeleteRequest(@PathVariable("id") Integer id,
+			@PathVariable("active") boolean active) {
+		try {
+			LOGGER.info("softDeleteRequest start");
+			LOGGER.debug("Plan id : " + id + " Active : " + active);
+			boolean status = planService.planDeactivateOrActivate(active, id);
+			LOGGER.debug("Status : " + status);
+			LOGGER.info("softDeleteRequest end");
+			if (status) {
+				return "OK";
+			} else {
+				return "Error";
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+	}
 }

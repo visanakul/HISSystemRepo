@@ -30,4 +30,8 @@ public class PlanModel {
 	 * store plan end date
 	 */
 	private Date endDate;
+	/**
+	 * Store plan status
+	 */
+	private boolean active;
 }

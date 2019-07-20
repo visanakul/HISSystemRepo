@@ -3,7 +3,7 @@
     width: auto;
     height: 200px;
     margin: 5px auto 0;
-    font: 12pt Arial, sans-serif;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     /*-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);
     -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .5);*/
 }
@@ -17,7 +17,7 @@
 	padding: 5px;
     background: #3399ff;
     color: #ffffff;
-    font-family:'Times New Roman';
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     border-width: 1px 0 0 0;
     border-style: solid;
     border-color: #111;
@@ -37,6 +37,7 @@
     float: left;
     color: white;
     cursor: pointer;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     background-position: center -30px;
 }
 
@@ -46,12 +47,13 @@
     float: right;
     color: white;
     cursor: pointer;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
     background-position: center 0px;
 }
 
 .ui-datepicker thead {
     background-color: #f7f7f7;
-
+font-family: Verdana, Arial, Helvetica, sans-serif;
     /*border-bottom: 1px solid #bbb;*/
 }
 
@@ -65,6 +67,7 @@
 }
 
 .ui-datepicker tbody td {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
     padding: 0;
     /*border-right: 1px solid #808080;*/
 }
@@ -83,6 +86,7 @@
 
 .ui-datepicker a {
     text-decoration: none;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 .ui-datepicker td span, .ui-datepicker td a {
@@ -95,7 +99,9 @@
     height: 20px;
     line-height: 20px;
     color: #ffffff;
-    /*text-shadow: 1px 1px 0px #fff;*/
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    /*text-shadow: 1px 1px
+     0px #fff;*/
     /*filter: dropshadow(color=#fff, offx=1, offy=1);*/
 }
 
@@ -127,4 +133,5 @@
 .ui-datepicker-unselectable .ui-state-default {
     background: #D6E4BE;
     color: #000;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
 }

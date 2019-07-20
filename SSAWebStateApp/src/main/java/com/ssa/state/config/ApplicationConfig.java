@@ -29,6 +29,6 @@ public class ApplicationConfig {
 		LOGGER.info("***ApplicationConfig***");
 	}
 
-	private Map<String, String> data = new HashMap<>();
+	private Map<String, String> properties = new HashMap<>();
 
 }

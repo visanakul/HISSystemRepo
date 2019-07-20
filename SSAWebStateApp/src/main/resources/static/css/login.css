@@ -5,39 +5,6 @@ body {
 	background: linear-gradient(to right, #420c04, #911705);
 }
 
-thead th {
-	position: sticky;
-	top: 0;
-	background: black;
-}
-tfoot th {
-	position: sticky;
-	bottom: 0;
-	background: black;
-}
-
-th {
-	padding: 10px;
-	color: white;
-	font-size: 1rem;
-	width: auto;
-}
-
-td {
-	padding: 10px;
-	color: white;
-	font-size: 1rem;
-	line-height:1.2rem;
-	border: solid black 1px;
-	width: auto;
-}
-td:first-child {
-	text-align: right;
-}
-td:last-child {
-	width: auto;
-}
-
 h2, h3 {
 	font-family: monospace;
 	text-align: center;
@@ -61,13 +28,17 @@ table {
 	margin: auto;
 	width:auto;
 }
-thead,tfoot,img{
-	z-index:1;
-	box-shadow: 0 1rem 1rem 0 black;
-	background: linear-gradient(to right, #0f6b84, #024060);
+td {
+	padding: 10px;
+	color: white;
+	font-size: 0.9rem;
+	line-height:1.2rem;
+	border: solid black 1px;
+	width: auto;
 }
-
-
+td:first-child {
+	text-align: right;
+}
 .btn-container {
 	display: flex;
 	width: auto;
@@ -83,7 +54,7 @@ input[type='reset'], input[type='submit'] {
 	outline: none;
 }
 
-input[type='text'], input[type='password'],input[type='textarea']{
+input[type='text'], input[type='password']{
 	border-radius: 8px;
 	padding: 2px 10px;
 	outline: none;
@@ -104,9 +75,7 @@ a{
 	font-size:1.25rem;
 	color: white;
 }
-img{
-	border: 3px solid white;
-}
+
 .error {
 	margin-left: 5px;
 	color: #ff0000;

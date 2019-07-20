@@ -1,5 +1,7 @@
 package com.ssa.state.service;
 
+import java.util.List;
+
 import com.ssa.state.model.PlanModel;
 
 /**
@@ -9,4 +11,6 @@ import com.ssa.state.model.PlanModel;
  */
 public interface IPlanService {
 	boolean savePlan(PlanModel planModel);
+	List<PlanModel> getAllPlans();
+	boolean planDeactivateOrActivate(boolean active,Integer id);
 }

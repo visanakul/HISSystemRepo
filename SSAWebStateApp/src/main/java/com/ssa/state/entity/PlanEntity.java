@@ -2,6 +2,7 @@ package com.ssa.state.entity;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -61,4 +62,8 @@ public class PlanEntity {
 	@NotNull
 	@DateTimeFormat(pattern = "DD-MM-YYYY")
 	private Date endDate;
+	/**
+	 * Stores plan status 
+	 */
+	private boolean active;
 }

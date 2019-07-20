@@ -23,13 +23,14 @@
 	<c:if test="${empty operationPerformedMsg}">
 		<h2>${operationSelectedMsg}</h2>
 	</c:if>
-	
+
 	<c:if test="${not empty operationPerformedMsg}">
 		<h2>${operationPerformedMsg}</h2>
 	</c:if>
 
 
-	<form:form id="regForm" name="regForm" action="save_account"
+	<form:form id="regForm" name="regForm"
+		action="${registerStatus?'save_account':'update_account'}"
 		method="post" modelAttribute="account" autocomplete="off">
 		<form:hidden path="accNo" name="accNo" />
 		<table>
@@ -58,8 +59,12 @@
 				</tr>
 				<tr>
 					<td>Password :</td>
-					<td><form:password path="password" name="password" /> <form:errors
-							path="password" cssClass="error" /></td>
+					<td><c:if
+							test="${registerStatus}">
+							<form:password path="password" name="password" />
+						</c:if> <c:if test="${not registerStatus}">
+							<form:input path="password" name="password" />
+						</c:if> <form:errors path="password" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td>Select DOB :</td>
@@ -98,7 +103,7 @@
 				<tr>
 					<td colspan="2" style="text-align: center;"><input
 						type="reset" value="Reset" /> <input id="process" type="submit"
-						value="${registerStatus ? 'Register':'Update'}"
+						value="${operation}"
 						onclick="regFormValidate();" /></td>
 
 				</tr>
@@ -106,7 +111,7 @@
 		</table>
 	</form:form>
 
-	<a href="getlist1">Show all Accounts</a>
+	<a href="get_account_list">Show all Accounts</a>
 
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

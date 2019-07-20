@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ssa.state.config.ApplicationConfig;
 import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.RoleModel;
 import com.ssa.state.service.IAccountService;
@@ -25,7 +26,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 
 /**
  * Handles all request related to Account
@@ -58,6 +58,12 @@ public class AccountController {
 	private ISendMailService sendMailService;
 
 	/**
+	 * Injecting Application Properties Service
+	 */
+	@Autowired
+	private ApplicationConfig appConfig;
+
+	/**
 	 * Default Constructor
 	 */
 	public AccountController() {
@@ -80,14 +86,16 @@ public class AccountController {
 			if (accNo == null) {
 				LOGGER.info("Request for new account");
 				accountModel = new AccountModel();
-				model.addAttribute("operationSelectedMsg", "Account Registration");
+				model.addAttribute(OP_SELECTED_KEY, ACCOUNT_REGISTRATION_VALUE);
+				model.addAttribute(OPERATION_BUTTON_TEXT, SAVE_TEXT);
 			} else {
 				LOGGER.info("Request for edit account account no : " + accNo);
 				accountModel = accountService.getAccountByAccNo(accNo);
-				model.addAttribute("operationSelectedMsg", "Account Update");
+				model.addAttribute(OP_SELECTED_KEY, ACCOUNT_UPDATE_VALUE);
+				model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TEXT);
 			}
-			
-			model.addAttribute("account", accountModel);
+
+			model.addAttribute(ACC_MODEL_KEY, accountModel);
 			loadGenders(model);
 			loadRoles(model);
 		} catch (Exception exception) {
@@ -104,44 +112,73 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping(value = SAVE_ACC_POST_URL, method = RequestMethod.POST)
-	public String saveOrUpdateAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,
+	public String saveAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes, Model model) {
-		LOGGER.info("saveOrUpdateAccountInfo start");
-
+		LOGGER.info("saveAccountInfo start");
 		try {
-			boolean registerStatus = accountModel.getAccNo() == null;
-
-			String rawPassword = accountModel.getPassword();
 			if (!validateData(bindingResult, model)) {
 				loadGenders(model);
 				loadRoles(model);
-				LOGGER.info("saveOrUpdateAccountInfo end");
+				LOGGER.info("saveAccountInfo end");
 				return ACC_VIEW;
 			}
 			LOGGER.debug("User data Received: " + accountModel.toString());
 
 			boolean result = accountService.addOrUpdateAccount(accountModel);
 			if (result) {
-				redirectAttributes.addFlashAttribute(ACC_REG_OR_UPDATE_REDIRECT_KEY,
-						registerStatus ? ACC_REG_SUCCESS_REDIRECT_VALUE : ACC_UPDATE_SUCCESS_REDIRECT_VALUE);
-				accountModel.setPassword(rawPassword);
+				redirectAttributes.addFlashAttribute(ACC_REG_KEY, ACC_REG_SUCCESS_VALUE);
 				sendMailService.sendMail(accountModel);
 			} else {
-				redirectAttributes.addFlashAttribute(ACC_REG_OR_UPDATE_REDIRECT_KEY,
-						registerStatus ? ACC_REG_FAIL_REDIRECT_VALUE : ACC_UPDATE_FAIL_REDIRECT_VALUE);
+				redirectAttributes.addFlashAttribute(ACC_REG_KEY, ACC_REG_FAIL_VALUE);
 
 			}
-
-			String operationPerformedMsg=registerStatus ? "Account Registration" : "Account Update";
-			LOGGER.debug("operationPerformedMsg : "+operationPerformedMsg);
-			redirectAttributes.addFlashAttribute("operationPerformedMsg",operationPerformedMsg);
+			redirectAttributes.addFlashAttribute(OP_SELECTED_KEY, ACCOUNT_REGISTRATION_VALUE);
+			redirectAttributes.addFlashAttribute(OPERATION_BUTTON_TEXT, SAVE_TEXT);
 		} catch (Exception exception) {
 			LOGGER.error("Exception : " + exception);
 			throw new RuntimeException(exception.getMessage());
 		}
-		LOGGER.info("saveOrUpdateAccountInfo end");
+		LOGGER.info("saveAccountInfo end");
 
 		return REDIRECT_SHOW_ACC_FORM_GET_URL;
+	}
+
+	/**
+	 * Update account info in Db table
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = UPDATE_ACC_POST_URL, method = RequestMethod.POST)
+	public String updateAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,Model model) {
+		LOGGER.info("updateAccountInfo start");
+		try {
+			loadGenders(model);
+			loadRoles(model);
+			if (!validateData(bindingResult, model)) {
+				LOGGER.info("updateAccountInfo end");
+				return ACC_VIEW;
+			}
+			LOGGER.debug("User data Received: " + accountModel.toString());
+
+			boolean result = accountService.addOrUpdateAccount(accountModel);
+			if (result) {
+				model.addAttribute(ACC_UPDATE_KEY, ACC_UPDATE_SUCCESS_VALUE);
+				LOGGER.info(ACC_UPDATE_SUCCESS_VALUE);
+				sendMailService.sendMail(accountModel);
+			} else {
+				model.addAttribute(ACC_UPDATE_KEY, ACC_UPDATE_FAIL_VALUE);
+				LOGGER.info(ACC_UPDATE_FAIL_VALUE);
+			}
+			model.addAttribute(ACC_MODEL_KEY, accountModel);
+			model.addAttribute(OP_SELECTED_KEY, ACCOUNT_UPDATE_VALUE);
+			model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TEXT);
+		} catch (Exception exception) {
+			LOGGER.error("Exception : " + exception);
+			throw new RuntimeException(exception.getMessage());
+		}
+		LOGGER.info("updateAccountInfo end");
+
+		return ACC_VIEW;
 	}
 
 	/**
@@ -224,7 +261,7 @@ public class AccountController {
 		LOGGER.info("sendAllAccount1 start");
 		List<AccountModel> accountModels = accountService.getAllAccounts();
 		LOGGER.debug("AccountModels " + accountModels);
-		model.addAttribute("accountModelList", accountModels);
+		model.addAttribute(ALL_ACCOUNTS_MODEL_KEY, accountModels);
 		LOGGER.info("sendAllAccount1 end");
 		return ALL_ACC_1_VIEW;
 	}

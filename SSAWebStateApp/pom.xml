@@ -19,14 +19,17 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<oracle.version>11.2.0.2</oracle.version>
-		<sprintemplate.version>3.2</sprintemplate.version>
+		<springtemplate.version>1.7</springtemplate.version>
 	</properties>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
+			<artifactId>commons-text</artifactId>
+			<version>${springtemplate.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>

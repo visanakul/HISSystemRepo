@@ -70,7 +70,7 @@ public class EmailSendTest {
 	@Ignore
 	public void test_ReadAndPrepareTemplateFile() {
 		try {
-			String path = appConfig.getData().get("mailFilePath");
+			String path = appConfig.getProperties().get("mailFilePath");
 			LOGGER.debug("Path : " + path);
 			assertNotNull(path);
 
@@ -108,7 +108,7 @@ public class EmailSendTest {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("visanakul@gmail.com"));
 			message.setSubject("HIS system Account");
 
-			String path = appConfig.getData().get("mailFilePath");
+			String path = appConfig.getProperties().get("mailFilePath");
 			LOGGER.debug("Path : " + path);
 			assertNotNull(path);
 
@@ -127,7 +127,7 @@ public class EmailSendTest {
 			valuesMap.put("EMAIL", "abc@gmail.com");
 			valuesMap.put("PWD", "abc123");
 			valuesMap.put("ROLE", "Case Worker");
-			valuesMap.put("PHNO", appConfig.getData().get("phoneno"));
+			valuesMap.put("PHNO", appConfig.getProperties().get("phoneno"));
 			String result = StringTemplateUtils.prepareDocFromTemplate(content, valuesMap);
 			LOGGER.debug("Replaced content : \n" + result);
 			assertFalse(content.equals(result));

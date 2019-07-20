@@ -55,7 +55,7 @@ public class SendMailServiceImpl implements ISendMailService {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(accountModel.getEmail()));
 			message.setSubject("HIS system Account");
 
-			String path = appConfig.getData().get("mailFilePath");
+			String path = appConfig.getProperties().get("mailFilePath");
 			LOGGER.debug("Path : " + path);
 
 			File file = ResourceUtils.getFile("classpath:static/" + path);
@@ -66,11 +66,11 @@ public class SendMailServiceImpl implements ISendMailService {
 			Map<String, String> valuesMap = new HashMap<>();
 			valuesMap.put("FNAME", accountModel.getFname());
 			valuesMap.put("LNAME",accountModel.getLname());
-			valuesMap.put("URL", appConfig.getData().get("baseUrl"));
+			valuesMap.put("URL", appConfig.getProperties().get("baseUrl"));
 			valuesMap.put("EMAIL", accountModel.getEmail());
 			valuesMap.put("PWD", accountModel.getPassword());
 			valuesMap.put("ROLE", accountModel.getRole());
-			valuesMap.put("PHNO", appConfig.getData().get("phoneno"));
+			valuesMap.put("PHNO", appConfig.getProperties().get("phoneno"));
 			String result = StringTemplateUtils.prepareDocFromTemplate(content, valuesMap);
 			LOGGER.debug("Replaced content : \n" + result);
 

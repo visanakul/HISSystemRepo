@@ -42,8 +42,8 @@ spring:
 #Spring Security
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
-# logging configuration
-
+      
+# logging configuration    
 logging:
   level:
     org.springframework: ERROR
@@ -56,9 +56,10 @@ logging:
 #Application config data
 
 myapp:
-  data:
+  properties:
     mailFilePath: docs/ACC_CREATION_EMAIL_BODY_TEMPLATE.txt
     phoneno: 9812345678
     baseUrl: http://localhost:8082/SSAStateApp/login
-
+    
+    
 
