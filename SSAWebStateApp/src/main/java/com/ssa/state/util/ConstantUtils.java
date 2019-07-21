@@ -67,10 +67,6 @@ public class ConstantUtils {// NOPMD
 	 * Model attribute key for all accounts
 	 */
 	public static final String ALL_ACCOUNTS_MODEL_KEY = "accountModelList";
-	/**
-	 * Model attribute key for all plans
-	 */
-	public static final String ALL_PLANS_MODEL_KEY = "planModelList";
 	
 	/**
 	 * Model attribute key for User
@@ -84,10 +80,7 @@ public class ConstantUtils {// NOPMD
 	 * Model attribute key for user list
 	 */
 	public static final String USER_LIST_MODEL_KEY = "userModelList";
-	/**
-	 * Model attribute key for plan add
-	 */
-	public static final String PLAN_MODEL_KEY = "plan";
+	
 	/**
 	 * Model attribute key for Account model
 	 */
@@ -110,12 +103,7 @@ public class ConstantUtils {// NOPMD
 	 */
 	public static final String ACC_UPDATE_KEY = "msg";
 
-	/**
-	 * Registration success redirect attribute key
-	 */
-	public static final String PLAN_SAVE_KEY = "msg";
-
-
+	
 	/**
 	 * Request Attribute flash values
 	 */
@@ -141,16 +129,7 @@ public class ConstantUtils {// NOPMD
 	 */
 	public static final String ACC_UPDATE_FAIL_VALUE = "Account Update Fail...";
 
-	/**
-	 * Plan Add success redirect attribute value
-	 */
-	public static final String PLAN_SAVE_SUCCESS_VALUE = "Plan saved Successfully...";
-
-	/**
-	 * Plan Add fail redirect attribute value
-	 */
-	public static final String PLAN_SAVE_FAIL_VALUE = "Plan save Failed...";
-
+	
 	/**
 	 * Account Reg value attribute value
 	 */
@@ -197,14 +176,7 @@ public class ConstantUtils {// NOPMD
 	 * Check email availability Url
 	 */
 	public static final String CHECK_EMAIL_GET_URL="/check_email";
-	/**
-	 * Save plan Url
-	 */
-	public static final String PLAN_SAVE_POST_URL="/save_plan";
-	/**
-	 * Show plan add Url
-	 */
-	public static final String SHOW_PLAN_GET_URL="/show_plan";
+	
 	/**
 	 * Request redirect Urls
 	 */
@@ -213,16 +185,7 @@ public class ConstantUtils {// NOPMD
 	 * Redirects to Show account add form
 	 */
 	public static final String REDIRECT_SHOW_ACC_FORM_GET_URL = "redirect:/show_account";
-	/**
-	 * Redirects to Show plan add form
-	 */
-	public static final String REDIRECT_PLAN_ADD_GET_URL = "redirect:/show_plan";
-
-	/**
-	 * Send all plans url
-	 */
-	public static final String SEND_ALL_PLANS_GET_URL = "get_plan_list";
-
+	
 	/**
 	 * Rest Controller urls
 	 */
@@ -250,19 +213,12 @@ public class ConstantUtils {// NOPMD
 	 * Show all user form view name
 	 */
 	public static final String ALL_ACC_1_VIEW = "show_accounts_1";
-	/**
-	 * Show all plans  view name
-	 */
-	public static final String ALL_PLAN_VIEW = "show_plans";
+	
 	/**
 	 * Error view name
 	 */
 	public static final String ERROR_VIEW = "error";
 	
-	/**
-	 * Show plan view name
-	 */
-	public static final String PLAN_ADD_VIEW = "add_plan";
 	
 	/**
 	 * Request param names
@@ -366,5 +322,90 @@ public class ConstantUtils {// NOPMD
 		 */
 		public static final String EMAIL_NOT_FOUND_VALUE = "Email id does not exist...";
 		
+	}
+	public static class Plan{
+		/**
+		 * update plan url
+		 */
+		public static final String UPDATE_PLAN_POST_URL="/update_plan";
+		/**
+		 * Show plan view name
+		 */
+		public static final String PLAN_VIEW = "plan";
+		/**
+		 * Model attribute key for plan add
+		 */
+		public static final String PLAN_MODEL_KEY = "plan";
+		/**
+		 * Registration success redirect attribute key
+		 */
+		public static final String PLAN_SAVE_KEY = "msg";
+
+		/**
+		 * Plan Add success redirect attribute value
+		 */
+		public static final String PLAN_SAVE_SUCCESS_VALUE = "Plan saved Successfully...";
+
+		/**
+		 * Plan Add fail redirect attribute value
+		 */
+		public static final String PLAN_SAVE_FAIL_VALUE = "Plan save Failed...";
+		/**
+		 * Save plan Url
+		 */
+		public static final String PLAN_SAVE_POST_URL="/save_plan";
+		/**
+		 * Show plan add Url
+		 */
+		public static final String SHOW_PLAN_GET_URL="/show_plan";
+		/**
+		 * Redirects to Show plan add form
+		 */
+		public static final String REDIRECT_PLAN_ADD_GET_URL = "redirect:/show_plan";
+		/**
+		 * Send all plans url
+		 */
+		public static final String SEND_ALL_PLANS_GET_URL = "get_plan_list";
+
+		/**
+		 * Show all plans  view name
+		 */
+		public static final String ALL_PLAN_VIEW = "show_plans";	
+		/**
+		 * Model attribute key for all plans
+		 */
+		public static final String ALL_PLANS_MODEL_KEY = "planModelList";
+		/**
+		 * PLAN update key
+		 */
+		public static final String PLAN_UPDATE_KEY="msg";
+		/**
+		 * PLAN update success value
+		 */
+		public static final String	PLAN_UPDATE_SUCCESS_VALUE="Plan updated successfully...";
+		/**
+		 * PLAN update fail value
+		 */
+		public static final String	PLAN_UPDATE_FAIL_VALUE="Plan update error...";
+		/**
+		 * Model attribute Operation selected
+		 */
+		public static final String OP_SELECTED_KEY = "operationSelectedMsg";
+		/**
+		 * Button operation key 
+		 */
+		public static final String OPERATION_BUTTON_TEXT = "operation";
+		/**
+		 * Plan Add value attribute value
+		 */
+		public static final String PLAN_ADD_VALUE = "Plan Add";
+		/**
+		 * Plan Update value attribute value
+		 */
+		public static final String PLAN_UPDATE_VALUE = "Plan Update";
+		/**
+		 * Button operation update value 
+		 */
+		public static final String UPDATE_TEXT = "Update";
 	}
 }

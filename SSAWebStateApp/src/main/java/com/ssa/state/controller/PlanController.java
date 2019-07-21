@@ -9,6 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -16,7 +18,14 @@ import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.PlanModel;
 import com.ssa.state.service.IPlanService;
 
-import static com.ssa.state.util.ConstantUtils.*;
+import static com.ssa.state.util.ConstantUtils.ACCOUNT_REGISTRATION_VALUE;
+import static com.ssa.state.util.ConstantUtils.ACCOUNT_UPDATE_VALUE;
+import static com.ssa.state.util.ConstantUtils.ACC_MODEL_KEY;
+import static com.ssa.state.util.ConstantUtils.OPERATION_BUTTON_TEXT;
+import static com.ssa.state.util.ConstantUtils.OP_SELECTED_KEY;
+import static com.ssa.state.util.ConstantUtils.SAVE_TEXT;
+import static com.ssa.state.util.ConstantUtils.UPDATE_TEXT;
+import static com.ssa.state.util.ConstantUtils.Plan.*;
 
 import java.util.List;
 
@@ -54,11 +63,30 @@ public class PlanController {
 	 * @return
 	 */
 	@RequestMapping(SHOW_PLAN_GET_URL)
-	public String showPlanForm(Model model) {
+	public String showPlanForm(@RequestParam(value = "accNo", required = false) Integer id, Model model) {
 		LOGGER.info("***showPlanForm start***");
-		model.addAttribute(PLAN_MODEL_KEY, new PlanModel());
-		LOGGER.info("***showPlanForm end***");
-		return PLAN_ADD_VIEW;
+		try {
+			PlanModel planModel = null;
+			if (id == null) {
+				LOGGER.info("Request for new plan");
+				planModel = new PlanModel();
+				model.addAttribute(OP_SELECTED_KEY, PLAN_ADD_VALUE);
+				model.addAttribute(OPERATION_BUTTON_TEXT, SAVE_TEXT);
+			} else {
+				LOGGER.info("Request for edit plan id : " + id);
+				planModel = planService.getPlanById(id);
+				model.addAttribute(OP_SELECTED_KEY, PLAN_UPDATE_VALUE);
+				model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TEXT);
+			}
+			model.addAttribute(PLAN_MODEL_KEY, planModel);
+			return PLAN_VIEW;
+		} catch (Exception exception) {
+			LOGGER.error("Error in hadling showPlanAddOrEditForm request");
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("showPlanForm end");
+		}
+
 	}
 
 	/**
@@ -75,7 +103,7 @@ public class PlanController {
 			LOGGER.debug("Plan data Received: " + planModel.toString());
 			if (!validateData(bindingResult, model)) {
 				LOGGER.info("***savePlan controller end***");
-				return PLAN_ADD_VIEW;
+				return PLAN_VIEW;
 			}
 
 			boolean result = planService.savePlan(planModel);
@@ -142,6 +170,7 @@ public class PlanController {
 		}
 
 	}
+
 	@RequestMapping("soft_delete/{id}/{active}/plan")
 	@Transactional
 	public @ResponseBody String softDeleteRequest(@PathVariable("id") Integer id,
@@ -163,4 +192,39 @@ public class PlanController {
 			throw new RuntimeException(e.getMessage());
 		}
 	}
+
+	/**
+	 * Update plan info in Db table
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = UPDATE_PLAN_POST_URL, method = RequestMethod.POST)
+	public String updatePlanInfo(@Valid @ModelAttribute PlanModel planModel, BindingResult bindingResult, Model model) {
+		LOGGER.info("updatePlanInfo start");
+		try {
+			if (!validateData(bindingResult, model)) {
+				return PLAN_VIEW;
+			}
+			LOGGER.debug("Plan data Received: " + planModel.toString());
+
+			boolean result = planService.addOrUpdatePlan(planModel);
+			if (result) {
+				model.addAttribute(PLAN_UPDATE_KEY, PLAN_UPDATE_SUCCESS_VALUE);
+				LOGGER.info(PLAN_UPDATE_SUCCESS_VALUE);
+			} else {
+				model.addAttribute(PLAN_UPDATE_KEY, PLAN_UPDATE_FAIL_VALUE);
+				LOGGER.info(PLAN_UPDATE_FAIL_VALUE);
+			}
+			model.addAttribute(PLAN_MODEL_KEY, planModel);
+			model.addAttribute(OP_SELECTED_KEY, PLAN_UPDATE_VALUE);
+			model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TEXT);
+		} catch (Exception exception) {
+			LOGGER.error("Exception : " + exception);
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("updatePlanInfo end");
+		}
+		return PLAN_VIEW;
+	}
+
 }

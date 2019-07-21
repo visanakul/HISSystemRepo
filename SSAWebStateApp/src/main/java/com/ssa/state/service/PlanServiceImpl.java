@@ -2,6 +2,7 @@ package com.ssa.state.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +14,6 @@ import com.ssa.state.entity.PlanEntity;
 import com.ssa.state.exception.PlanSaveException;
 import com.ssa.state.model.PlanModel;
 import com.ssa.state.repository.IPlanRepository;
-
-import oracle.net.aso.e;
 
 /**
  * PlanService implementation for PLAN_MASTER table
@@ -89,10 +88,73 @@ public class PlanServiceImpl implements IPlanService {
 	@Override
 	public boolean planDeactivateOrActivate(boolean active, Integer id) {
 		LOGGER.info("planDeactivateOrActivate service start");
-		Integer status = planRepository.softDeleteOrActiveById(active, id);
-		LOGGER.debug("Activation Status : " + status);
-		LOGGER.info("planDeactivateOrActivate service end");
-		return status > 0;
+		try {
+			LOGGER.debug("Plan active: {},id: {} received : ", active, id);
+			Integer status = planRepository.softDeleteOrActiveById(active, id);
+			LOGGER.debug("Activation Status : " + status);
+			LOGGER.info("planDeactivateOrActivate service end");
+			return status > 0;
+		} catch (Exception exception) {
+			LOGGER.error("addOrUpdatePlan error : " + exception.getMessage());
+			exception.printStackTrace();
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("planDeactivateOrActivate service end");
+		}
+	}
+
+	@Override
+	public boolean addOrUpdatePlan(PlanModel planModel) {
+		LOGGER.info("addOrUpdatePlan service start");
+		try {
+			LOGGER.debug("Plan model received : " + planModel);
+
+			planModel.setActive(true);
+
+			PlanEntity planEntity = new PlanEntity();
+			/**
+			 * Converting PlanModel to PlanEntity
+			 */
+			BeanUtils.copyProperties(planModel, planEntity);
+			/**
+			 * Saving record
+			 */
+			planEntity = planRepository.save(planEntity);
+			LOGGER.debug("Plan entity after save or update : " + planEntity);
+			return planEntity.getId() > 0;
+		} catch (Exception exception) {
+			LOGGER.error("addOrUpdatePlan error : " + exception.getMessage());
+			exception.printStackTrace();
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("addOrUpdatePlan service end");
+		}
+
+	}
+
+	@Override
+	public PlanModel getPlanById(Integer id) {
+		LOGGER.info("getPlanById service start");
+		try {
+			Optional<PlanEntity> planEntityOptional = planRepository.findById(id);
+			if (!planEntityOptional.isPresent()) {
+				LOGGER.info("No plan found");
+				return null;
+			}
+			PlanModel planModel = new PlanModel();
+			LOGGER.debug("PlanEntity : " + planEntityOptional.get());
+			PlanEntity planEntity = planEntityOptional.get();
+			BeanUtils.copyProperties(planEntity, planModel);
+			LOGGER.debug("PlanModel : " + planModel);
+
+			return planModel;
+		} catch (Exception exception) {
+			LOGGER.error("planDeactivateOrActivate error : " + exception.getMessage());
+			exception.printStackTrace();
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("getPlanById service end");
+		}
 	}
 
 }

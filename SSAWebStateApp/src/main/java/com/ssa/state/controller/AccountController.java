@@ -102,7 +102,9 @@ public class AccountController {
 			LOGGER.error("Error in hadling showAccountAddOrEditForm request");
 			throw new RuntimeException(exception.getMessage());
 		}
+		finally {
 		LOGGER.info("showAccountAddForm end");
+		}
 		return ACC_VIEW;
 	}
 

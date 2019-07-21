@@ -1,6 +1,6 @@
 $(function() {
 	$("#datepicker1").datepicker({
-		format : 'DD-MM-YYYY',
+		dateFormat : 'dd-M-yy',
 		changeYear : true,
 		changeMonth : true,
 		minDate : 0,
@@ -15,7 +15,7 @@ $(function() {
 		}
 	});
 	$("#datepicker2").datepicker({
-		format : 'DD-MM-YYYY',
+		dateFormat : 'dd-M-yy',
 		changeYear : true,
 		changeMonth : true,
 		minDate : 0 + 2,

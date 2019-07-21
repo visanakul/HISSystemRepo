@@ -43,24 +43,32 @@ public class AccountServiceImpl implements IAccountService {
 	@Override
 	public boolean addOrUpdateAccount(AccountModel accountModel) {
 		LOGGER.info("addOrUpdateAccount start");
-		LOGGER.debug("Account model received : " + accountModel);
+		try {
+			LOGGER.debug("Account model received : " + accountModel);
 
-		accountModel.setActive(true);
+			accountModel.setActive(true);
 
-		AccountEntity accountEntity = new AccountEntity();
-		/**
-		 * Converting AccountModel to AccountEntity
-		 */
-		BeanUtils.copyProperties(accountModel, accountEntity);
-		// Encrypting password
-		accountEntity.setPassword(PasswordUtils.encryptPassword(accountEntity.getPassword()));
-		/**
-		 * Saving record
-		 */
-		accountEntity = accountRepository.save(accountEntity);
-		LOGGER.debug("Account entity after save or update : " + accountEntity);
-		LOGGER.info("addOrUpdateAccount end");
-		return accountEntity.getAccNo() > 0;
+			AccountEntity accountEntity = new AccountEntity();
+			/**
+			 * Converting AccountModel to AccountEntity
+			 */
+			BeanUtils.copyProperties(accountModel, accountEntity);
+			// Encrypting password
+			accountEntity.setPassword(PasswordUtils.encryptPassword(accountEntity.getPassword()));
+			/**
+			 * Saving record
+			 */
+			accountEntity = accountRepository.save(accountEntity);
+			LOGGER.debug("Account entity after save or update : " + accountEntity);
+
+			return accountEntity.getAccNo() > 0;
+		} catch (Exception exception) {
+			LOGGER.error("addOrUpdateAccount error : " + exception.getMessage());
+			exception.printStackTrace();
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("addOrUpdateAccount service end");
+		}
 	}
 
 	@Override
@@ -91,10 +99,18 @@ public class AccountServiceImpl implements IAccountService {
 	 */
 	@Override
 	public boolean checkEmail(String email) {
-		LOGGER.info("checkEmail service start");
-		Integer accNo = accountRepository.findAccNoByEmail(email);
-		LOGGER.info("checkEmail service end");
-		return accNo != null;
+		try {
+			LOGGER.info("checkEmail service start");
+			Integer accNo = accountRepository.findAccNoByEmail(email);
+			LOGGER.info("checkEmail service end");
+			return accNo != null;
+		} catch (Exception exception) {
+			LOGGER.error("checkEmail error : " + exception.getMessage());
+			exception.printStackTrace();
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("checkEmail service end");
+		}
 	}
 
 	/**
@@ -102,11 +118,18 @@ public class AccountServiceImpl implements IAccountService {
 	 */
 	@Override
 	public boolean accountDeactivateOrActivate(boolean active, Integer accNo) {
-		LOGGER.info("accountDeactivateOrActivate service start");
-		Integer status = accountRepository.softDeleteOrActiveById(active, accNo);
-		LOGGER.debug("Activation Status : " + status);
-		LOGGER.info("accountDeactivateOrActivate service end");
-		return status > 0;
+		try {
+			LOGGER.info("accountDeactivateOrActivate service start");
+			Integer status = accountRepository.softDeleteOrActiveById(active, accNo);
+			LOGGER.debug("Activation Status : " + status);
+			return status > 0;
+		} catch (Exception exception) {
+			LOGGER.error("accountDeactivateOrActivate error : " + exception.getMessage());
+			exception.printStackTrace();
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("accountDeactivateOrActivate service end");
+		}
 	}
 
 	/**
@@ -115,32 +138,39 @@ public class AccountServiceImpl implements IAccountService {
 	@Override
 	public AccountModel getAccountByAccNo(Integer accNo) {
 		LOGGER.info("getAccountByAccNo service start");
-		Optional<AccountEntity> accountEntityOptional = accountRepository.findById(accNo);
-		if (!accountEntityOptional.isPresent()) {
-			LOGGER.info("Throwing AccountNotFoundException");
-			throw new AccountNotFoundException("No account found");
+		try {
+			Optional<AccountEntity> accountEntityOptional = accountRepository.findById(accNo);
+			if (!accountEntityOptional.isPresent()) {
+				LOGGER.info("No account found");
+				return null;
+			}
+			AccountModel accountModel = new AccountModel();
+			LOGGER.debug("AccountEntity : " + accountEntityOptional.get());
+			AccountEntity accountEntity = accountEntityOptional.get();
+			BeanUtils.copyProperties(accountEntity, accountModel);
+			accountModel.setPassword(PasswordUtils.decryptPassword(accountModel.getPassword()));
+			LOGGER.debug("AccountModel : " + accountModel);
+
+			return accountModel;
+		} catch (Exception exception) {
+			LOGGER.error("accountDeactivateOrActivate error : " + exception.getMessage());
+			exception.printStackTrace();
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("accountDeactivateOrActivate service end");
 		}
-		AccountModel accountModel = new AccountModel();
-		LOGGER.debug("AccountEntity : " + accountEntityOptional.get());
-		AccountEntity accountEntity = accountEntityOptional.get();
-		BeanUtils.copyProperties(accountEntity, accountModel);
-		accountModel.setPassword(PasswordUtils.decryptPassword(accountModel.getPassword()));
-		LOGGER.debug("AccountModel : " + accountModel);
-		LOGGER.info("getAccountByAccNo service end");
-		return accountModel;
 	}
 
 	@Override
 	public Login doesUserExist(String email, String password) {
 		LOGGER.info("doesUserExist service start");
 		try {
-			Login login = accountRepository.findByEmailAndPassword(email,
-					PasswordUtils.encryptPassword(password));
+			Login login = accountRepository.findByEmailAndPassword(email, PasswordUtils.encryptPassword(password));
 			if (login == null) {
 				LOGGER.warn("No record");
 				return null;
 			}
-			LOGGER.debug("Login data : " + login.getEmail()+","+login.getActive()+","+login.getRole());
+			LOGGER.debug("Login data : " + login.getEmail() + "," + login.getActive() + "," + login.getRole());
 			LOGGER.info("doesUserExist service end");
 			return login;
 		} catch (Exception exception) {
@@ -156,14 +186,15 @@ public class AccountServiceImpl implements IAccountService {
 	public ForgotPassword getDataByEmail(String email) {
 		LOGGER.info("getDataByEmail service start");
 		try {
-			ForgotPassword forgotPassword=accountRepository.findByEmail(email);
-			if(forgotPassword==null) {
+			ForgotPassword forgotPassword = accountRepository.findByEmail(email);
+			if (forgotPassword == null) {
 				LOGGER.warn("No data found");
 				return null;
 			}
-			LOGGER.debug("Forgot Data :" + forgotPassword.getFname()+","+forgotPassword.getLname()+","+forgotPassword.getPassword()+","+forgotPassword.getActive());
+			LOGGER.debug("Forgot Data :" + forgotPassword.getFname() + "," + forgotPassword.getLname() + ","
+					+ forgotPassword.getPassword() + "," + forgotPassword.getActive());
 			return forgotPassword;
-			
+
 		} catch (Exception e) {
 			LOGGER.error("Error : " + e.getMessage());
 			throw new RuntimeException(e.getMessage());
