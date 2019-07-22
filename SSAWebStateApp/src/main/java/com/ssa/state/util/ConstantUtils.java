@@ -21,17 +21,6 @@ public class ConstantUtils {// NOPMD
 	public static final String RESOURCE_PACKAGE = "com.ssa.state.resource";
 
 	/**
-	 * Value constants
-	 */
-	/**
-	 * Male value
-	 */
-	public static final String MALE = "Male";
-	/**
-	 * Fe-Male value
-	 */
-	public static final String FEMALE = "Female";
-	/**
 	 * Email exists value
 	 */
 	public static final String EMAIL_EXISTS = "Email Already Exists";
@@ -41,202 +30,179 @@ public class ConstantUtils {// NOPMD
 	public static final String EMAIL_OK = "OK";
 
 	/**
-	 * Button operation key 
+	 * Button operation key
 	 */
 	public static final String OPERATION_BUTTON_TEXT = "operation";
 	/**
-	 * Button operation save value 
+	 * Button operation save value
 	 */
 	public static final String SAVE_TEXT = "Save";
 	/**
-	 * Button operation update value 
+	 * Button operation update value
 	 */
 	public static final String UPDATE_TEXT = "Update";
-	/**
-	 * Model Attributes Keys
-	 */
-	/**
-	 * Model attribute key for Genders
-	 */
-	public static final String GENDERS_MODEL_KEY = "genders";
-	/**
-	 * Model attribute key for roles
-	 */
-	public static final String ROLES_MODEL_KEY = "roles";
-	/**
-	 * Model attribute key for all accounts
-	 */
-	public static final String ALL_ACCOUNTS_MODEL_KEY = "accountModelList";
-	
-	/**
-	 * Model attribute key for User
-	 */
-	public static final String USER_MODEL_KEY = "user";
-	/**
-	 * Model attribute key for state
-	 */
-	public static final String STATES_MODEL_KEY = "states";
-	/**
-	 * Model attribute key for user list
-	 */
-	public static final String USER_LIST_MODEL_KEY = "userModelList";
-	
-	/**
-	 * Model attribute key for Account model
-	 */
-	public static final String ACC_MODEL_KEY = "account";
-	
 	/**
 	 * Model attribute Operation selected
 	 */
 	public static final String OP_SELECTED_KEY = "operationSelectedMsg";
-	
-	/**
-	 * Request Attribute flash keys
-	 */
-	/**
-	 * Registration success  attribute key
-	 */
-	public static final String ACC_REG_KEY = "msg";
-	/**
-	 * Update success  attribute key
-	 */
-	public static final String ACC_UPDATE_KEY = "msg";
 
-	
-	/**
-	 * Request Attribute flash values
-	 */
-	
-	/**
-	 * Registration success redirect attribute value
-	 */
-	
-	public static final String ACC_REG_SUCCESS_VALUE = "Account Registration Successful...";
-
-	/**
-	 * Registration fail redirect attribute value
-	 */
-	public static final String ACC_REG_FAIL_VALUE = "Account Registration Fail...";
-
-	/**
-	 * Account update success redirect attribute value
-	 */
-	public static final String ACC_UPDATE_SUCCESS_VALUE = "Account Update Successful...";
-
-	/**
-	 * Account update fail redirect attribute value
-	 */
-	public static final String ACC_UPDATE_FAIL_VALUE = "Account Update Fail...";
-
-	
-	/**
-	 * Account Reg value attribute value
-	 */
-	public static final String ACCOUNT_REGISTRATION_VALUE = "Account Registration";
-	/**
-	 * Account Update value attribute value
-	 */
-	public static final String ACCOUNT_UPDATE_VALUE = "Account Update";
-	
-	/**
-	 * Request Mapping urls
-	 */
-	/**
-	 * Show account add form url
-	 */
-	public static final String SHOW_ACC_FORM_GET_URL = "/show_account";
-	
-	/**
-	 * Account save user in DB url
-	 */
-	public static final String SAVE_ACC_POST_URL = "/save_account";
-	/**
-	 * Account update user in DB url
-	 */
-	public static final String UPDATE_ACC_POST_URL = "/update_account";
-	/**
-	 * Show all account form 
-	 */
-	public static final String SHOW_ALL_ACC_GET_URL = "/showall";
-	/**
-	 * Send all user form DB url
-	 */
-	public static final String SEND_ALL_ACCOUNTS_GET_URL="/getlist";
-	/**
-	 * Send all user form DB url
-	 */
-	public static final String SEND_ALL_ACCOUNTS_1_GET_URL="/get_account_list";
 	/**
 	 * Show email Page
 	 */
-	public static final String SHOW_EMAIL_GET_URL="/show_email";
-	
+	public static final String SHOW_EMAIL_GET_URL = "/show_email";
+
 	/**
 	 * Check email availability Url
 	 */
-	public static final String CHECK_EMAIL_GET_URL="/check_email";
-	
-	/**
-	 * Request redirect Urls
-	 */
+	public static final String CHECK_EMAIL_GET_URL = "/check_email";
 
-	/**
-	 * Redirects to Show account add form
-	 */
-	public static final String REDIRECT_SHOW_ACC_FORM_GET_URL = "redirect:/show_account";
-	
-	/**
-	 * Rest Controller urls
-	 */
-	/**
-	 * Get state by using ssn as a PathVariable
-	 */
-	public static final String GET_STATE_GET_URL = "/getState/{ssn}";
-
-	/**
-	 * Logical views
-	 */
-	/**
-	 * Register user form view name
-	 */
-	public static final String ACC_VIEW = "account";
 	/**
 	 * Email form view name
 	 */
 	public static final String EMAIL_VIEW = "email";
-	/**
-	 * Show all user form view name
-	 */
-	public static final String ALL_ACC_VIEW = "show_accounts";
-	/**
-	 * Show all user form view name
-	 */
-	public static final String ALL_ACC_1_VIEW = "show_accounts_1";
-	
+
 	/**
 	 * Error view name
 	 */
 	public static final String ERROR_VIEW = "error";
-	
-	
-	/**
-	 * Request param names
-	 */
-	/**
-	 * Photo file request parameter
-	 */
-	public static final String PHOTO_FILE_REQUEST_PARAM = "photoFile";
-
 	/**
 	 * Exception keys
 	 */
 	/**
 	 * Key to store exception
 	 */
-	public static final String EXC_KEY = "errMsg";
+	public static final String EXC_KEY = "exception";
 
-	public static class Login{
+	public static class Account {
+		/**
+		 * Value constants
+		 */
+		/**
+		 * Male value
+		 */
+		public static final String MALE = "Male";
+		/**
+		 * Fe-Male value
+		 */
+		public static final String FEMALE = "Female";
+		/**
+		 * Request Attribute flash keys
+		 */
+		/**
+		 * Registration success attribute key
+		 */
+		public static final String ACC_REG_KEY = "msg";
+		/**
+		 * Update success attribute key
+		 */
+		public static final String ACC_UPDATE_KEY = "msg";
+
+		/**
+		 * Request Attribute flash values
+		 */
+
+		/**
+		 * Registration success redirect attribute value
+		 */
+
+		public static final String ACC_REG_SUCCESS_VALUE = "Account Registration Successful...";
+
+		/**
+		 * Registration fail redirect attribute value
+		 */
+		public static final String ACC_REG_FAIL_VALUE = "Account Registration Fail...";
+
+		/**
+		 * Account update success redirect attribute value
+		 */
+		public static final String ACC_UPDATE_SUCCESS_VALUE = "Account Update Successful...";
+
+		/**
+		 * Account update fail redirect attribute value
+		 */
+		public static final String ACC_UPDATE_FAIL_VALUE = "Account Update Fail...";
+
+		/**
+		 * Account Reg value attribute value
+		 */
+		public static final String ACCOUNT_REGISTRATION_VALUE = "Account Registration";
+		/**
+		 * Account Update value attribute value
+		 */
+		public static final String ACCOUNT_UPDATE_VALUE = "Account Update";
+
+		/**
+		 * Request Mapping urls
+		 */
+		/**
+		 * Show account add form url
+		 */
+		public static final String SHOW_ACC_FORM_GET_URL = "/show_account";
+
+		/**
+		 * Account save user in DB url
+		 */
+		public static final String SAVE_ACC_POST_URL = "/save_account";
+		/**
+		 * Account update user in DB url
+		 */
+		public static final String UPDATE_ACC_POST_URL = "/update_account";
+		/**
+		 * Show all account form
+		 */
+		public static final String SHOW_ALL_ACC_GET_URL = "/showall";
+		/**
+		 * Send all user form DB url
+		 */
+		public static final String SEND_ALL_ACCOUNTS_GET_URL = "/getlist";
+		/**
+		 * Send all user form DB url
+		 */
+		public static final String SEND_ALL_ACCOUNTS_1_GET_URL = "/get_account_list";
+		/**
+		 * Request redirect Urls
+		 */
+
+		/**
+		 * Redirects to Show account add form
+		 */
+		public static final String REDIRECT_SHOW_ACC_FORM_GET_URL = "redirect:/show_account";
+		/**
+		 * Logical views
+		 */
+		/**
+		 * Register user form view name
+		 */
+		public static final String ACC_VIEW = "account";
+		/**
+		 * Show all user form view name
+		 */
+		public static final String ALL_ACC_VIEW = "show_accounts";
+		/**
+		 * Show all user form view name
+		 */
+		public static final String ALL_ACC_1_VIEW = "show_accounts_1";
+
+		/**
+		 * Model attribute key for Account model
+		 */
+		public static final String ACC_MODEL_KEY = "account";
+		/**
+		 * Model attribute key for Genders
+		 */
+		public static final String GENDERS_MODEL_KEY = "genders";
+		/**
+		 * Model attribute key for roles
+		 */
+		public static final String ROLES_MODEL_KEY = "roles";
+		/**
+		 * Model attribute key for all accounts
+		 */
+		public static final String ALL_ACCOUNTS_MODEL_KEY = "accountModelList";
+
+	}
+
+	public static class Login {
 		/**
 		 * Show login form url
 		 */
@@ -245,7 +211,7 @@ public class ConstantUtils {// NOPMD
 		 * Login view name
 		 */
 		public static final String LOGIN_VIEW = "login";
-		
+
 		/**
 		 * Check login form url
 		 */
@@ -269,9 +235,9 @@ public class ConstantUtils {// NOPMD
 		/**
 		 * Account inactive value
 		 */
-		
+
 		public static final String ACCOUNT_INACTIVE_VALUE = "Account is inactive...";
-		
+
 		/**
 		 * Login session key
 		 */
@@ -284,9 +250,10 @@ public class ConstantUtils {// NOPMD
 		 * Login to Home redirect
 		 */
 		public static final String LOGIN_TO_HOME_REDIRECT_GET_URL = "redirect:/show_home";
-		
+
 	}
-	public static class Home{
+
+	public static class Home {
 		/**
 		 * Show home form url
 		 */
@@ -296,7 +263,8 @@ public class ConstantUtils {// NOPMD
 		 */
 		public static final String HOME_VIEW = "home";
 	}
-	public static class ForgotPassword{
+
+	public static class ForgotPassword {
 		/**
 		 * Show home form url
 		 */
@@ -321,13 +289,14 @@ public class ConstantUtils {// NOPMD
 		 * Send password value
 		 */
 		public static final String EMAIL_NOT_FOUND_VALUE = "Email id does not exist...";
-		
+
 	}
-	public static class Plan{
+
+	public static class Plan {
 		/**
 		 * update plan url
 		 */
-		public static final String UPDATE_PLAN_POST_URL="/update_plan";
+		public static final String UPDATE_PLAN_POST_URL = "/update_plan";
 		/**
 		 * Show plan view name
 		 */
@@ -353,11 +322,11 @@ public class ConstantUtils {// NOPMD
 		/**
 		 * Save plan Url
 		 */
-		public static final String PLAN_SAVE_POST_URL="/save_plan";
+		public static final String PLAN_SAVE_POST_URL = "/save_plan";
 		/**
 		 * Show plan add Url
 		 */
-		public static final String SHOW_PLAN_GET_URL="/show_plan";
+		public static final String SHOW_PLAN_GET_URL = "/show_plan";
 		/**
 		 * Redirects to Show plan add form
 		 */
@@ -368,9 +337,9 @@ public class ConstantUtils {// NOPMD
 		public static final String SEND_ALL_PLANS_GET_URL = "get_plan_list";
 
 		/**
-		 * Show all plans  view name
+		 * Show all plans view name
 		 */
-		public static final String ALL_PLAN_VIEW = "show_plans";	
+		public static final String ALL_PLAN_VIEW = "show_plans";
 		/**
 		 * Model attribute key for all plans
 		 */
@@ -378,23 +347,16 @@ public class ConstantUtils {// NOPMD
 		/**
 		 * PLAN update key
 		 */
-		public static final String PLAN_UPDATE_KEY="msg";
+		public static final String PLAN_UPDATE_KEY = "msg";
 		/**
 		 * PLAN update success value
 		 */
-		public static final String	PLAN_UPDATE_SUCCESS_VALUE="Plan updated successfully...";
+		public static final String PLAN_UPDATE_SUCCESS_VALUE = "Plan updated successfully...";
 		/**
 		 * PLAN update fail value
 		 */
-		public static final String	PLAN_UPDATE_FAIL_VALUE="Plan update error...";
-		/**
-		 * Model attribute Operation selected
-		 */
-		public static final String OP_SELECTED_KEY = "operationSelectedMsg";
-		/**
-		 * Button operation key 
-		 */
-		public static final String OPERATION_BUTTON_TEXT = "operation";
+		public static final String PLAN_UPDATE_FAIL_VALUE = "Plan update error...";
+
 		/**
 		 * Plan Add value attribute value
 		 */
@@ -403,9 +365,6 @@ public class ConstantUtils {// NOPMD
 		 * Plan Update value attribute value
 		 */
 		public static final String PLAN_UPDATE_VALUE = "Plan Update";
-		/**
-		 * Button operation update value 
-		 */
-		public static final String UPDATE_TEXT = "Update";
+
 	}
 }

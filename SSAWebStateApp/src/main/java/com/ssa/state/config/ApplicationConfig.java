@@ -7,8 +7,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+
+import com.ssa.state.model.LoginModel;
 
 import lombok.Data;
 
@@ -30,5 +36,4 @@ public class ApplicationConfig {
 	}
 
 	private Map<String, String> properties = new HashMap<>();
-
 }

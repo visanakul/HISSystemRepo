@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<jsp:include page="menu.jsp"></jsp:include>
 	<h2>Welcome ${email} to Home Page</h2>
 </body>
 </html>

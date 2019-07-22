@@ -2,7 +2,11 @@ package com.ssa.state.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.ForgotPassword;
@@ -20,6 +25,7 @@ import com.ssa.state.util.PasswordUtils;
 
 import static com.ssa.state.util.ConstantUtils.Login.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -64,11 +70,12 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(value = CHECK_LOGIN_POST_URL, method = RequestMethod.POST)
-	public String checkLoginData(HttpServletRequest request, @ModelAttribute("login") LoginModel loginModel,
+	public String checkLoginData(HttpSession ses, @ModelAttribute("login") LoginModel loginModel, 
 			Model model) {
 		try {
 			LOGGER.info("checkLoginData start");
-			Login login = accountService.doesUserExist(loginModel.getEmail(), loginModel.getPassword());
+			Login login = accountService.doesUserExist(loginModel.getEmail(), 
+					loginModel.getPassword());
 			if (login == null) {
 				LOGGER.warn("Login fail");
 				model.addAttribute(LOGIN_KEY, LOGIN_FAILED_VALUE);
@@ -83,10 +90,9 @@ public class LoginController {
 				model.addAttribute(LOGIN_MODEL_KEY, loginModel);
 				return LOGIN_VIEW;
 			}
-
-			HttpSession ses = request.getSession();
+			
 			ses.setAttribute(LOGIN_SESSION_KEY, login);
-			LOGGER.warn("Login success");
+			LOGGER.info("Login success");
 			model.addAttribute(LOGIN_KEY, LOGIN_SUCCESS_VALUE);
 			return LOGIN_TO_HOME_REDIRECT_GET_URL;
 		} catch (Exception exception) {
@@ -97,17 +103,17 @@ public class LoginController {
 			LOGGER.info("checkLoginData end");
 		}
 	}
-
 	/**
 	 * Show Home form
 	 * 
 	 * @return
 	 */
 	@RequestMapping(SHOW_HOME_GET_URL)
-	public String showHomePage(HttpServletRequest request,Model model) {
+	public String showHomePage(HttpSession ses, Model model) {
 		LOGGER.info("showHomePage start");
-		Login login=(Login) request.getSession().getAttribute(LOGIN_SESSION_KEY);
-		model.addAttribute(LOGIN_EMAIL_KEY, login.getEmail());
+		Login loginSession=(Login) ses.getAttribute(LOGIN_SESSION_KEY);
+		LOGGER.info("Login session :"+loginSession);
+		model.addAttribute(LOGIN_EMAIL_KEY, loginSession.getEmail());
 		LOGGER.info("showHomePage end");
 		return HOME_VIEW;
 	}

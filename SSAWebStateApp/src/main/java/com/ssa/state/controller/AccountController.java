@@ -20,8 +20,8 @@ import com.ssa.state.model.RoleModel;
 import com.ssa.state.service.IAccountService;
 import com.ssa.state.service.IRoleService;
 import com.ssa.state.service.ISendMailService;
-
 import static com.ssa.state.util.ConstantUtils.*;
+import static com.ssa.state.util.ConstantUtils.Account.*;
 import java.util.List;
 
 import javax.transaction.Transactional;

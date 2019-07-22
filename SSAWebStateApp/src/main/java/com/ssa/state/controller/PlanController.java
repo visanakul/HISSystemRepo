@@ -18,13 +18,7 @@ import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.PlanModel;
 import com.ssa.state.service.IPlanService;
 
-import static com.ssa.state.util.ConstantUtils.ACCOUNT_REGISTRATION_VALUE;
-import static com.ssa.state.util.ConstantUtils.ACCOUNT_UPDATE_VALUE;
-import static com.ssa.state.util.ConstantUtils.ACC_MODEL_KEY;
-import static com.ssa.state.util.ConstantUtils.OPERATION_BUTTON_TEXT;
-import static com.ssa.state.util.ConstantUtils.OP_SELECTED_KEY;
-import static com.ssa.state.util.ConstantUtils.SAVE_TEXT;
-import static com.ssa.state.util.ConstantUtils.UPDATE_TEXT;
+import static com.ssa.state.util.ConstantUtils.*;
 import static com.ssa.state.util.ConstantUtils.Plan.*;
 
 import java.util.List;
