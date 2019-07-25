@@ -94,7 +94,7 @@ public class LoginController {
 			ses.setAttribute(LOGIN_SESSION_KEY, login);
 			LOGGER.info("Login success");
 			model.addAttribute(LOGIN_KEY, LOGIN_SUCCESS_VALUE);
-			return LOGIN_TO_HOME_REDIRECT_GET_URL;
+			return LOGIN_TO_MENU_REDIRECT_GET_URL;
 		} catch (Exception exception) {
 			LOGGER.error("Login error : " + exception.getMessage());
 			exception.printStackTrace();
@@ -111,11 +111,23 @@ public class LoginController {
 	@RequestMapping(SHOW_HOME_GET_URL)
 	public String showHomePage(HttpSession ses, Model model) {
 		LOGGER.info("showHomePage start");
-		Login loginSession=(Login) ses.getAttribute(LOGIN_SESSION_KEY);
-		LOGGER.info("Login session :"+loginSession);
-		model.addAttribute(LOGIN_EMAIL_KEY, loginSession.getEmail());
+//		Login loginSession=(Login) ses.getAttribute(LOGIN_SESSION_KEY);
+//		LOGGER.info("Login session :"+loginSession);
+//		model.addAttribute(LOGIN_EMAIL_KEY, loginSession.getEmail());
 		LOGGER.info("showHomePage end");
 		return HOME_VIEW;
+	}
+
+	/**
+	 * Show Menu form
+	 * 
+	 * @return
+	 */
+	@RequestMapping(SHOW_MENU_GET_URL)
+	public String showMenuPage(Model model) {
+		LOGGER.info("showMenuPage start");
+		LOGGER.info("showMenuPage end");
+		return MENU_VIEW;
 	}
 
 	/**

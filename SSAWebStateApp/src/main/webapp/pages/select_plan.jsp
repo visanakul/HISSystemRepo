@@ -5,9 +5,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-	<h2>Welcome ${sessionScope.login.email} to Home Page</h2>
+	<h2>Select Plan</h2>
 </body>
 </html>

@@ -15,4 +15,5 @@ public interface IPlanService {
 	boolean planDeactivateOrActivate(boolean active,Integer id);
 	boolean addOrUpdatePlan(PlanModel planModel);
 	PlanModel getPlanById(Integer id);
+	List<String> getAllActivePlans();
 }

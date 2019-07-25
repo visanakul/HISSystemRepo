@@ -21,6 +21,18 @@ public class ConstantUtils {// NOPMD
 	public static final String RESOURCE_PACKAGE = "com.ssa.state.resource";
 
 	/**
+	 * Value constants
+	 */
+	/**
+	 * Male value
+	 */
+	public static final String MALE = "Male";
+	/**
+	 * Fe-Male value
+	 */
+	public static final String FEMALE = "Female";
+
+	/**
 	 * Email exists value
 	 */
 	public static final String EMAIL_EXISTS = "Email Already Exists";
@@ -36,11 +48,11 @@ public class ConstantUtils {// NOPMD
 	/**
 	 * Button operation save value
 	 */
-	public static final String SAVE_TEXT = "Save";
+	public static final String SAVE_TITLE = "Save";
 	/**
 	 * Button operation update value
 	 */
-	public static final String UPDATE_TEXT = "Update";
+	public static final String UPDATE_TITLE = "Update";
 	/**
 	 * Model attribute Operation selected
 	 */
@@ -50,11 +62,6 @@ public class ConstantUtils {// NOPMD
 	 * Show email Page
 	 */
 	public static final String SHOW_EMAIL_GET_URL = "/show_email";
-
-	/**
-	 * Check email availability Url
-	 */
-	public static final String CHECK_EMAIL_GET_URL = "/check_email";
 
 	/**
 	 * Email form view name
@@ -73,18 +80,12 @@ public class ConstantUtils {// NOPMD
 	 */
 	public static final String EXC_KEY = "exception";
 
+	/**
+	 * Model attribute key for Genders
+	 */
+	public static final String GENDERS_MODEL_KEY = "genders";
+
 	public static class Account {
-		/**
-		 * Value constants
-		 */
-		/**
-		 * Male value
-		 */
-		public static final String MALE = "Male";
-		/**
-		 * Fe-Male value
-		 */
-		public static final String FEMALE = "Female";
 		/**
 		 * Request Attribute flash keys
 		 */
@@ -187,10 +188,7 @@ public class ConstantUtils {// NOPMD
 		 * Model attribute key for Account model
 		 */
 		public static final String ACC_MODEL_KEY = "account";
-		/**
-		 * Model attribute key for Genders
-		 */
-		public static final String GENDERS_MODEL_KEY = "genders";
+
 		/**
 		 * Model attribute key for roles
 		 */
@@ -199,6 +197,11 @@ public class ConstantUtils {// NOPMD
 		 * Model attribute key for all accounts
 		 */
 		public static final String ALL_ACCOUNTS_MODEL_KEY = "accountModelList";
+
+		/**
+		 * Check email availability Url
+		 */
+		public static final String CHECK_EMAIL_GET_URL = "/acc_check_email";
 
 	}
 
@@ -247,9 +250,9 @@ public class ConstantUtils {// NOPMD
 		 */
 		public static final String LOGIN_EMAIL_KEY = "email";
 		/**
-		 * Login to Home redirect
+		 * Login to Menu redirect
 		 */
-		public static final String LOGIN_TO_HOME_REDIRECT_GET_URL = "redirect:/show_home";
+		public static final String LOGIN_TO_MENU_REDIRECT_GET_URL = "redirect:/show_menu";
 
 	}
 
@@ -258,10 +261,19 @@ public class ConstantUtils {// NOPMD
 		 * Show home form url
 		 */
 		public static final String SHOW_HOME_GET_URL = "/show_home";
+		
 		/**
 		 * Home view name
 		 */
 		public static final String HOME_VIEW = "home";
+		/**
+		 * Show menu form url
+		 */
+		public static final String SHOW_MENU_GET_URL = "/show_menu";
+		/**
+		 * Menu view name
+		 */
+		public static final String MENU_VIEW = "menu";
 	}
 
 	public static class ForgotPassword {
@@ -366,5 +378,54 @@ public class ConstantUtils {// NOPMD
 		 */
 		public static final String PLAN_UPDATE_VALUE = "Plan Update";
 
+	}
+
+	public static class ApplicationRegistration {
+		public static final String SHOW_APP_REG_GET_URL = "show_app_reg";
+		public static final String SAVE_APP_POST_URL = "/save_application";
+		public static final String APP_REG_VIEW = "citizen_application";
+		public static final String CITIZEN_MODEL_KEY = "citizen";
+		public static final String APPLICATION_REGISTRATION_VALUE = "Application Registration";
+		/**
+		 * Check email availability Url
+		 */
+		public static final String CHECK_EMAIL_GET_URL = "/app_check_email";
+		public static final String APP_REG_KEY = "msg";
+		/**
+		 * Registration success redirect attribute value
+		 */
+
+		public static final String APP_REG_SUCCESS_VALUE = "Application Registration Successful...";
+
+		/**
+		 * Registration fail redirect attribute value
+		 */
+		public static final String APP_REG_FAIL_VALUE = "Application Registration Fail...";
+		/**
+		 * Application Reg value attribute value
+		 */
+		public static final String ACCOUNT_REGISTRATION_VALUE = "Application Registration";
+		/**
+		 * Application Update value attribute value
+		 */
+		public static final String ACCOUNT_UPDATE_VALUE = "Application Update";
+		/**
+		 * Redirects to Show account add form
+		 */
+		public static final String REDIRECT_SHOW_APP_FORM_GET_URL = "redirect:/show_app_reg";
+		/**
+		 * Model attribute key for plans
+		 */
+		public static final String PLANS_MODEL_KEY = "plans";
+		/**
+		 * Case No session key
+		 */
+		public static final String CITIZEN_SESSION_KEY = "citizen";
+		public static final String INVALID_CITY_KEY = "msg";
+		public static final String INVALID_CITY_VALUE = "You are not Alabama citizen";
+		public static final String REST_API_SSN_SERVICE_URL="http://localhost:8081/SSAWebApp/getState/{ssn}";
+		public static final String SEND_ALL_APPLICATIONS_GET_URL="/get_application_list";
+		public static final String ALL_APPLICATIONS_MODEL_KEY="applicationModelList";
+		public static final String ALL_APP_VIEW="show_applications";
 	}
 }

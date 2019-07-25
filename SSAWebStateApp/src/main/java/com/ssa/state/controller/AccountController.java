@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ssa.state.config.ApplicationConfig;
+import com.ssa.state.exception.AccountNotFoundException;
 import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.RoleModel;
 import com.ssa.state.service.IAccountService;
@@ -87,12 +88,12 @@ public class AccountController {
 				LOGGER.info("Request for new account");
 				accountModel = new AccountModel();
 				model.addAttribute(OP_SELECTED_KEY, ACCOUNT_REGISTRATION_VALUE);
-				model.addAttribute(OPERATION_BUTTON_TEXT, SAVE_TEXT);
+				model.addAttribute(OPERATION_BUTTON_TEXT, SAVE_TITLE);
 			} else {
 				LOGGER.info("Request for edit account account no : " + accNo);
 				accountModel = accountService.getAccountByAccNo(accNo);
 				model.addAttribute(OP_SELECTED_KEY, ACCOUNT_UPDATE_VALUE);
-				model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TEXT);
+				model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TITLE);
 			}
 
 			model.addAttribute(ACC_MODEL_KEY, accountModel);
@@ -101,9 +102,8 @@ public class AccountController {
 		} catch (Exception exception) {
 			LOGGER.error("Error in hadling showAccountAddOrEditForm request");
 			throw new RuntimeException(exception.getMessage());
-		}
-		finally {
-		LOGGER.info("showAccountAddForm end");
+		} finally {
+			LOGGER.info("showAccountAddForm end");
 		}
 		return ACC_VIEW;
 	}
@@ -135,14 +135,15 @@ public class AccountController {
 
 			}
 			redirectAttributes.addFlashAttribute(OP_SELECTED_KEY, ACCOUNT_REGISTRATION_VALUE);
-			redirectAttributes.addFlashAttribute(OPERATION_BUTTON_TEXT, SAVE_TEXT);
+			redirectAttributes.addFlashAttribute(OPERATION_BUTTON_TEXT, SAVE_TITLE);
+			return REDIRECT_SHOW_ACC_FORM_GET_URL;
 		} catch (Exception exception) {
 			LOGGER.error("Exception : " + exception);
 			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("saveAccountInfo end");
 		}
-		LOGGER.info("saveAccountInfo end");
 
-		return REDIRECT_SHOW_ACC_FORM_GET_URL;
 	}
 
 	/**
@@ -151,7 +152,8 @@ public class AccountController {
 	 * @return
 	 */
 	@RequestMapping(value = UPDATE_ACC_POST_URL, method = RequestMethod.POST)
-	public String updateAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,Model model) {
+	public String updateAccountInfo(@Valid @ModelAttribute AccountModel accountModel, BindingResult bindingResult,
+			Model model) {
 		LOGGER.info("updateAccountInfo start");
 		try {
 			loadGenders(model);
@@ -173,14 +175,14 @@ public class AccountController {
 			}
 			model.addAttribute(ACC_MODEL_KEY, accountModel);
 			model.addAttribute(OP_SELECTED_KEY, ACCOUNT_UPDATE_VALUE);
-			model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TEXT);
+			model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TITLE);
+			return ACC_VIEW;
 		} catch (Exception exception) {
 			LOGGER.error("Exception : " + exception);
 			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("updateAccountInfo end");
 		}
-		LOGGER.info("updateAccountInfo end");
-
-		return ACC_VIEW;
 	}
 
 	/**
@@ -232,7 +234,6 @@ public class AccountController {
 	@RequestMapping(SHOW_ALL_ACC_GET_URL)
 	public String showAllAccountForm(Model model) {
 		LOGGER.info("showAllAccountForm start");
-
 		LOGGER.info("showAllAccountForm end");
 		return ALL_ACC_VIEW;
 	}
@@ -246,10 +247,19 @@ public class AccountController {
 	@RequestMapping(SEND_ALL_ACCOUNTS_GET_URL)
 	public @ResponseBody List<AccountModel> sendAllAccount() {
 		LOGGER.info("sendAllAccount start");
-		List<AccountModel> accountModels = accountService.getAllAccounts();
-		LOGGER.debug("AccountModels " + accountModels);
-		LOGGER.info("sendAllAccount end");
-		return accountModels;
+		try {
+			List<AccountModel> accountModels = accountService.getAllAccounts();
+			if (accountModels == null || accountModels.size() == 0) {
+				throw new AccountNotFoundException("No account available");
+			}
+			LOGGER.debug("AccountModels " + accountModels);
+			return accountModels;
+		} catch (Exception exception) {
+			LOGGER.error("Exception : " + exception.getMessage());
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("sendAllAccount end");
+		}
 	}
 
 	/**

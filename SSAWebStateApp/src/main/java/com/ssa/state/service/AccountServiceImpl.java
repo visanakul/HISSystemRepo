@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssa.state.entity.AccountEntity;
-import com.ssa.state.exception.AccountNotFoundException;
 import com.ssa.state.exception.EmptyAccountException;
 import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.ForgotPassword;

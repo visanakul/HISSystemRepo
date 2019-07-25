@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ssa.state.entity.PlanEntity;
+import com.ssa.state.exception.ActivePlanNotFoundException;
 import com.ssa.state.exception.PlanSaveException;
 import com.ssa.state.model.PlanModel;
 import com.ssa.state.repository.IPlanRepository;
@@ -154,6 +155,27 @@ public class PlanServiceImpl implements IPlanService {
 			throw new RuntimeException(exception.getMessage());
 		} finally {
 			LOGGER.info("getPlanById service end");
+		}
+	}
+
+	@Override
+	public List<String> getAllActivePlans() {
+		LOGGER.info("getAllActivePlans service start");
+		try {
+			List<String> planNames=planRepository.findActivePlans();
+			if(planNames==null || planNames.size()==0) {
+				LOGGER.warn("No active plan available");
+				throw new ActivePlanNotFoundException("No active plan available");
+			}
+			LOGGER.debug("Plan name list : "+planNames);
+
+			return planNames;
+
+		} catch (Exception exception) {
+			LOGGER.error("Exception : " + exception.getMessage());
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("getAllActivePlans service end");
 		}
 	}
 

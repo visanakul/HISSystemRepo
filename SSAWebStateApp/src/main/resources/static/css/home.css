@@ -1,0 +1,17 @@
+body {
+	padding: 30px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background: #007bff;
+	background: linear-gradient(to right, #420c04, #911705);
+}
+
+h2, h3 {
+	font-family: monospace;
+	text-align: center;
+	color: white;
+}
+
+h2 {
+	text-transform: uppercase;
+	text-shadow: black 2px 5px;
+}

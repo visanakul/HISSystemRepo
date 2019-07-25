@@ -1,16 +1,16 @@
 function validateEmail(sEmail) {
-	 var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	if (regex.test(sEmail)) {
 		return true;
 	} else {
 		return false;
 	}
 }
-function checkemail(e) {
+function checkemail() {
 	var email = document.getElementById("email").value;
 
-	if(!validateEmail(email)){
-		console.log('Invalid '+email);
+	if (!validateEmail(email)) {
+		console.log('Invalid ' + email);
 		$('#email_status').html('Incorrect format');
 		$('#email_status').addClass('error');
 		$('#email').addClass('error');
@@ -19,43 +19,54 @@ function checkemail(e) {
 	if (email && email.length >= 6) {
 		$.ajax({
 			type : 'get',
-			url : 'acc_check_email?email=' + email,
+			url : 'app_check_email?email=' + email,
 			success : function(response) {
 				$('#email_status').html(response);
 				if (response == "OK") {
+					console.log('Status ok');
 					$('#email_status').removeClass('error');
 					$('#email').removeClass('error');
 					return true;
 				} else {
+					console.log('Status already exist');
 					$('#email_status').addClass('error');
 					$('#email').addClass('error');
 					// e.stopImmediatePropagation();
 					return false;
 				}
+			},
+			error : function(textStatus, errorThrown) {
+				console.log('Server error ' + errorThrown + ',' + textStatus);
+				$('#email').addClass('error');
+				$('#email_status').html('Server ' + errorThrown);
 			}
 		});
 	} else {
+		console.log('No email entered');
 		$('#email_status').html("");
 		return false;
 	}
 }
-function focus2() {
+function focus2(event) {
 	var myLength = $('#ssn1').val().length;
-	// console.log('Length : ' + myLength);
-	if (myLength >= 3) {
+	if (event.key == 'Backspace')
+		console.log('Backspace');
+	if (myLength >= 3 && event.key != 'Backspace') {
 		$('#ssn2').focus();
 	}
 }
-function focus3() {
+function focus3(event) {
 	var myLength = $('#ssn2').val().length;
-	// console.log('Length : ' + myLength);
-	if (myLength >= 2) {
+	if (event.key == 'Backspace')
+		console.log('Backspace');
+	if (myLength >= 2 && event.key != 'Backspace') {
 		$('#ssn3').focus();
 	}
 }
-function appentSSN() {
+function appendSSN(event) {
 	var myLength = $('#ssn3').val().length;
-	console.log('Length : ' + myLength);
+	if (event.key == 'Backspace')
+		console.log('Backspace');
 	var data = $('#ssn1').val() + $('#ssn2').val() + $('#ssn3').val();
 	console.log('Data : ' + data);
 	$('#ssn').val(data);

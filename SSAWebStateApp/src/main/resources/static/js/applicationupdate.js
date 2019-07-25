@@ -1,5 +1,5 @@
 function validateEmail(sEmail) {
-	 var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 	if (regex.test(sEmail)) {
 		return true;
 	} else {
@@ -9,8 +9,8 @@ function validateEmail(sEmail) {
 function checkemail(e) {
 	var email = document.getElementById("email").value;
 
-	if(!validateEmail(email)){
-		console.log('Invalid '+email);
+	if (!validateEmail(email)) {
+		console.log('Invalid ' + email);
 		$('#email_status').html('Incorrect format');
 		$('#email_status').addClass('error');
 		$('#email').addClass('error');
@@ -19,7 +19,7 @@ function checkemail(e) {
 	if (email && email.length >= 6) {
 		$.ajax({
 			type : 'get',
-			url : 'acc_check_email?email=' + email,
+			url : 'check_email?email=' + email,
 			success : function(response) {
 				$('#email_status').html(response);
 				if (response == "OK") {
@@ -69,6 +69,17 @@ function show() {
 	}, 800).fadeOut('slow');
 }
 $(document).ready(function() {
+	console.log("ready!");
+	console.log('Account number ' + $('#accNo').val());
+	var ssn = $('#ssn').val();
+	console.log('SSN : ' + ssn);
+	var ssn1 = ssn.substring(0, 3);
+	var ssn2 = ssn.substring(3, 5);
+	var ssn3 = ssn.substring(5, 9);
+	console.log(ssn1 + '-' + ssn2 + '-' + ssn3);
+	$('#ssn1').val(ssn1);
+	$('#ssn2').val(ssn2);
+	$('#ssn3').val(ssn3);
 	$(function() {
 		$("#datepicker").datepicker({
 			dateFormat : 'dd-M-yy',

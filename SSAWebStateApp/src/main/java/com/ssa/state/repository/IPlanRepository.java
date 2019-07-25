@@ -1,6 +1,7 @@
 package com.ssa.state.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,4 +13,7 @@ public interface IPlanRepository extends JpaRepository<PlanEntity, Serializable>
 	@Modifying
 	@Query("update PlanEntity set active=:active where id=:id")
 	Integer softDeleteOrActiveById(boolean active,Integer id);
+	
+	@Query("select name from PlanEntity where active=true")
+	List<String> findActivePlans();
 }

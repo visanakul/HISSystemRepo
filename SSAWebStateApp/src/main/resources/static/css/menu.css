@@ -1,49 +1,103 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background: #007bff;
+	background: linear-gradient(to right, #420c04, #911705);
+}
 /***** Top menu *****/
- 
 .navbar {
-    background: #444;
-    -o-transition: all .6s;
-    -moz-transition: all .6s;
-    -webkit-transition: all .6s;
-    -ms-transition: all .6s;
-    transition: all .6s;
-    backface-visibility: hidden;
+	-o-transition: all .6s;
+	-moz-transition: all .6s;
+	-webkit-transition: all .6s;
+	-ms-transition: all .6s;
+	transition: all .6s;
+	backface-visibility: hidden;
 }
- 
+
 .navbar.navbar-no-bg {
-    background: #444;
-    background: rgba(0, 0, 0, 0.2);
+	background: yellow;
 }
- 
+
 .navbar-dark .navbar-nav {
-    font-size: 15px;
-    color: #fff;
-    text-transform: uppercase;
+	font-size: 15px;
+	color: #fff;
+	text-transform: uppercase;
 }
- 
+
 .navbar-dark .navbar-nav .nav-link {
-    color: #fff;
-    color: rgba(255, 255, 255, 0.8);
-    border: 0;
+	color: #fff;
+	color: rgba(255, 255, 255, 0.8);
+	border: 0;
 }
- 
+
 .navbar-dark .navbar-nav .nav-link:hover {
-    color: #fff;
+	color: #fff;
 }
- 
+
 .navbar-dark .navbar-nav .nav-link:focus {
-    color: #fff;
-    outline: 0;
+	color: #fff;
+	outline: 0;
 }
- 
+
 .navbar-expand-md .navbar-nav .nav-link {
-    padding-left: 1rem;
-    padding-right: 1rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
 }
- 
+
 .navbar-brand {
-    width: 105px;
-    background: url(../img/logo.png) left center no-repeat;
-    border: 0;
-    text-indent: -99999px;
+	width: 105px;
+	background: url(../img/logo.png) left center no-repeat;
+	border: 0;
+	text-indent: -99999px;
+}
+
+.bs-example,.dropdown-menu {
+	z-index: 1;
+	padding: 10px 30px;
+	background-color: #42b6f4;
+	background: linear-gradient(to right, #0f6b84, #024060);
+}
+img{
+	width: 100%;
+	height: 100px;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	padding:0;
+	margin:0;
+	margin-top: 30px;
+	color: white;
+	font-family: monospace;
+	text-align: center;
+	text-transform: uppercase;
+	text-shadow: black 2px 5px;
+}
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
+   border: 2px black solid;	
+}
+a{
+	color: white;
+	font-weight: 300;
+}
+.dropdown-item{
+	color: white;
+	font-weight: 100;
+}
+a:hover{
+	color: white;
+	background-color: black;
+}
+
+iframe {
+	margin-top: -10px;
+	display: block;
+	width: 100%;
+	border: none;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 600px;
+	display: block;
 }

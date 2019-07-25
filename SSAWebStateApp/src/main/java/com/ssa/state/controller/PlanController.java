@@ -65,12 +65,12 @@ public class PlanController {
 				LOGGER.info("Request for new plan");
 				planModel = new PlanModel();
 				model.addAttribute(OP_SELECTED_KEY, PLAN_ADD_VALUE);
-				model.addAttribute(OPERATION_BUTTON_TEXT, SAVE_TEXT);
+				model.addAttribute(OPERATION_BUTTON_TEXT, SAVE_TITLE);
 			} else {
 				LOGGER.info("Request for edit plan id : " + id);
 				planModel = planService.getPlanById(id);
 				model.addAttribute(OP_SELECTED_KEY, PLAN_UPDATE_VALUE);
-				model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TEXT);
+				model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TITLE);
 			}
 			model.addAttribute(PLAN_MODEL_KEY, planModel);
 			return PLAN_VIEW;
@@ -211,7 +211,7 @@ public class PlanController {
 			}
 			model.addAttribute(PLAN_MODEL_KEY, planModel);
 			model.addAttribute(OP_SELECTED_KEY, PLAN_UPDATE_VALUE);
-			model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TEXT);
+			model.addAttribute(OPERATION_BUTTON_TEXT, UPDATE_TITLE);
 		} catch (Exception exception) {
 			LOGGER.error("Exception : " + exception);
 			throw new RuntimeException(exception.getMessage());
