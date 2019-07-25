@@ -8,8 +8,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import com.ssa.ed.input.EligibilityDetermination;
+import com.ssa.ed.input.EligibilityDetermination.CitigenData;
+import com.ssa.ed.input.EligibilityDetermination.PlanDetails;
+import com.ssa.ed.input.EligibilityDetermination.PlanDetails.SnapPlanData;
+import com.ssa.ed.output.PlanInfo;
 import com.ssa.state.entity.PlanEntity;
 import com.ssa.state.exception.ActivePlanNotFoundException;
 import com.ssa.state.exception.PlanSaveException;
@@ -43,18 +53,25 @@ public class PlanServiceImpl implements IPlanService {
 	@Override
 	public boolean savePlan(PlanModel planModel) {
 		LOGGER.info("savePlan service start");
-		/**
-		 * Converting PlanModel to PlanEntity
-		 */
-		PlanEntity planEntity = new PlanEntity();
-		BeanUtils.copyProperties(planModel, planEntity);
-		planEntity = planRepository.save(planEntity);
-		LOGGER.debug("Plan entity got :{} ", planEntity);
-		if (planEntity == null) {
-			throw new PlanSaveException("Plan not saved");
+		try {
+			/**
+			 * Converting PlanModel to PlanEntity
+			 */
+			PlanEntity planEntity = new PlanEntity();
+			BeanUtils.copyProperties(planModel, planEntity);
+			planEntity = planRepository.save(planEntity);
+			LOGGER.debug("Plan entity got :{} ", planEntity);
+			if (planEntity == null) {
+				return false;
+			}
+			return planEntity.getId() > 0;
+		} catch (Exception exception) {
+			LOGGER.error("Exception : "+exception.getMessage());
+			throw new PlanSaveException(exception.getMessage());
+
+		} finally {
+			LOGGER.info("savePlan service end");
 		}
-		LOGGER.info("savePlan service end");
-		return planEntity.getId() > 0;
 	}
 
 	@Override
@@ -162,21 +179,60 @@ public class PlanServiceImpl implements IPlanService {
 	public List<String> getAllActivePlans() {
 		LOGGER.info("getAllActivePlans service start");
 		try {
-			List<String> planNames=planRepository.findActivePlans();
-			if(planNames==null || planNames.size()==0) {
+			List<String> planNames = planRepository.findActivePlans();
+			if (planNames == null || planNames.size() == 0) {
 				LOGGER.warn("No active plan available");
 				throw new ActivePlanNotFoundException("No active plan available");
 			}
-			LOGGER.debug("Plan name list : "+planNames);
+			LOGGER.debug("Plan name list : " + planNames);
 
 			return planNames;
 
 		} catch (Exception exception) {
+			exception.printStackTrace();
 			LOGGER.error("Exception : " + exception.getMessage());
 			throw new RuntimeException(exception.getMessage());
 		} finally {
 			LOGGER.info("getAllActivePlans service end");
 		}
+	}
+
+	@Override
+	public Integer getPlanIdByName(String planName) {
+		LOGGER.info("getPlanIdByName service start");
+		try {
+		Integer planId=planRepository.findIdByName(planName);
+		LOGGER.debug("Plan Id : "+planId);
+		return planId;
+		}
+		catch(Exception exception) {
+			exception.printStackTrace();
+			LOGGER.error("Exception : " + exception.getMessage());
+			throw new RuntimeException(exception.getMessage());
+		}
+		finally {
+			LOGGER.info("getPlanIdByName service end");
+		}
+	}
+
+	@Override
+	public PlanInfo findEligibility(EligibilityDetermination eligibilityDetermination) {
+		String endPointUrl = "http://localhost:8081/SSAWebApp/checkEligibility";
+		HttpHeaders headers = new HttpHeaders();
+		
+		List<MediaType> list = new ArrayList<>();
+		list.add(MediaType.APPLICATION_XML);
+		headers.setAccept(list);
+		
+		headers.setContentType(MediaType.APPLICATION_XML);
+		
+		HttpEntity<EligibilityDetermination> requestEntity = new HttpEntity<>(eligibilityDetermination, headers);
+		System.out.println("Request : " + requestEntity);
+
+		RestTemplate template = new RestTemplate();
+		ResponseEntity<PlanInfo> response = template.postForEntity(endPointUrl, requestEntity, PlanInfo.class);
+		PlanInfo planInfo = response.getBody();
+		return planInfo;
 	}
 
 }

@@ -2,6 +2,8 @@ package com.ssa.state.service;
 
 import java.util.List;
 
+import com.ssa.ed.input.EligibilityDetermination;
+import com.ssa.ed.output.PlanInfo;
 import com.ssa.state.model.PlanModel;
 
 /**
@@ -16,4 +18,6 @@ public interface IPlanService {
 	boolean addOrUpdatePlan(PlanModel planModel);
 	PlanModel getPlanById(Integer id);
 	List<String> getAllActivePlans();
+	Integer getPlanIdByName(String planName);
+	PlanInfo findEligibility(EligibilityDetermination eligibilityDetermination);
 }

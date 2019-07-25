@@ -16,4 +16,7 @@ public interface IPlanRepository extends JpaRepository<PlanEntity, Serializable>
 	
 	@Query("select name from PlanEntity where active=true")
 	List<String> findActivePlans();
+
+	@Query("Select id from PlanEntity where name=:planName")
+	Integer findIdByName(String planName);
 }

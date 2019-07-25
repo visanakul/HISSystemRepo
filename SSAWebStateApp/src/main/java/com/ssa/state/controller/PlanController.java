@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ssa.state.exception.EmptyPlanException;
+import com.ssa.state.exception.PlanSaveException;
 import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.PlanModel;
 import com.ssa.state.service.IPlanService;
@@ -151,7 +153,7 @@ public class PlanController {
 			LOGGER.debug("AccountModels " + planModels);
 			if (planModels == null) {
 				LOGGER.warn("No plan data");
-				return null;
+				throw new EmptyPlanException("No plan found");
 			}
 			model.addAttribute(ALL_PLANS_MODEL_KEY, planModels);
 			return ALL_PLAN_VIEW;

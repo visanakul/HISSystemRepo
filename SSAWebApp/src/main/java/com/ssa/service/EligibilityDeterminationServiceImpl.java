@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.ssa.controller.SSNController;
 import com.ssa.ed.input.EligibilityDetermination;
 import com.ssa.ed.output.PlanInfo;
+import com.ssa.ed.process.EDRuleExecuter;
 import com.ssa.ed.process.IEDRules;
 
 @Service
@@ -30,10 +31,11 @@ public class EligibilityDeterminationServiceImpl implements IEligibilityDetermin
 //		String planName = eligibilityDetermination.getCitigenData().getPlanSelected();
 //		LOGGER.info("Plan : " + planName);
 		try {
+			LOGGER.debug("ED data : "+eligibilityDetermination);
 			/**
 			 * Executing rules as per plan selected
 			 */
-			planInfo=IEDRules.executeRules(eligibilityDetermination);
+			planInfo=EDRuleExecuter.executeRules(eligibilityDetermination);
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {

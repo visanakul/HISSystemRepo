@@ -51,7 +51,7 @@ public class EligibilityDeterminationRestController {
 			produces = { MediaType.APPLICATION_JSON_VALUE,MediaType.APPLICATION_XML_VALUE })
 	@ApiResponses(value = {@ApiResponse(code=200,message = "Server Response",response =PlanInfo.class )})
 	@ApiOperation(value = "Determines eligibility and returns PlanInfo")
-	public PlanInfo checkEDForPlanInfo(EligibilityDetermination eligibilityDetermination) {
+	public PlanInfo checkEDForPlanInfo(@RequestBody EligibilityDetermination eligibilityDetermination) {
 		LOGGER.info("checkEDForPlanInfo Request start");
 		LOGGER.debug("Data Received : {}",eligibilityDetermination);
 		PlanInfo planInfo=eligibilityDeterminationService.getPlanInfo(eligibilityDetermination);

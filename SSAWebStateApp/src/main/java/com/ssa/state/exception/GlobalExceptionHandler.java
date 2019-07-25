@@ -59,6 +59,19 @@ public class GlobalExceptionHandler {
 		model.addAttribute(EXC_KEY, exception.getMessage());
 		return ERROR_VIEW;
 	}
+	/**
+	 * No Plan in table
+	 * 
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(EmptyPlanException.class)
+	public String handleEmptyPlanException(Exception exception, Model model) {
+		LOGGER.info("Handling EmptyPlanException");
+		model.addAttribute(EXC_KEY, exception.getMessage());
+		return ERROR_VIEW;
+	}
 
 	/**
 	 * Plan save error

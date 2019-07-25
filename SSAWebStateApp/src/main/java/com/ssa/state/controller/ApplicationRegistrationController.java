@@ -13,12 +13,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ssa.ed.input.EligibilityDetermination;
+import com.ssa.ed.input.EligibilityDetermination.CitigenData;
+import com.ssa.ed.input.EligibilityDetermination.PlanDetails;
+import com.ssa.ed.input.EligibilityDetermination.PlanDetails.SnapPlanData;
+import com.ssa.ed.output.PlanInfo;
 import com.ssa.state.exception.ActivePlanNotFoundException;
 import com.ssa.state.exception.CitizenNotFoundException;
 import com.ssa.state.exception.EmptyApplicationException;
 import com.ssa.state.model.AccountModel;
 import com.ssa.state.model.CitizenModel;
+import com.ssa.state.model.CitizenPlanModel;
 import com.ssa.state.service.ICitizenApplicationService;
+import com.ssa.state.service.ICitizenPlanService;
 import com.ssa.state.service.IPlanService;
 
 import static com.ssa.state.util.ConstantUtils.*;
@@ -46,10 +53,15 @@ public class ApplicationRegistrationController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ApplicationRegistrationController.class);
 
 	/**
-	 * Injecting Aplication Service
+	 * Injecting Application Service
 	 */
 	@Autowired(required = true)
 	private ICitizenApplicationService citizenApplicationService;
+	/**
+	 * Injecting CitizenPlan Service
+	 */
+	@Autowired(required = true)
+	private ICitizenPlanService citizenPlanService;
 	/**
 	 * Injecting Plan Service
 	 */
@@ -225,8 +237,7 @@ public class ApplicationRegistrationController {
 			if (citizenModel != null) {
 				// throw new CitizenNotFoundException("Citizen application does not exist");
 				model.addAttribute("citizen", citizenModel);
-			}
-			else {
+			} else {
 				model.addAttribute("msg", "Record not found");
 			}
 			model.addAttribute("appNo", appNo);
@@ -238,11 +249,117 @@ public class ApplicationRegistrationController {
 			LOGGER.info("showCitizenData end");
 		}
 	}
+
 	@RequestMapping("/show_generate_case")
-	public String showGenerateCaseForm(@RequestParam("appNo")Integer appNO, Model model) {
+	public String showGenerateCaseForm(@RequestParam("appNo") Integer appNo, HttpSession session, Model model) {
 		LOGGER.info("showGenerateCaseForm start");
-		LOGGER.debug("Application number "+appNO);
-		LOGGER.info("showGenerateCaseForm end");
-		return "select_plan";
+		try {
+			LOGGER.debug("Application number " + appNo);
+			CitizenPlanModel citizenPlanModel = new CitizenPlanModel();
+			citizenPlanModel.setAppNo(appNo);
+			citizenPlanModel = citizenPlanService.saveOrUpdateCitizenPlanInfo(citizenPlanModel);
+			LOGGER.debug("CitizenPlanModel : " + citizenPlanModel);
+			if (citizenPlanModel == null) {
+				LOGGER.error("Unable to generate Case");
+				model.addAttribute("msg", "Unable to generate Case");
+				return "create_case";
+			}
+			session.setAttribute("citizenPlanModel", citizenPlanModel);
+			return "redirect:/show_select_plan";
+		} catch (Exception exception) {
+			LOGGER.info("Exception : " + exception.getMessage());
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("showGenerateCaseForm end");
+		}
+
+	}
+
+	@RequestMapping("/show_select_plan")
+	public String showSelectPlanFormPage(Model model) {
+		LOGGER.info("showSelectPlanFormPage start");
+		try {
+			List<String> activePlans = planService.getAllActivePlans();
+			if (activePlans == null) {
+				LOGGER.error("No active plans");
+				model.addAttribute("msg", "Unable to get Active plans");
+			}
+			LOGGER.debug("Active plans : " + activePlans);
+			model.addAttribute("activePlans", activePlans);
+			return "select_plan";
+		} catch (Exception exception) {
+			LOGGER.info("Exception : " + exception.getMessage());
+			throw new RuntimeException(exception.getMessage());
+		} finally {
+			LOGGER.info("showSelectPlanFormPage end");
+		}
+	}
+
+	@RequestMapping("/show_selected_plan")
+	public String showSelectedPlanFormPage(@RequestParam("planName") String planName, Model model) {
+		LOGGER.info("showSelectedPlanFormPage start");
+		LOGGER.debug("Plan name selected : " + planName);
+		LOGGER.info("showSelectedPlanFormPage end");
+		return "redirect:/show_" + planName.toLowerCase() + "_plan";
+	}
+
+	@RequestMapping("/show_snap_plan")
+	public String showSnapPlanFormPage(HttpSession session, Model model) {
+		LOGGER.info("showSnapPlanFormPage start");
+		SnapPlanData snapPlanData = new SnapPlanData();
+		loadEmployedData(model);
+		model.addAttribute("snapPlanData", snapPlanData);
+		CitizenPlanModel citizenPlanModel = (CitizenPlanModel) session.getAttribute("citizenPlanModel");
+		citizenPlanModel.setPlanId(planService.getPlanIdByName("Snap"));
+		session.setAttribute("citizenPlanModel", citizenPlanModel);
+		LOGGER.debug("Updated CitizenPlanModel in session : " + citizenPlanModel);
+		LOGGER.info("showSnapPlanFormPage end");
+		return "snap_plan";
+	}
+
+	private void loadEmployedData(Model model) {
+		String isEmployed[] = { "Y", "N" };
+		model.addAttribute("isEmployed", isEmployed);
+	}
+
+	@RequestMapping("/show_ed")
+	public String showEDFormPage(@ModelAttribute("snapPlanData") SnapPlanData snapPlanData, HttpSession session,
+			Model model) {
+		LOGGER.info("showEDFormPage start");
+		LOGGER.debug("SnapPlanData received: " + snapPlanData);
+		session.setAttribute("planSelected", snapPlanData);
+		session.setAttribute("planName", "Snap");
+		LOGGER.info("showEDFormPage end");
+		return "ed";
+	}
+
+	@RequestMapping("/determine_eligibility")
+	public String ed(HttpSession session, Model model) {
+		PlanInfo planInfo = new PlanInfo();
+		CitizenPlanModel citizenPlanModel = (CitizenPlanModel) session.getAttribute("citizenPlanModel");
+		SnapPlanData snapPlanData = (SnapPlanData) session.getAttribute("planSelected");
+
+		EligibilityDetermination eligibilityDetermination = new EligibilityDetermination();
+		snapPlanData.setPlanInfo(planInfo);
+		CitigenData citigenData = new CitigenData();
+		citigenData.setCaseNum(citizenPlanModel.getCaseNo());
+		citigenData.setFirstName("Abc");
+		citigenData.setDob("12-3-1991");
+		citigenData.setGender("Male");
+		citigenData.setLastName("Last");
+		citigenData.setSsn("124545");
+		citigenData.setPlanSelected("Snap");
+		PlanDetails planDetails = new PlanDetails();
+		planDetails.setSnapPlanData(snapPlanData);
+		eligibilityDetermination.setCitigenData(citigenData);
+		eligibilityDetermination.setPlanDetails(planDetails);
+
+		planInfo = planService.findEligibility(eligibilityDetermination);
+		if (planInfo.getPlanApproved() != null) {
+			model.addAttribute("msg", "Plan approved");
+		} else {
+			model.addAttribute("msg", "Plan Denied");
+		}
+		return "ed";
 	}
 }
