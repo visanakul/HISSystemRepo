@@ -825,38 +825,6 @@ public class EligibilityDetermination {
 			public String toString() {
 				return "SnapPlanData [familyIncome=" + familyIncome + ", isEmployed=" + isEmployed + "]";
 			}
-
-//			@Override
-//			public PlanInfo executeRules(EligibilityDetermination eligibilityDetermination) {
-//				KieServices ks = KieServices.Factory.get();
-//				KieRepository kr = ks.getRepository();
-//				KieFileSystem kfs = ks.newKieFileSystem();
-//
-//				kfs.write(ResourceFactory.newClassPathResource("rules/SnapRules.drl", this.getClass()));
-//
-//				KieBuilder kb = ks.newKieBuilder(kfs);
-//
-//				kb.buildAll(); // kieModule is automatically deployed to KieRepository if successfully built.
-//				if (kb.getResults().hasMessages(Message.Level.ERROR)) {
-//					throw new RuntimeException("Build Errors:\n" + kb.getResults().toString());
-//				}
-//
-//				KieContainer kContainer = ks.newKieContainer(kr.getDefaultReleaseId());
-//
-//				KieSession kSession = kContainer.newKieSession();
-//
-//				SnapPlanData snapPlanData = eligibilityDetermination.getPlanDetails().getSnapPlanData();
-//				
-//				System.out.println("Inserting "+snapPlanData);
-//				kSession.insert(snapPlanData);
-//
-//				System.out.println("Fire All Rules...");
-//				kSession.fireAllRules();
-//				kSession.dispose();
-//				PlanInfo planInfo=snapPlanData.getPlanInfo();
-//				System.out.println("PLANInfo : "+planInfo);
-//				return planInfo;
-//			}
 		}
 
 	}

@@ -130,6 +130,20 @@ public class GlobalExceptionHandler {
 	}
 
 	/**
+	 * BatchProcessException 
+	 * 
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(BatchProcessException.class)
+	public String handleBatchProcessException(Exception exception, Model model) {
+		LOGGER.info("Handling BatchProcessException");
+		model.addAttribute(EXC_KEY, exception.getMessage());
+		return ERROR_VIEW;
+	}
+
+	/**
 	 * Other Unknown error
 	 * 
 	 * @param exception
