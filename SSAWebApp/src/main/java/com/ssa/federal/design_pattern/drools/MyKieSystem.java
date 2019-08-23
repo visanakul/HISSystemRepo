@@ -1,4 +1,4 @@
-package com.ssa.federal.design_pattern;
+package com.ssa.federal.design_pattern.drools;
 
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;

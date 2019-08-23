@@ -1,4 +1,4 @@
-package com.ssa.federal.design_pattern;
+package com.ssa.federal.design_pattern.drools;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
