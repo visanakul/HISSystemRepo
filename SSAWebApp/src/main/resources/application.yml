@@ -9,7 +9,7 @@ server:
 
 spring:
   profiles:
-    active: ${env:default}
+    active: ${dev}
   mvc:
     view:
       prefix: /pages/

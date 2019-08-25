@@ -142,6 +142,20 @@ public class GlobalExceptionHandler {
 		model.addAttribute(EXC_KEY, exception.getMessage());
 		return ERROR_VIEW;
 	}
+	
+	/**
+	 * CoTriggerException 
+	 * 
+	 * @param exception
+	 * @param model
+	 * @return
+	 */
+	@ExceptionHandler(COTriggerException.class)
+	public String handleCOTriggerException(Exception exception, Model model) {
+		LOGGER.info("Handling COTriggerException");
+		model.addAttribute(EXC_KEY, exception.getMessage());
+		return ERROR_VIEW;
+	}
 
 	/**
 	 * Other Unknown error

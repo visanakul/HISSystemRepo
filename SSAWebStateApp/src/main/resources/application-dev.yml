@@ -7,8 +7,6 @@ server:
 #Profile (command line arg i.e --env=dev or -Denv=dev),View Resolver,Datasource, JPA 
 
 spring:
-  profiles:
-    active: ${env:dev}
   mvc:
     view:
       prefix: /pages/

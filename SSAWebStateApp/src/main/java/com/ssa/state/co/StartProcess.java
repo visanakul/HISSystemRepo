@@ -1,35 +1,62 @@
 package com.ssa.state.co;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import com.ssa.state.model.COTriggerModel;
+import com.ssa.state.service.COTriggerServiceImpl;
+import com.ssa.state.service.ICOTriggerService;
+
+import lombok.Data;
+
+@Component
+@Data
 public class StartProcess implements ICOProcess {
+
+	/**
+	 * Slf4j Logger
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(StartProcess.class);
+
+	@Autowired(required = true)
+	private ICOTriggerService coTriggerService;
+
 	private ICOProcess nextProcess;
-	private List<String> list;
-	private ExecutorService service;
+	private List<COTriggerModel> coTriggerModels;
+	private Integer bucketSize;
+	private Integer bucketNumber;
+
+//	public StartProcess() {
+//		this.bucketSize = 5;
+//		this.bucketNumber = 0;
+//	}
+//
+//	public StartProcess(int bucketSize, int bucketNumber) {
+//		this.bucketSize = bucketSize;
+//		this.bucketNumber = bucketNumber;
+//		LOGGER.debug("Bucket size : {} and Bucket number : {} ", bucketSize, bucketNumber);
+//	}
 
 	@Override
 	public void execute() {
-		System.out.println("StartProcess...");
-		list = new ArrayList<>();
-		list.add("First");
-		list.add("Second");
-		list.add("Third");
-		list.add("Fourth");
-		list.add("Fifth");
-		next();
+		LOGGER.info("StartProcess execute start...");
+		LOGGER.debug("Bucket size : {} and Bucket number : {} ", bucketSize, bucketNumber);
+		coTriggerModels = coTriggerService.getAllPendingTriggers(bucketSize, bucketNumber);
+		LOGGER.info("StartProcess execute end...");
+		// next();
 	}
-
-	
 
 	@Override
 	public void next() {
-		System.out.println("Next Process is Process...");
-		nextProcess = new Process(list);
+		LOGGER.info("StartProcess next start...");
+		nextProcess = new Process();
+		LOGGER.info("StartProcess next end...");
 		nextProcess.execute();
 	}
-
 }
